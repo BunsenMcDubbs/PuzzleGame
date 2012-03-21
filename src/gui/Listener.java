@@ -1,5 +1,7 @@
 package gui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.MouseListener;
@@ -10,10 +12,9 @@ import org.w3c.dom.events.MouseEvent;
 import org.w3c.dom.views.AbstractView;
 
 public class Listener implements ComponentListener, MouseListener, MouseEvent,
-		MouseMotionListener {
+		MouseMotionListener, ActionListener {
 
 	public Listener() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -94,7 +95,10 @@ public class Listener implements ComponentListener, MouseListener, MouseEvent,
 		// TODO Auto-generated method stub
 
 	}
-
+	
+	/**
+	 * Facilitate the dragging/dropping of pieces to move them around the board/frame
+	 */
 	@Override
 	public void mouseDragged(java.awt.event.MouseEvent arg0) {
 		// TODO Auto-generated method stub
@@ -132,29 +136,29 @@ public class Listener implements ComponentListener, MouseListener, MouseEvent,
 	}
 
 	@Override
-	public boolean getCtrlKey() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	public boolean getCtrlKey() {return false;}
 
 	@Override
-	public boolean getMetaKey() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	public boolean getMetaKey() {return false;}
 
 	@Override
 	public EventTarget getRelatedTarget() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	/**
+	 * USE THIS FOR LOCATION OF THE MOUSE EVENT
+	 */
 	@Override
 	public int getScreenX() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
+	/**
+	 * USE THIS FOR LOCATION OF THE MOUSE EVENT
+	 */
 	@Override
 	public int getScreenY() {
 		// TODO Auto-generated method stub
@@ -162,56 +166,49 @@ public class Listener implements ComponentListener, MouseListener, MouseEvent,
 	}
 
 	@Override
-	public boolean getShiftKey() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	public boolean getShiftKey() {return false;}
 
 	@Override
 	public void initMouseEvent(String arg0, boolean arg1, boolean arg2,
 			AbstractView arg3, int arg4, int arg5, int arg6, int arg7,
 			int arg8, boolean arg9, boolean arg10, boolean arg11,
-			boolean arg12, short arg13, EventTarget arg14) {
-		// TODO Auto-generated method stub
-
-	}
-
+			boolean arg12, short arg13, EventTarget arg14) {}
+	
+	/*
+	 * MouseListeners
+	 */
 	@Override
-	public void mouseClicked(java.awt.event.MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
+	public void mouseClicked(java.awt.event.MouseEvent arg0) {}
+	
+	/**
+	 * Highlights the puzzle piece that the mouse is hovering over
+	 */
 	@Override
 	public void mouseEntered(java.awt.event.MouseEvent arg0) {
 		// TODO Auto-generated method stub
 
 	}
-
+	/**
+	 * Un-Highlights the puzzle piece that the mouse was hovering over
+	 */
 	@Override
 	public void mouseExited(java.awt.event.MouseEvent arg0) {
 		// TODO Auto-generated method stub
 
 	}
-
+	
 	@Override
-	public void mousePressed(java.awt.event.MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
+	public void mousePressed(java.awt.event.MouseEvent arg0) {}
+	
 	@Override
-	public void mouseReleased(java.awt.event.MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
+	public void mouseReleased(java.awt.event.MouseEvent arg0) {}
+	
+	/*
+	 * Component Listeners
+	 */
 	@Override
-	public void componentHidden(ComponentEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
+	public void componentHidden(ComponentEvent arg0) {}
+	
 	@Override
 	public void componentMoved(ComponentEvent arg0) {
 		// TODO Auto-generated method stub
@@ -219,15 +216,18 @@ public class Listener implements ComponentListener, MouseListener, MouseEvent,
 	}
 
 	@Override
-	public void componentResized(ComponentEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
+	public void componentResized(ComponentEvent arg0) {}
 
 	@Override
-	public void componentShown(ComponentEvent arg0) {
-		// TODO Auto-generated method stub
+	public void componentShown(ComponentEvent arg0) {}
 
+	/**
+	 * For Buttons and shit
+	 */
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
