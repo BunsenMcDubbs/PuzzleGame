@@ -4,26 +4,20 @@ import java.awt.GraphicsConfiguration;
 import java.awt.HeadlessException;
 
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JButton;
+import javax.swing.Timer;
+
+import framework.*;
 
 public class GameFrame extends JFrame {
-
-	public GameFrame() throws HeadlessException {
-		// TODO Auto-generated constructor stub
-	}
-
-	public GameFrame(GraphicsConfiguration arg0) {
-		super(arg0);
-		// TODO Auto-generated constructor stub
-	}
-
-	public GameFrame(String arg0) throws HeadlessException {
-		super(arg0);
-		// TODO Auto-generated constructor stub
-	}
-
-	public GameFrame(String arg0, GraphicsConfiguration arg1) {
-		super(arg0, arg1);
-		// TODO Auto-generated constructor stub
+	
+	private Puzzle game;
+	
+	public GameFrame(){
+		super("Puzzle Game");
 	}
 
 	/**
