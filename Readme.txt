@@ -20,7 +20,7 @@ SmartGit as SSH client, use GitHub as your main hosting provider, type in your
 login, and the SmartGit will open.
 
 7)In the Welcome to SmartGit window, choose Clone Existing Repository.  In the
-first box, type in git@github.com:quickgiant/Puzzle-Project.git, and hit next.
+first box, type in git@github.com:ABPeriod5Java/PuzzleGame.git, and hit next.
 Since we already generated a key, it should show up automatically.  If not, it should
 be somewhere in your home folder in *YourName*\.ssh\id_rsa (At school, its at H:\\.ssh . 
 Again, leave the passcode blank. Choose a place to sync the code, open in a new project,
