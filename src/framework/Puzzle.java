@@ -2,52 +2,44 @@ package framework;
 
 public class Puzzle {
 	private Board board;
-	private Piece piece1;
-	private Piece piece2;
-	private Piece piece3;
-	private Piece piece4;
-	private Piece piece5;
-	private Piece piece6;
-	private Piece piece7;
-	private Piece piece8;
-	private Piece piece9;
+	private Piece[] p = new Piece[9];
 	
 	
 	public Puzzle(){
 		board = new Board();
-		piece1 = new Piece(new Side(Side.outSpade),
+		p[1] = new Piece(new Side(Side.outSpade),
 				new Side(Side.outDiamond),
 				new Side(Side.inSpade),
 				new Side(Side.inHeart));
-		piece2 = new Piece(new Side(Side.outSpade),
+		p[2] = new Piece(new Side(Side.outSpade),
 				new Side(Side.outSpade),
 				new Side(Side.inHeart),
 				new Side(Side.inClub));
-		piece3 = new Piece(new Side(Side.outClub),
+		p[3] = new Piece(new Side(Side.outClub),
 				new Side(Side.outHeart),
 				new Side(Side.inDiamond),
 				new Side(Side.inClub));
-		piece4 = new Piece(new Side(Side.outClub),
+		p[4] = new Piece(new Side(Side.outClub),
 				new Side(Side.outHeart),
 				new Side(Side.inSpade),
 				new Side(Side.inHeart));
-		piece5 = new Piece(new Side(Side.outSpade),
+		p[5] = new Piece(new Side(Side.outSpade),
 				new Side(Side.outDiamond),
 				new Side(Side.inHeart),
 				new Side(Side.inDiamond));
-		piece6 = new Piece(new Side(Side.outHeart),
+		p[6] = new Piece(new Side(Side.outHeart),
 				new Side(Side.outSpade),
 				new Side(Side.inSpade),
 				new Side(Side.inClub));
-		piece7 = new Piece(new Side(Side.outHeart),
+		p[7] = new Piece(new Side(Side.outHeart),
 				new Side(Side.outDiamond),
 				new Side(Side.inClub),
 				new Side(Side.inClub));
-		piece8 = new Piece(new Side(Side.outDiamond),
+		p[8] = new Piece(new Side(Side.outDiamond),
 				new Side(Side.outClub),
 				new Side(Side.inClub),
 				new Side(Side.inDiamond));
-		piece9 = new Piece(new Side(Side.outHeart),
+		p[9] = new Piece(new Side(Side.outHeart),
 				new Side(Side.outDiamond),
 				new Side(Side.inDiamond),
 				new Side(Side.inHeart));
