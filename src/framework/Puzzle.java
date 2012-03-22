@@ -68,4 +68,8 @@ public class Puzzle {
 		board.setLocation(row,column, null);
 		return pieceRemoved;
 	}
+	
+	public Piece[] getPieces(){
+		return p;
+	}
 }
