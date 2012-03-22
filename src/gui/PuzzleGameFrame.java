@@ -21,7 +21,8 @@ public class PuzzleGameFrame extends JFrame {
 	
 	private JPanel controlPanel;
 	private JButton startStop, reset, clear;
-
+	
+	private PieceComponent[] p;
 	
 	public PuzzleGameFrame(){
 		super("Puzzle Game");
@@ -29,7 +30,20 @@ public class PuzzleGameFrame extends JFrame {
 		setMinimumSize(new Dimension(500, 500));
 		setLayout(new BorderLayout());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-
+		
+		pieceMaker();
+	}
+	
+	/**
+	 * Uses the Puzzle pieces to make a PieceComponent array as
+	 * private data
+	 */
+	private void pieceMaker() {
+		p = new PieceComponent[9];
+		Piece[] p2 = game.getPieces();
+		for(int i = 0; i < p2.length; i++){
+			p[i] = new PieceComponent(p2[0]);
+		}
 	}
 
 	/**
