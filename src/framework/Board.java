@@ -43,7 +43,12 @@ public class Board {
 		}
 		return array;
 	}
-	public boolean isSolved(){
+	
+	/**
+	 * Checks to see if all the spots on the Board are filled
+	 * @return
+	 */
+	public boolean isFilled(){
 		for(int i = 0; i < 3; i++){
 			for(int j = 0; j < 3; j++){
 				if(board[i][j] == null)
