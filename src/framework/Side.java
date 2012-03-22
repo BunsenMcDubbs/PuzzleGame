@@ -37,12 +37,4 @@ public class Side {
 	public static final int outSpade = -2;
 	public static final int outClub = -3;
 	public static final int outDiamond = -4;
-	
-	
-	public static void main(String[] argssss){
-		Piece p = new Piece(new Side(2), new Side(0), new Side(0), new Side(0));
-		Piece p2 = new Piece(new Side(0), new Side(0), new Side(-2), new Side(0));
-		
-		System.out.println(p.getSideNorth().fits(p2.getSideSouth()));
-	}
 }
