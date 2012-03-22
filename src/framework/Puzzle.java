@@ -1,5 +1,8 @@
 package framework;
 
+import exceptions.InvalidLocationException;
+import exceptions.NotCompatibleException;
+
 public class Puzzle {
 	private Board board;
 	private Piece[] p = new Piece[9];
@@ -45,8 +48,14 @@ public class Puzzle {
 				new Side(Side.inHeart));
 	}
 	
-	public boolean canFit(int row, int column, Piece piece){
+	public boolean canFit(int row, int column, Piece piece) throws InvalidLocationException{
 		Piece[] neighbors = board.getNeighbors(row, column);
+		try{
+			Object o = neighbors[0];
+		}
+		catch(ArrayIndexOutOfBoundsException e){
+			throw new InvalidLocationException("That location is not on the board or even bordering the outside of the board");
+		}
 		Piece neighborNorth = neighbors[0];
 		Piece neighborEast = neighbors[1];
 		Piece neighborSouth = neighbors[2];
@@ -57,10 +66,12 @@ public class Puzzle {
 		&& piece.getSideWest().fits(neighborWest.getSideEast());
 	}
 	
-	public void insertPieceAtLocation(int row, int column, Piece piece){
+	public void insertPieceAtLocation(int row, int column, Piece piece)throws NotCompatibleException, InvalidLocationException{
 		if(canFit(row,column,piece)){
 			board.setLocation(row,column,piece);
+			return;
 		}
+		throw new NotCompatibleException("Your piece does not fit at" + column + " , " + row);
 	}
 	
 	public Piece remove(int row, int column){
