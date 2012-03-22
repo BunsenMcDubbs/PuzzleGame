@@ -21,7 +21,7 @@ public class PieceComponent extends JComponent implements Placeable{
 		inBoard = tf;
 	}
 	
-	public boolean toogleInBoard(){
+	public boolean toggleInBoard(){
 		inBoard = !inBoard;
 		return inBoard;
 	}
