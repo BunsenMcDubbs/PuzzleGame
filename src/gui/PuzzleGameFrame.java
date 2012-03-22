@@ -31,9 +31,30 @@ public class PuzzleGameFrame extends JFrame {
 		setLayout(new BorderLayout());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
+		gameMaker();
 		pieceMaker();
+		menuMaker();
+		controlMaker();
+		
+		setSize(getMinimumSize());
+		setVisible(true);
 	}
 	
+	private void gameMaker() {
+		game = new Puzzle();
+	}
+
+	private void controlMaker() {
+		controlPanel = new JPanel();
+		add(controlPanel, BorderLayout.SOUTH);
+	}
+
+	private void menuMaker() {
+		mBar = new JMenuBar();
+		setJMenuBar(mBar);
+		
+	}
+
 	/**
 	 * Uses the Puzzle pieces to make a PieceComponent array as
 	 * private data
@@ -44,14 +65,6 @@ public class PuzzleGameFrame extends JFrame {
 		for(int i = 0; i < p2.length; i++){
 			p[i] = new PieceComponent(p2[0]);
 		}
-	}
-
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
 	}
 
 }
