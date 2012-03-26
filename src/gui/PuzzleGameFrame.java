@@ -34,6 +34,7 @@ public class PuzzleGameFrame extends JFrame {
 		gameMaker();
 		pieceMaker();
 		menuMaker();
+		buttonMaker();
 		controlMaker();
 		
 		setSize(getMinimumSize());
@@ -48,6 +49,7 @@ public class PuzzleGameFrame extends JFrame {
 		solve = new JButton("Solve");
 		reset = new JButton("reset");
 		help = new JButton("help");
+		solve.addActionListner();
 	}
 
 	private void controlMaker() {
