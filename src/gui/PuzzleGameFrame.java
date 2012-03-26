@@ -20,7 +20,7 @@ public class PuzzleGameFrame extends JFrame {
 	private JMenuBar mBar;
 	
 	private JPanel controlPanel;
-	private JButton startStop, reset, clear;
+	private JButton solve, reset, help;
 	
 	private PieceComponent[] p;
 	
@@ -34,6 +34,7 @@ public class PuzzleGameFrame extends JFrame {
 		gameMaker();
 		pieceMaker();
 		menuMaker();
+		buttonMaker();
 		controlMaker();
 		
 		setSize(getMinimumSize());
@@ -43,9 +44,24 @@ public class PuzzleGameFrame extends JFrame {
 	private void gameMaker() {
 		game = new Puzzle();
 	}
+	
+	private void buttonMaker(){
+		solve = new JButton("Solve");
+		reset = new JButton("reset");
+		help = new JButton("help");
+		solve.addActionListner();
+	}
 
 	private void controlMaker() {
 		controlPanel = new JPanel();
+		controlPanel.setLayout(null);
+		controlPanel.add(solve);
+		controlPanel.add(reset);
+		controlPanel.add(help);
+		solve.setBounds(0,0,controlPanel.getWidth()/3,controlPanel.getHeight());
+		reset.setBounds(controlPanel.getWidth()/3,0,controlPanel.getWidth()/3*2,controlPanel.getHeight());
+		help.setBounds(controlPanel.getWidth()/3*2,0,controlPanel.getWidth(),controlPanel.getHeight());
+		
 		add(controlPanel, BorderLayout.SOUTH);
 	}
 
