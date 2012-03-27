@@ -49,7 +49,7 @@ public class PuzzleGameFrame extends JFrame {
 		solve = new JButton("Solve");
 		reset = new JButton("reset");
 		help = new JButton("help");
-		solve.addActionListner();
+		//solve.addActionListner();
 	}
 
 	private void controlMaker() {
