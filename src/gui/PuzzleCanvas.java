@@ -10,7 +10,7 @@ public class PuzzleCanvas extends Canvas {
 	
 	public void paint(Graphics g){
 		Graphics2D g2 = (Graphics2D)g;
-		
+		g2.fill(PieceShape.getClub());
 	}
 	
 }

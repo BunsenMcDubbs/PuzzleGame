@@ -1,27 +1,31 @@
 package gui;
 
+import java.awt.Rectangle;
+import java.awt.Shape;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
 
 import javax.swing.JFrame;
 
 public class PieceShape {
 	
-	public static Path2D.Double getHeart(){
+	public static Shape getHeart(){
 		
-		Path2D.Double s = new Path2D.Double(Path2D.WIND_EVEN_ODD);
+		Ellipse2D.Double s = new Ellipse2D.Double(10,0,30,50);
 		
-		return null;
+		return s;
 	}
 	
-	public static Path2D.Double getClub(){
-		return null;
+	public static Shape getClub(){
+		
+		return new Rectangle(0,0,50,50);
 
 	}
 	
-	public static Path2D.Double getDiamond(){
+	public static Shape getDiamond(){
 		
-		int [] x = {50,100,50,0};
-		int [] y = {0,50,100,50};
+		int [] x = {25,40,25,10};
+		int [] y = {0,25,50,25};
 		
 		Path2D.Double s = new Path2D.Double(Path2D.WIND_EVEN_ODD);
 		s.moveTo(x[0], y[0]);
@@ -34,18 +38,29 @@ public class PieceShape {
 
 	}
 	
-	public static Path2D.Double getSpade(){
-		return null;
+	public static Shape getSpade(){
+		
+		int [] x = {25,50,0};
+		int [] y = {0,50,50};
+		
+		Path2D.Double s = new Path2D.Double(Path2D.WIND_EVEN_ODD);
+		s.moveTo(x[0], y[0]);
+		for (int i = 1; i < x.length && i < y.length; i++){
+			s.lineTo(x[i], y[i]);
+		}
+		s.closePath();
+		
+		return s;
 
 	}
 	
 	public static void main(String [] args){
 		PuzzleCanvas canvas = new PuzzleCanvas();
 		JFrame frame = new JFrame();
-        frame.setSize(400, 400);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().add(canvas);
-        frame.setVisible(true);
+		frame.setSize(400, 400);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().add(canvas);
+		frame.setVisible(true);
 	}
 	
 }
