@@ -1,9 +1,11 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.Shape;
+import java.awt.geom.AffineTransform;
 
 import framework.Piece;
 import framework.Side;
@@ -25,7 +27,7 @@ public class PieceComponent extends JComponent implements Placeable{
 	
 	private void pieceMaker() {
 		
-		body = new Rectangle(50,50,150,150);
+		body = new Rectangle(50,50,100,100);
 		sides = new Shape[4];
 		for (int i = 0; i < sides.length; i++){
 			int val = piece.getSide(i).getValue();
@@ -44,7 +46,18 @@ public class PieceComponent extends JComponent implements Placeable{
 	
 	public void paint(Graphics g){
 		Graphics2D g2 = (Graphics2D)g;
+		AffineTransform t = new AffineTransform();
+		AffineTransform saveAT = g2.getTransform();
+		g2.setTransform(t);
+		
+		g2.setColor(Color.RED);
 		g2.fill(body);
+		t.translate(50, 0);
+		g2.fill(sides[0]);
+		t.translate(150,100);
+		t.rotate(Math.toRadians(90), getWidth()/2, getHeight()/2);
+		
+		g2.setTransform(saveAT);
 	}
 
 	public boolean isInBoard(){
