@@ -50,12 +50,7 @@ public class PieceComponent extends JComponent implements Placeable{
 		AffineTransform saveAT = g2.getTransform();
 		g2.setTransform(t);
 		
-		g2.setColor(Color.RED);
-		g2.fill(body);
-		t.translate(50, 0);
-		g2.fill(sides[0]);
-		t.translate(150,100);
-		t.rotate(Math.toRadians(90), getWidth()/2, getHeight()/2);
+		//TODO Draw the piece here
 		
 		g2.setTransform(saveAT);
 	}
