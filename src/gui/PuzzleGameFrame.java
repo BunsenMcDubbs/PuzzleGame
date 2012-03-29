@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -20,9 +21,9 @@ public class PuzzleGameFrame extends JFrame {
 	private JMenuBar mBar;
 	
 	private JPanel controlPanel;
-	private JButton solve, reset, help;
+	private static JButton solve, reset, help;
 	
-	private PieceComponent[] p;
+	private static PieceComponent[] p;
 	
 	public PuzzleGameFrame(){
 		super("Puzzle Game");
@@ -36,9 +37,24 @@ public class PuzzleGameFrame extends JFrame {
 		menuMaker();
 		buttonMaker();
 		controlMaker();
-		
 		setSize(getMinimumSize());
 		setVisible(true);
+	}
+	
+	public static JButton getSolveButton(){
+		return solve;
+	}
+	
+	public static JButton getResetButton(){
+		return reset;
+	}
+	
+	public static JButton getHelpButton(){
+		return help;
+	}
+	
+	public static PieceComponent[] getP(){
+		return p;
 	}
 	
 	private void gameMaker() {
@@ -46,29 +62,26 @@ public class PuzzleGameFrame extends JFrame {
 	}
 	
 	private void buttonMaker(){
-		solve = new JButton("Solve");
+		ActionListener listener = new Listener();
+		solve = new JButton("solve");
 		reset = new JButton("reset");
 		help = new JButton("help");
-		//solve.addActionListner();
+		solve.addActionListener(listener);
+		reset.addActionListener(listener);
+		help.addActionListener(listener);
 	}
 
 	private void controlMaker() {
 		controlPanel = new JPanel();
-		controlPanel.setLayout(null);
-		controlPanel.add(solve);
-		controlPanel.add(reset);
-		controlPanel.add(help);
-		solve.setBounds(0,0,controlPanel.getWidth()/3,controlPanel.getHeight());
-		reset.setBounds(controlPanel.getWidth()/3,0,controlPanel.getWidth()/3*2,controlPanel.getHeight());
-		help.setBounds(controlPanel.getWidth()/3*2,0,controlPanel.getWidth(),controlPanel.getHeight());
-		
+		controlPanel.add(solve, BorderLayout.EAST);
+		controlPanel.add(reset, BorderLayout.CENTER);
+		controlPanel.add(help, BorderLayout.WEST);
 		add(controlPanel, BorderLayout.SOUTH);
 	}
 
 	private void menuMaker() {
 		mBar = new JMenuBar();
 		setJMenuBar(mBar);
-		
 	}
 
 	/**
