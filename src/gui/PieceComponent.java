@@ -1,11 +1,21 @@
 package gui;
 
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.dnd.DragGestureEvent;
+import java.awt.dnd.DragGestureListener;
+import java.awt.dnd.DragSourceDragEvent;
+import java.awt.dnd.DragSourceDropEvent;
+import java.awt.dnd.DragSourceEvent;
+import java.awt.dnd.DragSourceListener;
 import java.awt.event.MouseEvent;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
+import java.io.IOException;
 
 import javax.swing.JComponent;
 import javax.swing.TransferHandler;
@@ -13,7 +23,7 @@ import javax.swing.TransferHandler;
 import framework.Piece;
 import framework.Side;
 
-public class PieceComponent extends JComponent{
+public class PieceComponent extends JComponent implements Transferable, DragSourceListener, DragGestureListener{
 	
 	private Piece piece;
 	Rectangle body;
@@ -30,6 +40,7 @@ public class PieceComponent extends JComponent{
 	
 	private void dnd() {
 		TransferHandler transfer = new TransferHandler("getPiece");
+		setTransferHandler(transfer);
 	}
 
 	private void pieceMaker() {
@@ -94,5 +105,60 @@ public class PieceComponent extends JComponent{
             TransferHandler handle = p.getTransferHandler();
             handle.exportAsDrag(p, e, TransferHandler.COPY);
         }
+	}
+
+	@Override
+	public void dragGestureRecognized(DragGestureEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void dragDropEnd(DragSourceDropEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void dragEnter(DragSourceDragEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void dragExit(DragSourceEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void dragOver(DragSourceDragEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void dropActionChanged(DragSourceDragEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Object getTransferData(DataFlavor flavor)
+			throws UnsupportedFlavorException, IOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public DataFlavor[] getTransferDataFlavors() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isDataFlavorSupported(DataFlavor flavor) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
