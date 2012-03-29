@@ -82,7 +82,7 @@ public class Puzzle {
 	}
 	
 	public boolean isSolved(){
-		if(board.isSolved())
+		if(board.isFilled())
 			return true;
 		return false;
 	}
