@@ -35,7 +35,9 @@ public class Piece {
 			orientation=3;
 	}
 	
-
+	public int getOrientation(){
+		return orientation;
+	}
 	
 	public Side getSideNorth(){
 		if (orientation ==0)
