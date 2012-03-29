@@ -1,8 +1,5 @@
 package framework;
 
-import exceptions.InvalidLocationException;
-import exceptions.NotCompatibleException;
-
 public class Puzzle {
 	private Board board;
 	private Piece[] p = new Piece[9];
@@ -48,30 +45,30 @@ public class Puzzle {
 				new Side(Side.inHeart));
 	}
 	
-	public boolean canFit(int row, int column, Piece piece) throws InvalidLocationException{
+	public boolean canFit(int row, int column, Piece piece){
 		Piece[] neighbors = board.getNeighbors(row, column);
-		try{
-			Object o = neighbors[0];
+		for(int i = 0; i < neighbors.length; i++){
+			if(neighbors[i] != null){
+				boolean fits = true;
+				switch(i){
+				case 0: fits = piece.getSideNorth().fits(neighbors[i].getSideSouth()); break;
+				case 1: fits = piece.getSideEast().fits(neighbors[i].getSideWest()); break;
+				case 2: fits = piece.getSideSouth().fits(neighbors[i].getSideNorth()); break;
+				case 3: fits = piece.getSideWest().fits(neighbors[i].getSideEast()); break;
+				}
+				if (!fits){
+					return false;
+				}
+			}
 		}
-		catch(ArrayIndexOutOfBoundsException e){
-			throw new InvalidLocationException("That location is not on the board or even bordering the outside of the board");
-		}
-		Piece neighborNorth = neighbors[0];
-		Piece neighborEast = neighbors[1];
-		Piece neighborSouth = neighbors[2];
-		Piece neighborWest = neighbors[3];
-		return piece.getSideNorth().fits(neighborNorth.getSideSouth())
-		&& piece.getSideEast().fits(neighborEast.getSideWest())
-		&& piece.getSideSouth().fits(neighborSouth.getSideNorth())
-		&& piece.getSideWest().fits(neighborWest.getSideEast());
+		
+		return true;
 	}
 	
-	public void insertPieceAtLocation(int row, int column, Piece piece)throws NotCompatibleException, InvalidLocationException{
+	public void insertPieceAtLocation(int row, int column, Piece piece){
 		if(canFit(row,column,piece)){
 			board.setLocation(row,column,piece);
-			return;
 		}
-		throw new NotCompatibleException("Your piece does not fit at" + column + " , " + row);
 	}
 	
 	public Piece remove(int row, int column){
@@ -82,5 +79,17 @@ public class Puzzle {
 	
 	public Piece[] getPieces(){
 		return p;
+	}
+	
+	public boolean isSolved(){
+		if(board.isSolved())
+			return true;
+		return false;
+	}
+	
+	public static void main (String [] args){
+		Puzzle p = new Puzzle();
+		Piece [] array= p.getPieces();
+		p.insertPieceAtLocation(1,1, array [0]);
 	}
 }
