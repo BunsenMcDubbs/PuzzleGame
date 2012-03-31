@@ -47,7 +47,7 @@ public class PieceComponent extends JComponent implements Transferable, DragSour
 		t = new TransferHandler(){
 
             public Transferable createTransferable(JComponent c){
-                  return new PieceComponent(getPiece());
+                  return (PieceComponent)c;
             }
       };
 		TransferHandler t = new TransferHandler("getPiece");
