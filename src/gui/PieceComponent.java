@@ -43,6 +43,7 @@ public class PieceComponent extends JComponent implements Transferable, DragSour
 	}
 	
 	private void dnd() {
+		
 		t = new TransferHandler(){
 
             public Transferable createTransferable(JComponent c){
@@ -53,7 +54,7 @@ public class PieceComponent extends JComponent implements Transferable, DragSour
 		setTransferHandler(t);
 		
 		source = new DragSource();
-		source.createDefaultDragGestureRecognizer(this, DnDConstants.ACTION_COPY, this);
+		source.createDefaultDragGestureRecognizer(this, DnDConstants.ACTION_MOVE, this);
 	}
 	
 	private void pieceMaker() {
@@ -114,8 +115,7 @@ public class PieceComponent extends JComponent implements Transferable, DragSour
 
 	@Override
 	public void dragGestureRecognized(DragGestureEvent dge) {
-		source.startDrag(dge, DragSource.DefaultCopyDrop, exportPiece(), this);
-		
+		source.startDrag(dge, DragSource.DefaultMoveDrop, this, this);	
 	}
 
 	/**
@@ -172,12 +172,12 @@ public class PieceComponent extends JComponent implements Transferable, DragSour
 	@Override
 	public Object getTransferData(DataFlavor flavor)
 			throws UnsupportedFlavorException, IOException {
-		return piece;
+		return this;
 	}
 
 	@Override
 	public DataFlavor[] getTransferDataFlavors() {
-		return new DataFlavor[]{new DataFlavor(Piece.class, "Piece")};
+		return new DataFlavor[]{new DataFlavor(PieceComponent.class, "PieceComponent")};
 	}
 
 	@Override
