@@ -3,6 +3,7 @@ package gui;
 import java.awt.Point;
 import java.awt.datatransfer.*;
 import java.awt.dnd.*;
+import java.io.IOException;
 
 import framework.*;
 
@@ -12,18 +13,16 @@ import javax.swing.TransferHandler;
 public class Board extends JComponent implements DropTargetListener{
 	
 	private Puzzle g;
-	private PieceComponent [][] p = new PieceComponent[3][3];
+	private PieceComponent [][] board;
+	private PieceComponent [][] tray;
 	
 	private DropTarget target;
 	
 	public Board(){
-		this(new Puzzle());
-	}
-	
-	public Board(Puzzle g){
-		this.g = g;
+		g = new Puzzle();
+		board = new PieceComponent[3][3];
+		tray = new PieceComponent[3][3];
 		dnd();
-		// TODO paint the pieces and stuff, esp if there is a predefined board
 	}
 	
 	private void dnd(){
@@ -44,9 +43,11 @@ public class Board extends JComponent implements DropTargetListener{
 			return false;
 		}
 		
-		public boolean importData(JComponent comp, Transferable t, Point p){
+		public boolean importData(JComponent comp, Transferable t, Point mouse){
 			
 			framework.Board b = g.getBoard();
+			
+			Point p = cellAtPoint(mouse);
 			
 			if(b.isValidLocation(p.x,p.y) && b.isEmpty(p.x,p.y))
 				return false;
@@ -65,35 +66,58 @@ public class Board extends JComponent implements DropTargetListener{
 			return g.insertPieceAtLocation(p.x, p.y, temp.getPiece());
 		}
 	}
+	
 
+	private Point cellAtPoint(Point p){
+		// TODO find the closest "home location" and corresponding cell
+		return null;
+	}
+	
 	@Override
-	public void dragEnter(DropTargetDragEvent arg0) {
-		// TODO Auto-generated method stub
+	public void dragEnter(DropTargetDragEvent dtde) {
+		// TODO Highlighting system of cells and sides available etc
 		
 	}
 
 	@Override
-	public void dragExit(DropTargetEvent arg0) {
-		// TODO Auto-generated method stub
+	public void dragExit(DropTargetEvent dtde) {
+		// TODO Highlighting system of cells and sides available etc
 		
 	}
 
 	@Override
-	public void dragOver(DropTargetDragEvent arg0) {
-		// TODO Auto-generated method stub
+	public void dragOver(DropTargetDragEvent dtde) {
+		// TODO Highlighting system of cells and sides available etc
 		
 	}
 
 	@Override
-	public void drop(DropTargetDropEvent arg0) {
-		// TODO Auto-generated method stub
+	public void drop(DropTargetDropEvent dtde) {
+		try{
+			Point loc = dtde.getLocation();
+			Transferable t = dtde.getTransferable();
+			DataFlavor[] d = t.getTransferDataFlavors();
+			
+			if(getTransferHandler().canImport(this, d)){
+				((PieceTransferHandler)getTransferHandler()).importData(this, (PieceComponent)t.getTransferData(d[0]), loc);
+				repaint();
+			}
+			else
+				return;
+		}
+		catch (UnsupportedFlavorException e) {
+			e.printStackTrace();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		finally{
+			dtde.dropComplete(true);
+		}
 		
 	}
 
 	@Override
-	public void dropActionChanged(DropTargetDragEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void dropActionChanged(DropTargetDragEvent dtde) {}
 	
 }
