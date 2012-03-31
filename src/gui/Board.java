@@ -14,20 +14,39 @@ public class Board extends JComponent implements DropTargetListener{
 	
 	private Puzzle g;
 	private PieceComponent [][] board;
-	private PieceComponent [][] tray;
 	
 	private DropTarget target;
 	
 	public Board(){
 		g = new Puzzle();
+		
+		//Piece Stuff
 		board = new PieceComponent[3][3];
-		tray = new PieceComponent[3][3];
-		dnd();
-	}
-	
-	private void dnd(){
+		
+		
+		//Drag and Drop stuff
 		target = new DropTarget(this, this);
 		setTransferHandler(new PieceTransferHandler());
+	}
+	//DONT NEED ELIMINATE
+	private class Tray extends JComponent{
+		private PieceComponent [] tray;
+		
+		public Tray(){
+			this(9);
+		}
+		
+		public Tray(int n){
+			tray = new PieceComponent[n];
+			setEnabled(true);
+		}
+		
+		public void fill(Puzzle puzzle){
+			Piece[] pieces = puzzle.getPieces();
+			for(int i = 0; i < pieces.length; i++){
+				tray[i] = new PieceComponent(pieces[i]);
+			}
+		}
 	}
 	
 	private class PieceTransferHandler extends TransferHandler{
