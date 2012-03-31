@@ -45,8 +45,8 @@ public class Puzzle {
 				new Side(Side.inHeart));
 	}
 	
-	public boolean canFit(int row, int column, Piece piece){
-		Piece[] neighbors = board.getNeighbors(row, column);
+	public boolean canFit(int x, int y, Piece piece){
+		Piece[] neighbors = board.getNeighbors(x, y);
 		for(int i = 0; i < neighbors.length; i++){
 			if(neighbors[i] != null){
 				boolean fits = true;
@@ -61,24 +61,29 @@ public class Puzzle {
 				}
 			}
 		}
-		
 		return true;
 	}
 	
-	public void insertPieceAtLocation(int row, int column, Piece piece){
-		if(canFit(row,column,piece)){
-			board.setLocation(row,column,piece);
+	public boolean insertPieceAtLocation(int x, int y, Piece piece){
+		if(canFit(x,y,piece)){
+			board.setLocation(x,y,piece);
+			return true;
 		}
+		return false;
 	}
 	
-	public Piece remove(int row, int column){
-		Piece pieceRemoved = board.getLocation(row,column);
-		board.setLocation(row,column, null);
+	public Piece remove(int x, int y){
+		Piece pieceRemoved = board.getLocation(x,y);
+		board.setLocation(x,y, null);
 		return pieceRemoved;
 	}
 	
 	public Piece[] getPieces(){
 		return p;
+	}
+	
+	public Board getBoard(){
+		return board;
 	}
 	
 	public boolean isSolved(){
