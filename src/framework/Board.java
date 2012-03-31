@@ -13,8 +13,8 @@ public class Board {
 	/**
 	 * Checks if the provided coordinates define a valid location
 	 * on the board.
-	 * @param x
-	 * @param y
+	 * @param x coordinate
+	 * @param y coordinate
 	 * @return
 	 */
 	public boolean isValidLocation(int x, int y){
@@ -26,8 +26,8 @@ public class Board {
 	/**
 	 * Tells whether or not the specified location is empty or
 	 * filled.
-	 * @param x
-	 * @param y
+	 * @param x coordinate
+	 * @param y coordinate
 	 * @return
 	 */
 	public boolean isEmpty(int x, int y){
@@ -54,8 +54,8 @@ public class Board {
 	 * Puts a piece at a specified location on the board. Its
 	 * return depends on whether or not the setting was successful
 	 * (aka if the location was on the board).
-	 * @param x
-	 * @param y
+	 * @param x coordinate
+	 * @param y coordinate
 	 * @param piece
 	 */
 	public boolean setLocation(int x, int y, Piece piece){
