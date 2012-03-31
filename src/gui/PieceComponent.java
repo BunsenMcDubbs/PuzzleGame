@@ -3,6 +3,7 @@ package gui;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DragGestureEvent;
 import java.awt.dnd.DragGestureListener;
 import java.awt.dnd.DragSource;
@@ -10,7 +11,6 @@ import java.awt.dnd.DragSourceDragEvent;
 import java.awt.dnd.DragSourceDropEvent;
 import java.awt.dnd.DragSourceEvent;
 import java.awt.dnd.DragSourceListener;
-import java.awt.event.MouseEvent;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -29,7 +29,7 @@ public class PieceComponent extends JComponent implements Transferable, DragSour
 	private Piece piece;
 	private Rectangle body;
 	private Shape [] sides;
-	private boolean inBoard;
+	private boolean inBoard;//Needed?
 	
 	private TransferHandler t;
 	private DragSource source;
@@ -46,16 +46,14 @@ public class PieceComponent extends JComponent implements Transferable, DragSour
 		t = new TransferHandler(){
 
             public Transferable createTransferable(JComponent c){
-                  return exportPiece();
+                  return new PieceComponent(getPiece());
             }
       };
 		TransferHandler t = new TransferHandler("getPiece");
 		setTransferHandler(t);
-	}
-	
-	private Transferable exportPiece() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		source = new DragSource();
+		source.createDefaultDragGestureRecognizer(this, DnDConstants.ACTION_COPY, this);
 	}
 	
 	private void pieceMaker() {
