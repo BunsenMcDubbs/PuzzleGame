@@ -10,7 +10,7 @@ import framework.*;
 import javax.swing.JComponent;
 import javax.swing.TransferHandler;
 
-public class Board extends JComponent implements DropTargetListener{
+public class Board extends AbstractPieceGrid{
 	
 	private Puzzle g;
 	private PieceComponent [][] board;
@@ -27,26 +27,6 @@ public class Board extends JComponent implements DropTargetListener{
 		//Drag and Drop stuff
 		target = new DropTarget(this, this);
 		setTransferHandler(new PieceTransferHandler());
-	}
-	//DONT NEED ELIMINATE
-	private class Tray extends JComponent{
-		private PieceComponent [] tray;
-		
-		public Tray(){
-			this(9);
-		}
-		
-		public Tray(int n){
-			tray = new PieceComponent[n];
-			setEnabled(true);
-		}
-		
-		public void fill(Puzzle puzzle){
-			Piece[] pieces = puzzle.getPieces();
-			for(int i = 0; i < pieces.length; i++){
-				tray[i] = new PieceComponent(pieces[i]);
-			}
-		}
 	}
 	
 	private class PieceTransferHandler extends TransferHandler{
@@ -86,8 +66,8 @@ public class Board extends JComponent implements DropTargetListener{
 		}
 	}
 	
-
-	private Point cellAtPoint(Point p){
+	@Override
+	public Point cellAtPoint(Point p){
 		// TODO find the closest "home location" and corresponding cell
 		return null;
 	}
