@@ -9,11 +9,11 @@ import framework.*;
 
 import javax.swing.JComponent;
 import javax.swing.TransferHandler;
-
+//DEPRECATED
 public class Board extends JComponent implements DropTargetListener{
 	
 	private Puzzle g;
-	private PieceComponent [][] board;
+	private PieceShape [][] board;
 	
 	private DropTarget target;
 	
@@ -21,7 +21,7 @@ public class Board extends JComponent implements DropTargetListener{
 		g = new Puzzle();
 		
 		//Piece Stuff
-		board = new PieceComponent[3][3];
+		board = new PieceShape[3][3];
 		
 		
 		//Drag and Drop stuff
@@ -30,21 +30,21 @@ public class Board extends JComponent implements DropTargetListener{
 	}
 	//DONT NEED ELIMINATE
 	private class Tray extends JComponent{
-		private PieceComponent [] tray;
+		private PieceShape [] tray;
 		
 		public Tray(){
 			this(9);
 		}
 		
 		public Tray(int n){
-			tray = new PieceComponent[n];
+			tray = new PieceShape[n];
 			setEnabled(true);
 		}
 		
 		public void fill(Puzzle puzzle){
 			Piece[] pieces = puzzle.getPieces();
 			for(int i = 0; i < pieces.length; i++){
-				tray[i] = new PieceComponent(pieces[i]);
+				tray[i] = new PieceShape(pieces[i], null);//TODO FAILLLLLl
 			}
 		}
 	}
@@ -53,7 +53,7 @@ public class Board extends JComponent implements DropTargetListener{
 		public PieceTransferHandler(){}
 		
 		public boolean canImport(JComponent c, DataFlavor[] f){
-			DataFlavor temp = new DataFlavor(PieceComponent.class, "PieceComponent");
+			DataFlavor temp = new DataFlavor(PieceShape.class, "PieceShape");
 			for(DataFlavor d : f){
 				if(d.equals(temp)){
 					return true;
@@ -73,10 +73,10 @@ public class Board extends JComponent implements DropTargetListener{
 			if(b.getLocation(p.x, p.y) != null)
 				return false;
 			
-			PieceComponent temp;
+			PieceShape temp;
 			
 			try{
-				temp = (PieceComponent)t.getTransferData(new DataFlavor(PieceComponent.class, "PieceComponent"));
+				temp = (PieceShape)t.getTransferData(new DataFlavor(PieceShape.class, "PieceShape"));
 			}
 			catch(Exception e){
 				return false;
@@ -118,7 +118,7 @@ public class Board extends JComponent implements DropTargetListener{
 			DataFlavor[] d = t.getTransferDataFlavors();
 			
 			if(getTransferHandler().canImport(this, d)){
-				((PieceTransferHandler)getTransferHandler()).importData(this, (PieceComponent)t.getTransferData(d[0]), loc);
+				((PieceTransferHandler)getTransferHandler()).importData(this, (PieceShape)t.getTransferData(d[0]), loc);
 				repaint();
 			}
 			else

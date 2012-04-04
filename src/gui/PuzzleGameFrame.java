@@ -23,7 +23,7 @@ public class PuzzleGameFrame extends JFrame {
 	private JPanel controlPanel;
 	private static JButton solve, reset, help;
 	
-	private static PieceComponent[] p;
+	private static PieceShape[] p;
 	
 	public PuzzleGameFrame(){
 		super("Puzzle Game");
@@ -53,7 +53,7 @@ public class PuzzleGameFrame extends JFrame {
 		return help;
 	}
 	
-	public static PieceComponent[] getP(){
+	public static PieceShape[] getP(){
 		return p;
 	}
 	
@@ -89,10 +89,10 @@ public class PuzzleGameFrame extends JFrame {
 	 * private data
 	 */
 	private void pieceMaker() {
-		p = new PieceComponent[9];
+		p = new PieceShape[9];
 		Piece[] p2 = game.getPieces();
 		for(int i = 0; i < p2.length; i++){
-			p[i] = new PieceComponent(p2[0]);
+			p[i] = new PieceShape(p2[0], null);//TODO FAILLLLLLLLL
 		}
 	}
 

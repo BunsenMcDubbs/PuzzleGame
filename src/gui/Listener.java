@@ -25,13 +25,13 @@ public class Listener implements ActionListener{
 		if(event.getSource() == PuzzleGameFrame.getSolveButton()){
 			//solve method
 		}
-		
+		//TODO redo
 		else if(event.getSource() == PuzzleGameFrame.getResetButton()){
-			PieceComponent[] pieceComponents = PuzzleGameFrame.getP();
-			for(int i = 0; i < pieceComponents.length; i ++){
-				PieceComponent piece = pieceComponents[i];
-				piece.setInBoard(false);
-			}
+//			PieceShape[] pieceComponents = PuzzleGameFrame.getP();
+//			for(int i = 0; i < pieceComponents.length; i ++){
+//				PieceShape piece = pieceComponents[i];
+//				piece.setInBoard(false);
+//			}
 		}		
 		
 		else if(event.getSource() == PuzzleGameFrame.getHelpButton()){

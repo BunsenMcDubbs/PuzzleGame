@@ -3,32 +3,30 @@ package gui;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.dnd.DragGestureEvent;
-import java.awt.dnd.DragGestureListener;
-import java.awt.dnd.DragSourceDragEvent;
-import java.awt.dnd.DragSourceDropEvent;
-import java.awt.dnd.DragSourceEvent;
-import java.awt.dnd.DragSourceListener;
-import java.awt.dnd.DropTargetDragEvent;
-import java.awt.dnd.DropTargetDropEvent;
-import java.awt.dnd.DropTargetEvent;
-import java.awt.dnd.DropTargetListener;
 import java.awt.geom.AffineTransform;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 
 import javax.swing.JComponent;
 
-public class PuzzleCanvas extends JComponent implements DragSourceListener, DropTargetListener {
+public class PuzzleCanvas extends JComponent implements MouseListener, MouseWheelListener, MouseMotionListener{
 	
-	private PieceComponent[] p;
-	private Point[] board;
+	private PieceShape[] p;
+	private Point[] boardLocs;
 	private Point[] homeLoc;
+	private Board board;
 	
 	private Point dragOrigin;
 	
-	public PuzzleCanvas(PieceComponent[] p, Point[] b, Point[] h){
-		this.p = p;
-		board = b;
-		homeLoc = h;
+	public PuzzleCanvas(PieceShape[] pieces, Point[] boardLocs, Point[] homes, Board board){
+		this.p = pieces;
+		this.boardLocs = boardLocs;
+		this.homeLoc = homes;
+		this.board = board;
 		trayMaker();
 	}
 	
@@ -40,74 +38,70 @@ public class PuzzleCanvas extends JComponent implements DragSourceListener, Drop
 
 	public void paint(Graphics g){
 		Graphics2D g2 = (Graphics2D)g;
-		AffineTransform saveAT = g2.getTransform();
-	}
-//DropTargetListener
-	@Override
-	public void dragEnter(DropTargetDragEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
-
-	@Override
-	public void dragExit(DropTargetEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	
+	public PieceShape getClickedPiece(Point point){
+		for(PieceShape e : p){
+			if(e.contains(point)){
+				return e;
+			}
+		}
+		return null;
 	}
-
-	@Override
-	public void dragOver(DropTargetDragEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	
+	public boolean put(PieceShape p){
+		//TODO adsfadsfasdf
+		return false;
 	}
 
 	@Override
-	public void drop(DropTargetDropEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void mouseClicked(MouseEvent m) {
+		Point p = m.getPoint();
+		PieceShape piece = getClickedPiece(p);
+		if(piece == null)
+			return;
+		//TODO rotate?
 	}
 
 	@Override
-	public void dropActionChanged(DropTargetDragEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseEntered(MouseEvent arg0) {}
 
-//DragGestureListener
 	@Override
-	public void dragGestureRecognized(DragGestureEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-//DragSourceListener
+	public void mouseExited(MouseEvent arg0) {}
+
 	@Override
-	public void dragDropEnd(DragSourceDropEvent dsde) {
-		// TODO Auto-generated method stub
-		
+	public void mousePressed(MouseEvent arg0) {}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {}
+
+	@Override
+	public void mouseDragged(MouseEvent m) {
+		//TODO stufffffff
 	}
 
 	@Override
-	public void dragEnter(DragSourceDragEvent dsde) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseMoved(MouseEvent arg0) {}
 
 	@Override
-	public void dragExit(DragSourceEvent dse) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void dragOver(DragSourceDragEvent dsde) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void dropActionChanged(DragSourceDragEvent dsde) {
-		// TODO Auto-generated method stub
-		
+	public void mouseWheelMoved(MouseWheelEvent m) {
+		Point loc = m.getPoint();
+		PieceShape piece = getClickedPiece(loc);
+		if(piece == null)
+			return;
+		int turns = m.getWheelRotation();
+		if(turns > 0){
+			for(int i = 0; i < turns; i++){
+				piece.getPiece().rotateClockwise();
+			}
+		}
+		else{
+			for(int i = 0; i < turns; i++){
+				piece.getPiece().rotateCounterClockwise();
+			}
+		}
+		repaint();
 	}
 	
 }

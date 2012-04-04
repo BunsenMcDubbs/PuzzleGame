@@ -1,79 +1,140 @@
 package gui;
 
+import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Shape;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Path2D;
+import java.awt.dnd.DropTargetDragEvent;
+import java.awt.dnd.DropTargetDropEvent;
+import java.awt.dnd.DropTargetEvent;
+import java.awt.dnd.DropTargetListener;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.PathIterator;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 
-import javax.swing.JFrame;
+import framework.*;
 
-public abstract class PieceShape {
+public class PieceShape implements Shape{
 	
-	private int side;
+	private Piece piece;
+	private Rectangle body;
+	private Shape [] sides;
+	private boolean inBoard;//Needed?
+	private Point2D home;
 	
-	public PieceShape(int side){
-		this.side = side;
+	public PieceShape(Piece p, Point2D home) {
+		piece = p;
+		inBoard = false;
+		setHome(home);
+		pieceMaker();
 	}
 	
-	public final int getSide(){
-		return side;
+	private void pieceMaker() {
+		
+		body = new Rectangle(50,50,100,100);
+		sides = new Shape[4];
+		for (int i = 0; i < sides.length; i++){
+			int val = piece.getSide(i).getValue();
+			val = Math.abs(val);
+//			switch(val){
+//			case Side.inHeart: sides[i] = PieceShape.getHeart(); break;
+//			case Side.inSpade: sides[i] = PieceShape.getSpade(); break;
+//			case Side.inClub: sides[i] = PieceShape.getClub(); break;
+//			case Side.inDiamond: sides[i] = PieceShape.getDiamond(); break;
+//			}
+		}
 	}
 	
-	public abstract void paint(Graphics2D g);
-	
-//	public static Shape getHeart(){
-//		
-//		Ellipse2D.Double s = new Ellipse2D.Double(10,0,30,50);
-//		
-//		return s;
-//	}
-//	
-//	public static Shape getClub(){
-//		
-//		return new Rectangle(0,0,50,50);
-//
-//	}
-//	
-//	public static Shape getDiamond(){
-//		
-//		int [] x = {25,40,25,10};
-//		int [] y = {0,25,50,25};
-//		
-//		Path2D.Double s = new Path2D.Double(Path2D.WIND_EVEN_ODD);
-//		s.moveTo(x[0], y[0]);
-//		for (int i = 1; i < x.length && i < y.length; i++){
-//			s.lineTo(x[i], y[i]);
-//		}
-//		s.closePath();
-//		
-//		return s;
-//
-//	}
-//	
-//	public static Shape getSpade(){
-//		
-//		int [] x = {25,50,0};
-//		int [] y = {0,50,50};
-//		
-//		Path2D.Double s = new Path2D.Double(Path2D.WIND_EVEN_ODD);
-//		s.moveTo(x[0], y[0]);
-//		for (int i = 1; i < x.length && i < y.length; i++){
-//			s.lineTo(x[i], y[i]);
-//		}
-//		s.closePath();
-//		
-//		return s;
-//
-//	}
-	
-	public static void main(String [] args){
-		PuzzleCanvas canvas = new PuzzleCanvas();
-		JFrame frame = new JFrame();
-		frame.setSize(400, 400);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().add(canvas);
-		frame.setVisible(true);
+	public int rotate(boolean clockwise){
+		if (clockwise){
+			piece.rotateClockwise();
+		}
+		else{
+			piece.rotateCounterClockwise();
+		}
+		pieceMaker();
+		return piece.getOrientation();
 	}
 	
+	public void paint(Graphics g){
+		Graphics2D g2 = (Graphics2D)g;
+		
+		//TODO Draw the piece here
+		
+		
+	}
+
+	public boolean isInBoard(){
+		return inBoard;
+	}
+	
+	public void setInBoard(boolean tf){
+		inBoard = tf;
+	}
+	
+	public boolean toggleInBoard(){
+		inBoard = !inBoard;
+		return inBoard;
+	}
+	
+	public Piece getPiece(){
+		return piece;
+	}
+
+	public void setHome(Point home) {
+		this.home = home;
+	}
+	
+	public void setHome(Point2D home){
+		int x = (int) home.getX();
+		int y = (int) home.getY();
+		setHome(new Point(x,y));
+	}
+	
+	//TODO rewrite this method later
+	@Override
+	public boolean contains(Point2D p) {
+		return body.contains(p);
+	}
+
+	@Override
+	public boolean contains(Rectangle2D r) {return false;}
+
+	@Override
+	public boolean contains(double x, double y) {
+		Point p = new Point((int)x,(int)y);
+		return contains(p);
+	}
+
+	@Override
+	public boolean contains(double x, double y, double w, double h) {return false;}
+
+	@Override
+	public Rectangle getBounds() {
+		return body;
+	}
+
+	@Override
+	public Rectangle2D getBounds2D() {
+		return body;
+	}
+
+	@Override
+	public PathIterator getPathIterator(AffineTransform arg0) {return null;}
+
+	@Override
+	public PathIterator getPathIterator(AffineTransform arg0, double arg1) {return null;}
+
+	@Override
+	public boolean intersects(Rectangle2D arg0) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean intersects(double x, double y, double w, double h) {
+		return intersects(new Rectangle2D.Double(x,y,w,h));
+	}
 }
