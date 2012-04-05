@@ -15,30 +15,30 @@ public class Club extends PegShape{
 	
 	public void paint(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
-		if(getSide() == 1 || getSide() == 3){
+		if(getSide() == 0 || getSide() == 2){
+			if(getSide() == 0){
+				g2.setColor(Color.RED);
+			}
+			else{
+				g2.setColor(new Color(238,238,238));
+			}
+			g2.fillOval(12, 0, 25, 25);
+			g2.fillOval(0, 13, 25, 25);
+			g2.fillOval(25, 13, 25, 25);
+			g2.fillRect(24, 2, 3, 50);
+		}
+		
+		else if(getSide() == 1 || getSide() == 3){
 			if(getSide() == 1){
 				g2.setColor(Color.RED);
 			}
 			else{
 				g2.setColor(new Color(238,238,238));
 			}
-			g2.fillOval(25, 0, 25, 25);
-			g2.fillOval(13, 13, 25, 25);
-			g2.fillOval(38, 13, 25, 25);
-			g2.fillRect(37, 2, 3, 45);
-		}
-		
-		else if(getSide() == 2 || getSide() == 4){
-			if(getSide() == 2){
-				g2.setColor(Color.RED);
-			}
-			else{
-				g2.setColor(new Color(238,238,238));
-			}
-			g2.fillOval(25, 25, 25, 25);
-			g2.fillOval(12, 13, 25, 25);
-			g2.fillOval(12, 38, 25, 25);
-			g2.fillRect(2, 37, 40, 3);
+			g2.fillOval(25, 12, 25, 25);
+			g2.fillOval(12, 0, 25, 25);
+			g2.fillOval(12, 25, 25, 25);
+			g2.fillRect(0, 24, 40, 3);
 		}
 		
 	}
@@ -48,7 +48,7 @@ public class Club extends PegShape{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(500,500);
 		frame.setVisible(true);
-		Club club = new Club(2);
+		Club club = new Club(0);
 		frame.add(club);
 	}
 

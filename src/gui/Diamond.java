@@ -14,13 +14,13 @@ public class Diamond extends PegShape{
 
 	public void paint(Graphics g) {
 		Graphics2D g2 = (Graphics2D)g;
-		if(getSide() == 3 || getSide() == 4){
+		if(getSide() == 3 || getSide() == 2){
 			g2.setColor(new Color(238,238,238));
 		}
 		else{
 			g2.setColor(Color.RED);
 		}
-		int[] xPoints = {75, 100, 75, 50};
+		int[] xPoints = {25, 50, 25, 0};
 		int[] yPoints = {0, 25, 50, 25};
 		g2.fillPolygon(xPoints, yPoints, 4);
 		
@@ -31,7 +31,7 @@ public class Diamond extends PegShape{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(500,500);
 		frame.setVisible(true);
-		Diamond diamond = new Diamond(2);
+		Diamond diamond = new Diamond(1);
 		frame.add(diamond);
 	}
 }
