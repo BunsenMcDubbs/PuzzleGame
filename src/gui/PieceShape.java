@@ -5,10 +5,6 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Shape;
-import java.awt.dnd.DropTargetDragEvent;
-import java.awt.dnd.DropTargetDropEvent;
-import java.awt.dnd.DropTargetEvent;
-import java.awt.dnd.DropTargetListener;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
@@ -20,7 +16,7 @@ public class PieceShape implements Shape{
 	
 	private Piece piece;
 	private Rectangle body;
-	private Shape [] sides;
+	private PegShape [] sides;
 	private boolean inBoard;//Needed?
 	private Point2D home;
 	
@@ -31,22 +27,42 @@ public class PieceShape implements Shape{
 		pieceMaker();
 	}
 	
+	/**
+	 * Sets up the visual representation of the piece with sides
+	 */
 	private void pieceMaker() {
 		
 		body = new Rectangle(50,50,100,100);
-		sides = new Shape[4];
-		for (int i = 0; i < sides.length; i++){
-			int val = piece.getSide(i).getValue();
-			val = Math.abs(val);
-//			switch(val){
-//			case Side.inHeart: sides[i] = PieceShape.getHeart(); break;
-//			case Side.inSpade: sides[i] = PieceShape.getSpade(); break;
-//			case Side.inClub: sides[i] = PieceShape.getClub(); break;
-//			case Side.inDiamond: sides[i] = PieceShape.getDiamond(); break;
-//			}
+		sides = new PegShape[4];
+		
+		for(int i = 0; i < 4; i++){
+			setSide(i, piece.getSide(i));
+		}
+		
+	}
+	
+	/**
+	 * Sets the sides of the PieceShape using the PegShape's child classes
+	 * @param dir
+	 * @param s
+	 */
+	// TODO send the pegShapes the pieceShape
+	private void setSide(int dir, Side s){
+		PegShape shape;
+		int val = Math.abs(s.getValue());
+		switch(val){
+		case Side.inClub:	sides[dir] = new Club(dir); break;
+		case Side.inDiamond:sides[dir] = new Diamond(dir); break;
+		case Side.inHeart:	sides[dir] = new Heart(dir); break;
+		case Side.inSpade:	sides[dir] = new Spade(dir); break;
 		}
 	}
 	
+	/**
+	 * Rotates the piece one way or another depending on a boolean
+	 * @param clockwise
+	 * @return current orientation ( 0 = north, 1 = east, 2 = south, 3 = west)
+	 */
 	public int rotate(boolean clockwise){
 		if (clockwise){
 			piece.rotateClockwise();
@@ -61,15 +77,22 @@ public class PieceShape implements Shape{
 	public void paint(Graphics g){
 		Graphics2D g2 = (Graphics2D)g;
 		
-		//TODO Draw the piece here
-		
+		for(PegShape s : sides){
+			// TODO make pegShape a shape
+			//g2.draw(g2);
+		}
 		
 	}
-
+	
+	/**
+	 * Returns true if the Piece is currently in the Board
+	 * @return
+	 */
 	public boolean isInBoard(){
 		return inBoard;
 	}
 	
+	// TODO deprecate?
 	public void setInBoard(boolean tf){
 		inBoard = tf;
 	}
@@ -91,6 +114,15 @@ public class PieceShape implements Shape{
 		int x = (int) home.getX();
 		int y = (int) home.getY();
 		setHome(new Point(x,y));
+	}
+	
+	/**
+	 * Moves the pieces back to their home locations
+	 * @return <code>true</code> if the pieces needed to move (not already at
+	 * their home location) or <code>false</code> if the piece was already there
+	 */
+	public boolean returnHome(){
+		return false;
 	}
 	
 	//TODO rewrite this method later
