@@ -11,6 +11,7 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
 import framework.*;
+import gui.shapes.*;
 
 public class PieceShape implements Shape{
 	
@@ -18,7 +19,8 @@ public class PieceShape implements Shape{
 	private Rectangle body;
 	private PegShape [] sides;
 	private boolean inBoard;//Needed?
-	private Point2D home;
+	private Point home;
+	private Point loc;
 	
 	public PieceShape(Piece p, Point2D home) {
 		piece = p;
@@ -51,10 +53,10 @@ public class PieceShape implements Shape{
 		PegShape shape;
 		int val = Math.abs(s.getValue());
 		switch(val){
-		case Side.inClub:	sides[dir] = new Club(dir); break;
-		case Side.inDiamond:sides[dir] = new Diamond(dir); break;
-		case Side.inHeart:	sides[dir] = new Heart(dir); break;
-		case Side.inSpade:	sides[dir] = new Spade(dir); break;
+		case Side.inClub:	sides[dir] = new Club(dir,this); break;
+		case Side.inDiamond:sides[dir] = new Diamond(dir,this); break;
+		case Side.inHeart:	sides[dir] = new Heart(dir,this); break;
+		case Side.inSpade:	sides[dir] = new Spade(dir,this); break;
 		}
 	}
 	
@@ -74,6 +76,10 @@ public class PieceShape implements Shape{
 		return piece.getOrientation();
 	}
 	
+	/**
+	 * Paints the Piece on the frame
+	 * @param g
+	 */
 	public void paint(Graphics g){
 		Graphics2D g2 = (Graphics2D)g;
 		
@@ -82,6 +88,10 @@ public class PieceShape implements Shape{
 			//g2.draw(g2);
 		}
 		
+	}
+	
+	public Point getLoc(){
+		return loc;
 	}
 	
 	/**
@@ -121,13 +131,20 @@ public class PieceShape implements Shape{
 	 * @return <code>true</code> if the pieces needed to move (not already at
 	 * their home location) or <code>false</code> if the piece was already there
 	 */
-	public boolean returnHome(){
-		return false;
+	public boolean goHome(){
+		if (loc.equals(home))
+			return false;
+		loc = home;
+		return true;
 	}
 	
 	//TODO rewrite this method later
 	@Override
 	public boolean contains(Point2D p) {
+		for(int i = 0; i < 4; i++){
+			if(sides[i].contains(p))
+				return true;
+		}
 		return body.contains(p);
 	}
 
@@ -145,12 +162,13 @@ public class PieceShape implements Shape{
 
 	@Override
 	public Rectangle getBounds() {
+		//TODO add the bounds of the sides as well
 		return body;
 	}
 
 	@Override
 	public Rectangle2D getBounds2D() {
-		return body;
+		return getBounds();
 	}
 
 	@Override
@@ -160,10 +178,7 @@ public class PieceShape implements Shape{
 	public PathIterator getPathIterator(AffineTransform arg0, double arg1) {return null;}
 
 	@Override
-	public boolean intersects(Rectangle2D arg0) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	public boolean intersects(Rectangle2D arg0) {return false;}
 
 	@Override
 	public boolean intersects(double x, double y, double w, double h) {
