@@ -1,19 +1,22 @@
-package gui;
-
-
+package gui.shapes;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.geom.Line2D;
+import java.awt.geom.Point2D;
 
 import javax.swing.JFrame;
+
+import framework.Piece;
+import gui.*;
 
 
 public class Heart extends PegShape{
 
-	public Heart(int side) {
-		super(side);
+	public Heart(int side, PieceShape p) {
+		super(side, p);
 	}
 
 	
@@ -48,11 +51,25 @@ public class Heart extends PegShape{
 	}
 	
 	public static void main(String[] args){
-		JFrame frame = new JFrame("asdf");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(500,500);
-		frame.setVisible(true);
-		Heart heart = new Heart(1);
-		frame.add(heart);
+//		JFrame frame = new JFrame("asdf");
+//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		frame.setSize(500,500);
+//		frame.setVisible(true);
+//		Heart heart = new Heart(1, null);
+//		frame.add(heart);
+	}
+
+
+	@Override
+	public boolean contains(Point2D arg0) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public Rectangle getBounds() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

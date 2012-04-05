@@ -1,16 +1,24 @@
-package gui;
+package gui.shapes;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.PathIterator;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 
 import javax.swing.JFrame;
+
+import framework.Piece;
+import gui.*;
 
 
 public class Spade extends PegShape{
 
-	public Spade(int side) {
-		super(side);
+	public Spade(int side, PieceShape p) {
+		super(side, p);
 	}
 
 	public void paint(Graphics g) {
@@ -53,12 +61,23 @@ public class Spade extends PegShape{
 	}
 	
 	public static void main(String[] args){
-		JFrame frame = new JFrame("asdf");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(500,500);
-		frame.setVisible(true);
-		Spade spade = new Spade(1);
-		frame.add(spade);
+//		JFrame frame = new JFrame("asdf");
+//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		frame.setSize(500,500);
+//		frame.setVisible(true);
+//		Spade spade = new Spade(1);
+//		frame.add(spade);
 	}
 
+	@Override
+	public boolean contains(Point2D arg0) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Rectangle getBounds() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
