@@ -30,9 +30,7 @@ public abstract class PegShape implements Shape{
 		return side;
 	}
 	
-	public void paint(Graphics g){
-		Point loc = p.getLoc();
-	}
+	public abstract void paint(Graphics g);
 	
 	@Override
 	public abstract boolean contains(Point2D arg0);
