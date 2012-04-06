@@ -1,9 +1,14 @@
 package test;
 
+import framework.Piece;
+import gui.PieceShape;
+import gui.shapes.*;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,12 +27,9 @@ public class Testing extends JFrame implements ActionListener{
 		setMinimumSize(new Dimension(500, 500));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		Timer t = new Timer(10, this);
-		
-		r = new Rectangle(0,0,50,50);
+		//Timer t = new Timer(10, this);
 		
 		setVisible(true);
-		repaint();
 	}
 
 	@Override
@@ -39,7 +41,9 @@ public class Testing extends JFrame implements ActionListener{
 	
 	public void paint(Graphics g){
 		Graphics2D g2 = (Graphics2D)g;
-		g2.draw(r);
+		Heart c = new Heart(0, new PieceShape(new Piece(1,2,-1,-2), new Point(0,0)));
+		g2.getTransform().translate(100, 100);
+		c.paint(g2);
 	}
 	
 	public static void main(String[]a){
