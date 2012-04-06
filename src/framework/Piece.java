@@ -19,6 +19,10 @@ public class Piece {
 		in = false;
 	}
 	
+	public Piece (int n, int e, int s, int w){
+		this(new Side(n), new Side(e), new Side(s), new Side(w));
+	}
+	
 	public void rotateClockwise (){
 		orientation++;
 		if (orientation==4)
