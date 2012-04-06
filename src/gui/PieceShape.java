@@ -22,7 +22,7 @@ public class PieceShape implements Shape{
 	private Point home;
 	private Point loc;
 	
-	public PieceShape(Piece p, Point2D home) {
+	public PieceShape(Piece p, Point home) {
 		piece = p;
 		inBoard = false;
 		setHome(home);
@@ -141,9 +141,15 @@ public class PieceShape implements Shape{
 	//TODO rewrite this method later
 	@Override
 	public boolean contains(Point2D p) {
-		for(int i = 0; i < 4; i++){
+		//Checks outside the "body" of the piece on the "pegs"
+		for(int i = 0; i < 2; i++){
 			if(sides[i].contains(p))
 				return true;
+		}
+		//Checks if the point is inside a "hole" on the piece
+		for(int i = 1; i < 4; i++){
+			if(sides[i].contains(p))
+				return false;
 		}
 		return body.contains(p);
 	}
