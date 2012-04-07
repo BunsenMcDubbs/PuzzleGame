@@ -13,10 +13,9 @@ import gui.*;
 
 public class Club extends PegShape{
 
-	public Club(int side, PieceShape p) {
-		super(side, p);
+	public Club(int side) {
+		super(side);
 	}
-
 	
 	public void paint(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;

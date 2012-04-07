@@ -13,14 +13,14 @@ import gui.*;
 
 public class Diamond extends PegShape{
 
-	public Diamond(int side, PieceShape p) {
-		super(side, p);
+	public Diamond(int side) {
+		super(side);
 	}
 
 	public void paint(Graphics g) {
 		Graphics2D g2 = (Graphics2D)g;
 		if(getSide() == 3 || getSide() == 2){
-			g2.setColor(new Color(238,238,238));
+			g2.setColor(gui.PuzzleGameFrame.backColor);
 		}
 		else{
 			g2.setColor(Color.RED);

@@ -17,8 +17,8 @@ import gui.*;
 
 public class Spade extends PegShape{
 
-	public Spade(int side, PieceShape p) {
-		super(side, p);
+	public Spade(int side) {
+		super(side);
 	}
 
 	public void paint(Graphics g) {
