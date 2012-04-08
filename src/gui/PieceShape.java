@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -22,19 +23,18 @@ public class PieceShape implements Shape{
 	private Point home;
 	private Point loc;
 	
-	public PieceShape(Piece p, Point home) {
+	public PieceShape(Piece p) {
 		piece = p;
 		inBoard = false;
-		setHome(home);
 		pieceMaker();
 	}
-	
+
 	/**
 	 * Sets up the visual representation of the piece with sides
 	 */
 	private void pieceMaker() {
 		
-		body = new Rectangle(50,50,100,100);
+		body = new Rectangle(0,0,150,150);
 		sides = new PegShape[4];
 		
 		for(int i = 0; i < 4; i++){
@@ -48,15 +48,14 @@ public class PieceShape implements Shape{
 	 * @param dir
 	 * @param s
 	 */
-	// TODO send the pegShapes the pieceShape
 	private void setSide(int dir, Side s){
 		PegShape shape;
 		int val = Math.abs(s.getValue());
 		switch(val){
-		case Side.inClub:	sides[dir] = new Club(dir,this); break;
-		case Side.inDiamond:sides[dir] = new Diamond(dir,this); break;
-		case Side.inHeart:	sides[dir] = new Heart(dir,this); break;
-		case Side.inSpade:	sides[dir] = new Spade(dir,this); break;
+		case Side.inClub:	sides[dir] = new Club(dir); break;
+		case Side.inDiamond:sides[dir] = new Diamond(dir); break;
+		case Side.inHeart:	sides[dir] = new Heart(dir); break;
+		case Side.inSpade:	sides[dir] = new Spade(dir); break;
 		}
 	}
 	
@@ -82,16 +81,44 @@ public class PieceShape implements Shape{
 	 */
 	public void paint(Graphics g){
 		Graphics2D g2 = (Graphics2D)g;
+		updateLoc();
+		
+		g2.setColor(Color.RED);
+		g2.fill(body);
 		
 		for(PegShape s : sides){
-			// TODO make pegShape a shape
-			//g2.draw(g2);
+			s.paint(g2);
 		}
 		
 	}
 	
+	private void updateLoc(){
+		int xTemp = loc.x + 50;
+		int yTemp = loc.y + 0;
+		sides[0].setLoc(new Point(xTemp, yTemp));
+		
+		xTemp = loc.x + 150;
+		yTemp = loc.y + 100;
+		sides[1].setLoc(new Point(xTemp, yTemp));
+		
+		xTemp = loc.x + 50;
+		yTemp = loc.y + 150;
+		sides[2].setLoc(new Point(xTemp, yTemp));
+		
+		xTemp = loc.x + 0;
+		yTemp = loc.y + 100;
+		sides[3].setLoc(new Point(xTemp, yTemp));
+		
+		body.x = loc.x;
+		body.y = loc.y + 50;
+	}
+	
 	public Point getLoc(){
 		return loc;
+	}
+	
+	public void setLoc(Point loc){
+		this.loc = loc;
 	}
 	
 	/**
@@ -118,6 +145,7 @@ public class PieceShape implements Shape{
 
 	public void setHome(Point home) {
 		this.home = home;
+		setLoc(home);
 	}
 	
 	public void setHome(Point2D home){

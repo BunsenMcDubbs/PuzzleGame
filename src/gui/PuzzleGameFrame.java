@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -24,44 +25,41 @@ public class PuzzleGameFrame extends JFrame implements ActionListener{
 	private JMenuBar mBar;
 	
 	private JPanel controlPanel;
-	private static JButton solve, reset, help;
+	private JButton solve, reset, help;
 	
-	private static PieceShape[] p;
+	private PieceShape[] p;
+	private PuzzleCanvas pC;
+	private Board b;
+	
+	public static final Color backColor = new Color(238, 238, 238);
 	
 	public PuzzleGameFrame(){
 		super("Puzzle Game");
 		setTitle("Puzzle Game");
-		setMinimumSize(new Dimension(500, 500));
+		setMinimumSize(new Dimension(1200, 800));
 		setLayout(new BorderLayout());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		gameMaker();
+		frameworks();
 		pieceMaker();
 		menuMaker();
 		buttonMaker();
 		controlMaker();
+		
+		pC = new PuzzleCanvas(p, b);
+		add(pC, BorderLayout.CENTER);
+		
 		setSize(getMinimumSize());
 		setVisible(true);
 	}
 	
-	public static JButton getSolveButton(){
-		return solve;
-	}
-	
-	public static JButton getResetButton(){
-		return reset;
-	}
-	
-	public static JButton getHelpButton(){
-		return help;
-	}
-	
-	public static PieceShape[] getP(){
+	public PieceShape[] getP(){
 		return p;
 	}
 	
-	private void gameMaker() {
+	private void frameworks() {
 		game = new Puzzle();
+		b = new Board();
 	}
 	
 	private void buttonMaker(){
@@ -99,7 +97,7 @@ public class PuzzleGameFrame extends JFrame implements ActionListener{
 		p = new PieceShape[9];
 		Piece[] p2 = game.getPieces();
 		for(int i = 0; i < p2.length; i++){
-			p[i] = new PieceShape(p2[0], new Point(0,0));//TODO FAILLLLLLLLL
+			p[i] = new PieceShape(new Piece(-1,-1,1,1));//TODO FAILLLLLLLLL
 		}
 	}
 	
@@ -131,6 +129,10 @@ public class PuzzleGameFrame extends JFrame implements ActionListener{
 			message.add(text3, BorderLayout.SOUTH);
 			message.setVisible(true);
 		}
+	}
+	
+	public static void main(String[] a){
+		test.Testing.test2();
 	}
 
 }
