@@ -29,7 +29,6 @@ public class PuzzleGameFrame extends JFrame implements ActionListener{
 	
 	private PieceShape[] p;
 	private PuzzleCanvas pC;
-	private Board b;
 	
 	public static final Color backColor = new Color(238, 238, 238);
 	
@@ -46,7 +45,7 @@ public class PuzzleGameFrame extends JFrame implements ActionListener{
 		buttonMaker();
 		controlMaker();
 		
-		pC = new PuzzleCanvas(p, b);
+		pC = new PuzzleCanvas(p, game);
 		add(pC, BorderLayout.CENTER);
 		
 		setSize(getMinimumSize());
@@ -59,7 +58,6 @@ public class PuzzleGameFrame extends JFrame implements ActionListener{
 	
 	private void frameworks() {
 		game = new Puzzle();
-		b = new Board();
 	}
 	
 	private void buttonMaker(){
@@ -97,7 +95,7 @@ public class PuzzleGameFrame extends JFrame implements ActionListener{
 		p = new PieceShape[9];
 		Piece[] p2 = game.getPieces();
 		for(int i = 0; i < p2.length; i++){
-			p[i] = new PieceShape(new Piece(-1,-1,1,1));//TODO FAILLLLLLLLL
+			p[i] = new PieceShape(new Piece(-1,-1,1,1));//TODO Defaulting to all hearts
 		}
 	}
 	
@@ -108,11 +106,10 @@ public class PuzzleGameFrame extends JFrame implements ActionListener{
 		}
 		
 		else if(event.getActionCommand().equals("reset")){
-//			PieceShape[] pieceComponents = PuzzleGameFrame.getP();
-//			for(int i = 0; i < pieceComponents.length; i ++){
-//				PieceShape piece = pieceComponents[i];
-//				piece.setInBoard(false);
-//			}
+			for( PieceShape e : p){
+				e.goHome();
+			}
+			repaint();
 			System.out.println("Reset");
 		}		
 		
