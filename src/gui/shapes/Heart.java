@@ -9,6 +9,7 @@ import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Ellipse2D.Double;
 import java.awt.geom.Line2D;
+import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 
 import javax.swing.JFrame;
@@ -38,9 +39,9 @@ public class Heart extends PegShape{
 		else{
 			g2.setColor(gui.PuzzleGameFrame.backColor);
 		}
-		g2.fill(shapes[0]);
-		g2.fill(shapes[1]);
-		g2.fillPolygon(x, y, 3);
+		for( Shape s : shapes ){
+			g2.fill(s);
+		}
 	}
 	
 	private void updateLoc(){
@@ -48,8 +49,8 @@ public class Heart extends PegShape{
 		Point loc = getLoc();
 		
 		Shape[]	sTemp = super.shapes;
-		for(Shape e : sTemp){
-			Ellipse2D.Double f = (Ellipse2D.Double)e;
+		for(int i = 0; i < 2; i++){
+			Ellipse2D.Double f = (Ellipse2D.Double)shapes[i];
 			f.x += loc.x;
 			f.y += loc.y;
 		}
@@ -58,12 +59,13 @@ public class Heart extends PegShape{
 			x[i] += loc.x;
 			y[i] += loc.y;
 		}
+		triangleMaker();
 	}
 	
 	private void resetPoints(){
 		if(getSide() == 0 || getSide() == 2){
 			Shape[] shapes = {new Ellipse2D.Double(0,0,26,25),
-				new Ellipse2D.Double(25, 0, 25,26)};
+				new Ellipse2D.Double(25, 0, 25,26), null};
 			int[] xPoints = {0,25,50};
 			int[] yPoints = {18,50,18};
 			super.shapes = shapes;
@@ -72,13 +74,23 @@ public class Heart extends PegShape{
 		}
 		if(getSide() == 1 || getSide() == 3){
 			Shape[] shapes ={new Ellipse2D.Double(25, 0, 25, 26),
-					new Ellipse2D.Double(25, 25, 25, 25)};
+					new Ellipse2D.Double(25, 25, 25, 25), null};
 			int[] xPoints = {33,0,33};
 			int[] yPoints = {0,26,50};
 			super.shapes = shapes;
 			this.x = xPoints;
 			this.y = yPoints;
 		}
+		triangleMaker();
+	}
+	
+	private void triangleMaker(){
+		Path2D.Double path = new Path2D.Double(Path2D.WIND_EVEN_ODD);
+		path.moveTo(x[0], y[0]);
+		path.lineTo(x[1], y[1]);
+		path.lineTo(x[2], y[2]);
+		path.closePath();
+		shapes[2] = path;
 	}
 	
 	public static void main(String[] args){
