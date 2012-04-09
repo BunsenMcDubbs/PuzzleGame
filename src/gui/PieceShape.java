@@ -22,11 +22,19 @@ public class PieceShape implements Shape{
 	private boolean inBoard;//Needed?
 	private Point home;
 	private Point loc;
+	private int sideLen;
+	private double ratio;
 	
-	public PieceShape(Piece p) {
+	public PieceShape(Piece p, int sideLen) {
 		piece = p;
 		inBoard = false;
 		pieceMaker();
+		setSideLen(sideLen);
+	}
+
+	private void setSideLen(int sideLen) {
+		this.sideLen = sideLen;
+		ratio = 150/sideLen;
 	}
 
 	/**
@@ -34,7 +42,7 @@ public class PieceShape implements Shape{
 	 */
 	private void pieceMaker() {
 		
-		body = new Rectangle(0,0,150,150);
+		body = new Rectangle(0,0,sideLen,sideLen);
 		sides = new PegShape[4];
 		
 		for(int i = 0; i < 4; i++){
@@ -52,10 +60,10 @@ public class PieceShape implements Shape{
 		PegShape shape;
 		int val = Math.abs(s.getValue());
 		switch(val){
-		case Side.inClub:	sides[dir] = new Club(dir); break;
-		case Side.inDiamond:sides[dir] = new Diamond(dir); break;
-		case Side.inHeart:	sides[dir] = new Heart(dir); break;
-		case Side.inSpade:	sides[dir] = new Spade(dir); break;
+//		case Side.inClub:	sides[dir] = new Club(dir, ratio); break;
+//		case Side.inDiamond:sides[dir] = new Diamond(dir, ratio); break;
+		case Side.inHeart:	sides[dir] = new Heart(dir, ratio); break;
+//		case Side.inSpade:	sides[dir] = new Spade(dir, ratio); break;
 		}
 	}
 	
@@ -93,24 +101,24 @@ public class PieceShape implements Shape{
 	}
 	
 	private void updateLoc(){
-		int xTemp = loc.x + 50;
+		int xTemp = loc.x + (int)(50*ratio);
 		int yTemp = loc.y + 0;
 		sides[0].setLoc(new Point(xTemp, yTemp));
 		
-		xTemp = loc.x + 150;
-		yTemp = loc.y + 100;
+		xTemp = loc.x + (int)(150*ratio);
+		yTemp = loc.y + (int)(100*ratio);
 		sides[1].setLoc(new Point(xTemp, yTemp));
 		
-		xTemp = loc.x + 50;
-		yTemp = loc.y + 150;
+		xTemp = loc.x + (int)(50*ratio);
+		yTemp = loc.y + (int)(150*ratio);
 		sides[2].setLoc(new Point(xTemp, yTemp));
 		
 		xTemp = loc.x + 0;
-		yTemp = loc.y + 100;
+		yTemp = loc.y + (int)(100*ratio);
 		sides[3].setLoc(new Point(xTemp, yTemp));
 		
 		body.x = loc.x;
-		body.y = loc.y + 50;
+		body.y = loc.y + (int)(50*ratio);
 	}
 	
 	public Point getLoc(){

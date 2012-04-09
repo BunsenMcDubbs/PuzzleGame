@@ -23,8 +23,8 @@ public class Heart extends PegShape{
 	private int[] x;
 	private int[] y;
 	
-	public Heart(int side) {
-		super(side);
+	public Heart(int side, double ratio) {
+		super(side, ratio);
 		resetPoints();
 	}
 	

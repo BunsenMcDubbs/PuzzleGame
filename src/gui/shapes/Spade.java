@@ -23,7 +23,7 @@ public class Spade extends PegShape{
 	
 	public Spade(int side) {
 		super(side);
-		resetPoints();
+//		resetPoints();
 	}
 
 //	public void paint(Graphics g) {
@@ -84,5 +84,11 @@ public class Spade extends PegShape{
 	public Rectangle getBounds() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void paint(Graphics g) {
+		// TODO Auto-generated method stub
+		
 	}
 }

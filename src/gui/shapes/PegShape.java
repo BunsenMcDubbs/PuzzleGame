@@ -22,11 +22,17 @@ public abstract class PegShape implements Shape{
 	protected Shape[] shapes;
 	private int side;
 	private Point loc;
+	protected double ratio;
 	
-	public PegShape(int side){
+	public PegShape(int side, double ratio){
 		this.side = side;
+		setRatio(ratio);
 	}
 	
+	private void setRatio(double ratio) {
+		this.ratio = ratio;
+	}
+
 	public final int getSide(){
 		return side;
 	}
