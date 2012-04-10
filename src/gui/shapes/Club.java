@@ -121,16 +121,6 @@ public class Club extends PegShape{
 //		}
 //		
 //	}
-	
-	public static void main(String[] args){
-		test.Testing.main(null);
-//		JFrame frame = new JFrame("asdf");
-//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		frame.setSize(500,500);
-//		frame.setVisible(true);
-//		Club club = new Club(0);
-//		frame.add(club);
-	}
 
 
 	@Override

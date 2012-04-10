@@ -87,16 +87,6 @@ public class Diamond extends PegShape{
 //		g2.fillPolygon(xPoints, yPoints, 4);
 //		
 //	}
-	
-	public static void main(String[] args){
-		test.Testing.main(null);
-//		JFrame frame = new JFrame("asdf");
-//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		frame.setSize(500,500);
-//		frame.setVisible(true);
-//		Diamond diamond = new Diamond(1);
-//		frame.add(diamond);
-	}
 
 	@Override
 	public boolean contains(Point2D p) {
