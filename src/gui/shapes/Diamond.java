@@ -54,7 +54,7 @@ public class Diamond extends PegShape{
 		diamondMaker();
 	}
 	
-	public void resetPoints(){
+	private void resetPoints(){
 		Shape[] shapes = {null};
 		super.shapes = shapes;
 		int[] xPoints = {25, 50, 25, 0};
@@ -64,7 +64,7 @@ public class Diamond extends PegShape{
 		diamondMaker();
 	}
 	
-	public void diamondMaker(){
+	private void diamondMaker(){
 		Path2D.Double path = new Path2D.Double(Path2D.WIND_EVEN_ODD);
 		path.moveTo(x[0], y[0]);
 		path.lineTo(x[1], y[1]);

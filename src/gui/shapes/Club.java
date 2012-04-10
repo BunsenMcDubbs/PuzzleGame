@@ -69,11 +69,10 @@ public class Club extends PegShape{
 			this.x = xPoints;
 			this.y = yPoints;
 		}
-		if(getSide() == 1 || getSide() == 3){
+		else if(getSide() == 1 || getSide() == 3){
 			Shape[] shapes ={new Ellipse2D.Double(25, 12, 25, 25),
 					new Ellipse2D.Double(0, 13, 25, 25), 
-					new Ellipse2D.Double(12, 0, 25, 25), 
-					new Ellipse2D.Double(12, 25, 25, 25), null};
+					new Ellipse2D.Double(12, 0, 25, 25), null};
 			int[] xPoints = {0,0,40,40};
 			int[] yPoints = {24,27,27,24};
 			super.shapes = shapes;
@@ -83,14 +82,14 @@ public class Club extends PegShape{
 		rectangleMaker();
 	}
 	
-	public void rectangleMaker(){
+	private void rectangleMaker(){
 		Path2D.Double path = new Path2D.Double(Path2D.WIND_EVEN_ODD);
 		path.moveTo(x[0], y[0]);
 		path.lineTo(x[1], y[1]);
 		path.lineTo(x[2], y[2]);
 		path.lineTo(x[3], y[3]);
 		path.closePath();
-		shapes[0] = path;
+		shapes[3] = path;
 	}
 	
 //	public void paint(Graphics g) {

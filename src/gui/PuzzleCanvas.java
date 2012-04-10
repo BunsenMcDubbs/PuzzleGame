@@ -35,13 +35,11 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 		boardMaker();
 
 		addMouseListener(this);
-
-		setSize(1200,750);
 	}
 
 	private void trayMaker() {
 		// TODO Max size
-		/*homeLoc = new Point[9];
+		homeLoc = new Point[9];
 		homeLoc[0] = new Point(500, 50);
 		homeLoc[1] = new Point(700, 50);
 		homeLoc[2] = new Point(900, 50);
@@ -53,14 +51,14 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 		homeLoc[8] = new Point(900, 450);
 		for(int i = 0; i < p.length; i++){
 			p[i].setHome(homeLoc[i]);
-		}*/
+		}
 		
 		
 	}
 
 	private void boardMaker(){
 		// TODO Max size
-		/*boardPoints = new Point[9];
+		boardPoints = new Point[9];
 		boardPoints[0] = new Point(50, 100);
 		boardPoints[1] = new Point(200, 100);
 		boardPoints[2] = new Point(350, 100);
@@ -69,7 +67,7 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 		boardPoints[5] = new Point(350, 250);
 		boardPoints[6] = new Point(50, 400);
 		boardPoints[7] = new Point(200, 400);
-		boardPoints[8] = new Point(350, 400);*/
+		boardPoints[8] = new Point(350, 400);
 	}
 
 	public void paint(Graphics g){
@@ -81,6 +79,7 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 		for(PieceShape e : p){
 			e.paint(g2);
 		}
+		
 	}
 
 	private void test(Graphics2D g2) {
