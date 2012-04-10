@@ -35,39 +35,37 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 		boardMaker();
 
 		addMouseListener(this);
+
+		setSize(1200,750);
 	}
 
 	private void trayMaker() {
-		// TODO Max size
 		homeLoc = new Point[9];
-		homeLoc[0] = new Point(500, 50);
-		homeLoc[1] = new Point(700, 50);
-		homeLoc[2] = new Point(900, 50);
-		homeLoc[3] = new Point(500, 250);
-		homeLoc[4] = new Point(700, 250);
-		homeLoc[5] = new Point(900, 250);
-		homeLoc[6] = new Point(500, 450);
-		homeLoc[7] = new Point(700, 450);
-		homeLoc[8] = new Point(900, 450);
+		homeLoc[0] = new Point(600, 50);
+		homeLoc[1] = new Point(800, 50);
+		homeLoc[2] = new Point(1000, 50);
+		homeLoc[3] = new Point(600, 250);
+		homeLoc[4] = new Point(800, 250);
+		homeLoc[5] = new Point(1000, 250);
+		homeLoc[6] = new Point(600, 450);
+		homeLoc[7] = new Point(800, 450);
+		homeLoc[8] = new Point(1000, 450);
 		for(int i = 0; i < p.length; i++){
 			p[i].setHome(homeLoc[i]);
 		}
-		
-		
 	}
 
 	private void boardMaker(){
-		// TODO Max size
 		boardPoints = new Point[9];
-		boardPoints[0] = new Point(50, 100);
-		boardPoints[1] = new Point(200, 100);
-		boardPoints[2] = new Point(350, 100);
-		boardPoints[3] = new Point(50, 250);
-		boardPoints[4] = new Point(200, 250);
-		boardPoints[5] = new Point(350, 250);
-		boardPoints[6] = new Point(50, 400);
-		boardPoints[7] = new Point(200, 400);
-		boardPoints[8] = new Point(350, 400);
+		boardPoints[0] = new Point(50, 200);
+		boardPoints[1] = new Point(200, 200);
+		boardPoints[2] = new Point(350, 200);
+		boardPoints[3] = new Point(50, 350);
+		boardPoints[4] = new Point(200, 350);
+		boardPoints[5] = new Point(350, 350);
+		boardPoints[6] = new Point(50, 500);
+		boardPoints[7] = new Point(200, 500);
+		boardPoints[8] = new Point(350, 500);
 	}
 
 	public void paint(Graphics g){
@@ -79,7 +77,6 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 		for(PieceShape e : p){
 			e.paint(g2);
 		}
-		
 	}
 
 	private void test(Graphics2D g2) {

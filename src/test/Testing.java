@@ -43,7 +43,7 @@ public class Testing extends JFrame implements ActionListener{
 	public void paint(Graphics g){
 		Graphics2D g2 = (Graphics2D)g;
 		Piece p = new Piece(-1,-1,1,1);
-		PieceShape ps = new PieceShape(p, 100);
+		PieceShape ps = new PieceShape(p);
 		ps.paint(g2);
 		System.out.println(ps.getLoc());
 	}

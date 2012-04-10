@@ -4,11 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -21,7 +18,7 @@ import javax.swing.Timer;
 
 import framework.*;
 
-public class PuzzleGameFrame extends JFrame implements ActionListener, ComponentListener{
+public class PuzzleGameFrame extends JFrame implements ActionListener{
 	
 	private Puzzle game;
 	
@@ -38,6 +35,7 @@ public class PuzzleGameFrame extends JFrame implements ActionListener, Component
 	public PuzzleGameFrame(){
 		super("Puzzle Game");
 		setTitle("Puzzle Game");
+		setMinimumSize(new Dimension(1200, 800));
 		setLayout(new BorderLayout());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
@@ -50,43 +48,10 @@ public class PuzzleGameFrame extends JFrame implements ActionListener, Component
 		pC = new PuzzleCanvas(p, game);
 		add(pC, BorderLayout.CENTER);
 		
-		
-		
-		setSize();
+		setSize(getMinimumSize());
 		setVisible(true);
 	}
 	
-	private void setSize() {
-		
-		Dimension prefer = new Dimension(1200, 800);
-		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-		double ratio = prefer.width/prefer.height;
-		int height, width;
-		if (prefer.height > screen.height && prefer.width > screen.width){
-			//Width is limiting
-			if (!getLimitingSide(ratio, screen)){
-				width = screen.width;
-				height = (int) (screen.width/ratio);
-			}
-			//Height is limiting
-			else{
-				height = screen.height;
-				width = (int) (screen.height*ratio);
-			}
-			super.setSize(width, height);
-			return;
-		}
-		super.setSize(prefer);
-		
-	}
-	
-	/**
-	 * @return true if the limiting side is the width
-	 */
-	public static boolean getLimitingSide(double ratio, Dimension d){
-		return !(d.height*1.5 > d.width);
-	}
-
 	public PieceShape[] getP(){
 		return p;
 	}
@@ -127,13 +92,10 @@ public class PuzzleGameFrame extends JFrame implements ActionListener, Component
 	 * private data
 	 */
 	private void pieceMaker() {
-		
-		int pieceSize = (int) (getSize().width / 8);
-		
 		p = new PieceShape[9];
 		Piece[] p2 = game.getPieces();
 		for(int i = 0; i < p2.length; i++){
-			p[i] = new PieceShape(new Piece(-1,-1,1,1), pieceSize);//TODO Defaulting to all hearts
+			p[i] = new PieceShape(new Piece(-1,-1,1,1));//TODO Defaulting to all hearts
 		}
 	}
 	
@@ -168,29 +130,6 @@ public class PuzzleGameFrame extends JFrame implements ActionListener, Component
 	
 	public static void main(String[] a){
 		test.Testing.test2();
-	}
-
-	@Override
-	public void componentHidden(ComponentEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void componentMoved(ComponentEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void componentResized(ComponentEvent arg0) {
-		setSize();
-	}
-
-	@Override
-	public void componentShown(ComponentEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }
