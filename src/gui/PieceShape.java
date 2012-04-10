@@ -19,13 +19,11 @@ public class PieceShape implements Shape{
 	private Piece piece;
 	private Rectangle body;
 	private PegShape [] sides;
-	private boolean inBoard;//Needed?
 	private Point home;
 	private Point loc;
 	
 	public PieceShape(Piece p) {
 		piece = p;
-		inBoard = false;
 		pieceMaker();
 	}
 
@@ -126,17 +124,20 @@ public class PieceShape implements Shape{
 	 * @return
 	 */
 	public boolean isInBoard(){
-		return inBoard;
+		return piece.isIn();
 	}
 	
-	// TODO deprecate?
 	public void setInBoard(boolean tf){
-		inBoard = tf;
+		if (tf) piece.setIn();
+		else piece.setOut();
 	}
 	
 	public boolean toggleInBoard(){
-		inBoard = !inBoard;
-		return inBoard;
+		if(piece.isIn())
+			piece.setOut();
+		else
+			piece.setIn();
+		return piece.isIn();
 	}
 	
 	public Piece getPiece(){
@@ -152,6 +153,10 @@ public class PieceShape implements Shape{
 		int x = (int) home.getX();
 		int y = (int) home.getY();
 		setHome(new Point(x,y));
+	}
+	
+	public Point getHome(){
+		return home;
 	}
 	
 	/**
