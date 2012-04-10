@@ -218,4 +218,8 @@ public class PieceShape implements Shape{
 	public boolean intersects(double x, double y, double w, double h) {
 		return intersects(new Rectangle2D.Double(x,y,w,h));
 	}
+	
+	public String toString(){
+		return "PieceShape at [" + loc.x + ", " + loc.y + "]\n\t" + piece.toString();
+	}
 }
