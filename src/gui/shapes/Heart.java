@@ -20,8 +20,8 @@ import gui.*;
 
 public class Heart extends PegShape{
 	
-	private int[] x;
-	private int[] y;
+	private double[] x;
+	private double[] y;
 	
 	public Heart(int side) {
 		super(side);
@@ -66,8 +66,8 @@ public class Heart extends PegShape{
 		if(getSide() == 0 || getSide() == 2){
 			Shape[] shapes = {new Ellipse2D.Double(0,0,26,25),
 				new Ellipse2D.Double(25, 0, 25,26), null};
-			int[] xPoints = {0,25,50};
-			int[] yPoints = {18,50,18};
+			double[] xPoints = {0,25,50};
+			double[] yPoints = {18,50,18};
 			super.shapes = shapes;
 			this.x = xPoints;
 			this.y = yPoints;
@@ -75,8 +75,8 @@ public class Heart extends PegShape{
 		if(getSide() == 1 || getSide() == 3){
 			Shape[] shapes ={new Ellipse2D.Double(25, 0, 25, 26),
 					new Ellipse2D.Double(25, 25, 25, 25), null};
-			int[] xPoints = {33,0,33};
-			int[] yPoints = {0,26,50};
+			double[] xPoints = {33,0,33};
+			double[] yPoints = {0,26,50};
 			super.shapes = shapes;
 			this.x = xPoints;
 			this.y = yPoints;
@@ -91,10 +91,6 @@ public class Heart extends PegShape{
 		path.lineTo(x[2], y[2]);
 		path.closePath();
 		shapes[2] = path;
-	}
-	
-	public static void main(String[] args){
-		test.Testing.main(null);
 	}
 
 
