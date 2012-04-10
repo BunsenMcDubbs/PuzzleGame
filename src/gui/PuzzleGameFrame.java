@@ -95,7 +95,7 @@ public class PuzzleGameFrame extends JFrame implements ActionListener{
 		p = new PieceShape[9];
 		Piece[] p2 = game.getPieces();
 		for(int i = 0; i < p2.length; i++){
-			p[i] = new PieceShape(new Piece(-1,-1,1,1));//TODO Defaulting to all hearts
+			p[i] = new PieceShape(p2[i]);//TODO Defaulting to all hearts
 		}
 	}
 	
