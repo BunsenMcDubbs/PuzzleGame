@@ -155,10 +155,10 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 		System.out.println("putInTray");
 		
 		Point h = homeLoc[tSpot];
-		Point h2 = new Point(h.x + 100, h.y + 100);
+		Point test = new Point(h.x + 100, h.y + 100);
 		
-		if (getClickedPiece(h2) == null) {
-			selected.setLoc(homeLoc[tSpot]);
+		if (getClickedPiece(test) == null) {
+			selected.setLoc(h);
 			repaint();
 			return;
 		}
