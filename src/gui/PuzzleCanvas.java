@@ -21,9 +21,8 @@ import framework.Puzzle;
 public class PuzzleCanvas extends JComponent implements MouseListener, MouseWheelListener, MouseMotionListener{
 
 	private PieceShape[] p;
-	private Point[] boardPoints;
+	private Point[][] boardLocs;
 	private Point[] homeLoc;
-	private Rectangle[] boardLocs;
 	private Puzzle puzzle;
 
 	private Point dragOrigin;
@@ -50,22 +49,28 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 		homeLoc[6] = new Point(600, 450);
 		homeLoc[7] = new Point(800, 450);
 		homeLoc[8] = new Point(1000, 450);
+		setHome();
+	}
+	
+	private void setHome(){
 		for(int i = 0; i < p.length; i++){
 			p[i].setHome(homeLoc[i]);
 		}
 	}
 
 	private void boardMaker(){
-		boardPoints = new Point[9];
-		boardPoints[0] = new Point(50, 200);
-		boardPoints[1] = new Point(200, 200);
-		boardPoints[2] = new Point(350, 200);
-		boardPoints[3] = new Point(50, 350);
-		boardPoints[4] = new Point(200, 350);
-		boardPoints[5] = new Point(350, 350);
-		boardPoints[6] = new Point(50, 500);
-		boardPoints[7] = new Point(200, 500);
-		boardPoints[8] = new Point(350, 500);
+		Point[][] p = new Point[3][3];
+		p[0][0] = new Point(50, 200);
+		p[1][0] = new Point(200, 200);
+		p[2][0] = new Point(350, 200);
+		p[0][1] = new Point(50, 350);
+		p[1][1] = new Point(200, 350);
+		p[2][1] = new Point(350, 350);
+		p[0][2] = new Point(50, 500);
+		p[1][2] = new Point(200, 500);
+		p[2][2] = new Point(350, 500);
+		
+		boardLocs = p;
 	}
 
 	public void paint(Graphics g){
@@ -79,10 +84,20 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 		}
 	}
 
+	private void paintBoard(Graphics2D g2) {
+		for(int i = 0; i < boardLocs.length; i++){
+			for(int j = 0; j < boardLocs[0].length; j++){
+				g2.drawRect(boardLocs[i][j].x, boardLocs[i][j].y, 150, 150);
+			}
+		}
+	}
+
 	private void test(Graphics2D g2) {
 		g2.setColor(Color.red);
-		for(Point p : boardPoints){
-			g2.drawRect(p.x, p.y, 10, 10);
+		for(int i = 0; i < boardLocs.length; i++){
+			for(int j = 0; j < boardLocs[0].length; j++){
+				g2.drawRect(boardLocs[i][j].x, boardLocs[i][j].y, 10, 10);
+			}
 		}
 		g2.setColor(Color.blue);
 		for(Point p : homeLoc){
@@ -90,67 +105,106 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 		}
 	}
 
-	private void paintBoard(Graphics2D g2){
-		boardLocs = new Rectangle[9];
-
-		for(int i = 0; i < boardPoints.length; i++){
-			boardLocs[i] = new Rectangle(boardPoints[i].x,boardPoints[i].y, 150, 150);
-			g2.draw(boardLocs[i]);
-		}
-	}
-
 	public PieceShape getClickedPiece(Point point){
+		System.out.println("getClickedPiece at " + point);
 		for(PieceShape e : p){
 			if(e.contains(point)){
-				System.out.println(point);
-				System.out.println(e);
+				System.out.println("The Piece is " + e);
 				return e;
 			}
 		}
+		System.out.println("No piece here");
 		return null;
 	}
 
 	private PieceShape selected;
 	@Override
 	public void mouseClicked(MouseEvent m) {
+		System.out.println("mouseClicked at " + m.getPoint());
+		
+		Point p = m.getPoint();
+		
 		if(selected == null){
-			Point p = m.getPoint();
 			PieceShape piece = getClickedPiece(p);
 			if(piece == null)
 				return;
 			selected = piece;
+			return;
 		}
-		else{
-			Point p = m.getPoint();
-			int spot = getClickedSpot(p);
-			if(spot == -1)
-				return;
-			put(spot);
-			selected = null;
+		Point bSpot = getClickedBoardSpot(p);
+		int tSpot = getClickedTraySpot(p);
+		if (bSpot != null){
+			putInBoard(bSpot);
 		}
+		else if (tSpot != -1){
+			putInTray(tSpot);
+		}
+		selected = null;
 	}
-
-	private boolean put(int place){
-		
-		int y = place/3;
-		int x = place%3;
-		
-//		System.out.println(place);
-//		System.out.println("" + x + " , " + y);
-		if(puzzle.canFit(x, y, selected.getPiece())){// TODO check with board
-			selected.setLoc(new Point(boardLocs[place].x, boardLocs[place].y - 50));
-		}
-		repaint();
-		return true;
-	}
-
-	private int getClickedSpot(Point p) {
-		for(int i = 0; i < boardLocs.length; i++){
-			Rectangle r = boardLocs[i];
+	
+	private int getClickedTraySpot(Point p) {
+		for(int i = 0; i < homeLoc.length; i++){
+			Rectangle r = new Rectangle(homeLoc[i].x, homeLoc[i].y, 200, 200);
 			if (r.contains(p))
 				return i;
 		}
 		return -1;
+	}
+
+	private void putInTray(int tSpot) {
+		System.out.println("putInTray");
+		
+		Point h = homeLoc[tSpot];
+		Point h2 = new Point(h.x + 100, h.y + 100);
+		
+		if (getClickedPiece(h2) == null) {
+			selected.setLoc(homeLoc[tSpot]);
+			repaint();
+			return;
+		}
+		
+		System.out.println("not a place on the tray");
+	}
+
+	/**
+	 * Puts the selected Piece into the board
+	 * @param p is the point on the board (x,y)
+	 * @return true if successful, false if failed
+	 */
+	private boolean putInBoard(Point p){
+		
+		System.out.println("putInBoard");
+		
+		int x = p.x;
+		int y = p.y;
+		
+		Point loc = boardLocs[x][y];
+		
+		System.out.println(selected);
+		System.out.println("" + x + ", " + y);
+		System.out.println(puzzle.canFit(x, y, selected.getPiece()));
+		if(puzzle.canFit(x, y, selected.getPiece())){// TODO check with board
+			selected.setLoc(new Point(loc.x,loc.y - 50));
+			puzzle.insertPieceAtLocation(x, y, selected.getPiece());
+		}
+		repaint();
+		return true;
+	}
+	
+	/**
+	 * Checks if the clicked point on the board is a spot on the board
+	 * @param p
+	 * @return
+	 */
+	private Point getClickedBoardSpot(Point p) {
+		for(int i = 0; i < boardLocs.length; i++){
+			for(int j = 0; j < boardLocs[0].length; j++){
+				Rectangle r = new Rectangle(boardLocs[i][j].x, boardLocs[i][j].y, 150, 150);
+				if (r.contains(p))
+					return new Point(i,j);
+			}
+		}
+		return null;
 	}
 
 	@Override
