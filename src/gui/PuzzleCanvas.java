@@ -147,6 +147,16 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 			if (piece == null)
 				return;
 			piece.rotate(true);
+			if (piece.isInBoard()) {
+				Point loc = puzzle.find(piece.getPiece());
+				if(loc == null)
+					return;
+				puzzle.remove(loc.x, loc.y);
+				selected = piece;
+				putInBoard(loc);
+				selected = null;
+				piece.updateLoc();
+			}
 		}
 		repaint();
 	}
@@ -176,10 +186,8 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 				}
 			}
 			
-			{
-				selected.setLoc(h);
-				repaint();
-			}
+			selected.setLoc(h);
+			repaint();
 			return;
 		}
 		
@@ -204,7 +212,7 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 		System.out.println("" + x + ", " + y);
 		System.out.println(puzzle.canFit(x, y, selected.getPiece()));
 		System.out.println(puzzle.getBoard().getLocation(x, y));
-		if(puzzle.canFit(x, y, selected.getPiece())){// TODO check with board
+		if(puzzle.canFit(x, y, selected.getPiece())){// check with board
 			if (selected.getPiece().getOrientation() == 0) {
 				selected.setLoc(new Point(loc.x, loc.y - 50));
 			}
@@ -218,6 +226,7 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 				selected.setLoc(new Point(loc.x - 50, loc.y - 50));
 			}
 			puzzle.insertPieceAtLocation(x, y, selected.getPiece());
+			selected.setInBoard(true);
 		}
 		repaint();
 		return true;
@@ -241,11 +250,20 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 	
 
 	public void reset() {
-		for(PieceShape e : p){
-			e.goHome();
-			e.setInBoard(false);
+		if (puzzle.getBoard().isEmpty()) {
+			for (PieceShape e : p){
+				while(e.getPiece().getOrientation() != 0){
+					e.rotate(true);
+				}
+			}
 		}
-		puzzle.empty();
+		else{
+			for (PieceShape e : p) {
+				e.goHome();
+				e.setInBoard(false);
+			}
+			puzzle.empty();
+		}
 	}
 	
 	@Override

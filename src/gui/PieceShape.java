@@ -91,7 +91,7 @@ public class PieceShape implements Shape{
 		
 	}
 	
-	private void updateLoc(){
+	public void updateLoc(){
 		if (piece.getOrientation() == 0) {
 			int xTemp = loc.x + 50;
 			int yTemp = loc.y + 0;
