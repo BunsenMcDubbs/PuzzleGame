@@ -70,6 +70,7 @@ public class PieceShape implements Shape{
 			piece.rotateCounterClockwise();
 		}
 		pieceMaker();
+		updateLoc();
 		return piece.getOrientation();
 	}
 	
@@ -91,24 +92,70 @@ public class PieceShape implements Shape{
 	}
 	
 	private void updateLoc(){
-		int xTemp = loc.x + 50;
-		int yTemp = loc.y + 0;
-		sides[0].setLoc(new Point(xTemp, yTemp));
-		
-		xTemp = loc.x + 150;
-		yTemp = loc.y + 100;
-		sides[1].setLoc(new Point(xTemp, yTemp));
-		
-		xTemp = loc.x + 50;
-		yTemp = loc.y + 150;
-		sides[2].setLoc(new Point(xTemp, yTemp));
-		
-		xTemp = loc.x + 0;
-		yTemp = loc.y + 100;
-		sides[3].setLoc(new Point(xTemp, yTemp));
-		
-		body.x = loc.x;
-		body.y = loc.y + 50;
+		if (piece.getOrientation() == 0) {
+			int xTemp = loc.x + 50;
+			int yTemp = loc.y + 0;
+			sides[0].setLoc(new Point(xTemp, yTemp));
+			xTemp = loc.x + 150;
+			yTemp = loc.y + 100;
+			sides[1].setLoc(new Point(xTemp, yTemp));
+			xTemp = loc.x + 50;
+			yTemp = loc.y + 150;
+			sides[2].setLoc(new Point(xTemp, yTemp));
+			xTemp = loc.x + 0;
+			yTemp = loc.y + 100;
+			sides[3].setLoc(new Point(xTemp, yTemp));
+			body.x = loc.x;
+			body.y = loc.y + 50;
+		}
+		else if (piece.getOrientation() == 1){
+			int xTemp = loc.x + 50;
+			int yTemp = loc.y + 0;
+			sides[0].setLoc(new Point(xTemp, yTemp));
+			xTemp = loc.x + 150;
+			yTemp = loc.y + 50;
+			sides[1].setLoc(new Point(xTemp, yTemp));
+			xTemp = loc.x + 50;
+			yTemp = loc.y + 150;
+			sides[2].setLoc(new Point(xTemp, yTemp));
+			xTemp = loc.x + 0;
+			yTemp = loc.y + 50;
+			sides[3].setLoc(new Point(xTemp, yTemp));
+			body.x = loc.x;
+			body.y = loc.y;
+		}
+		else if (piece.getOrientation() == 2){
+			int xTemp = loc.x + 100;
+			int yTemp = loc.y + 0;
+			sides[0].setLoc(new Point(xTemp, yTemp));
+			xTemp = loc.x + 150;
+			yTemp = loc.y + 50;
+			sides[1].setLoc(new Point(xTemp, yTemp));
+			xTemp = loc.x + 100;
+			yTemp = loc.y + 150;
+			sides[2].setLoc(new Point(xTemp, yTemp));
+			xTemp = loc.x + 0;
+			yTemp = loc.y + 50;
+			sides[3].setLoc(new Point(xTemp, yTemp));
+			body.x = loc.x + 50;
+			body.y = loc.y;
+		}
+		else{
+			int xTemp = loc.x + 100;
+			int yTemp = loc.y + 0;
+			sides[0].setLoc(new Point(xTemp, yTemp));
+			xTemp = loc.x + 150;
+			yTemp = loc.y + 100;
+			sides[1].setLoc(new Point(xTemp, yTemp));
+			xTemp = loc.x + 100;
+			yTemp = loc.y + 150;
+			sides[2].setLoc(new Point(xTemp, yTemp));
+			xTemp = loc.x + 0;
+			yTemp = loc.y + 100;
+			sides[3].setLoc(new Point(xTemp, yTemp));
+			body.x = loc.x + 50;
+			body.y = loc.y + 50;
+		}
 	}
 	
 	public Point getLoc(){
