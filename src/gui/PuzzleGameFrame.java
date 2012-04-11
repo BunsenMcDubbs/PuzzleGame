@@ -106,9 +106,7 @@ public class PuzzleGameFrame extends JFrame implements ActionListener{
 		}
 		
 		else if(event.getActionCommand().equals("reset")){
-			for( PieceShape e : p){
-				e.goHome();
-			}
+			pC.reset();
 			repaint();
 			System.out.println("Reset");
 		}		
