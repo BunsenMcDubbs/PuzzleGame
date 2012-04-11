@@ -34,7 +34,7 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 		boardMaker();
 
 		addMouseListener(this);
-		p[0].rotate(true);
+
 		setSize(1200,750);
 	}
 
