@@ -92,6 +92,10 @@ public class Puzzle {
 		return false;
 	}
 	
+	public void empty(){
+		board.empty();
+	}
+	
 	public static void main (String [] args){
 		Puzzle p = new Puzzle();
 		Piece [] array= p.getPieces();

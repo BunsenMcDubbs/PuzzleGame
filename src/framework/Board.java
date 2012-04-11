@@ -90,6 +90,14 @@ public class Board {
 		return null;
 	}
 	
+	public void empty(){
+		for (int x = 0; x < board.length; x++) {
+			for (int y = 0; y < board[0].length; y++) {
+				board[x][y] = null;
+			}
+		}
+	}
+	
 	/**
 	 * Checks to see if all the spots on the Board are filled
 	 * @return
