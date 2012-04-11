@@ -12,6 +12,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.util.ArrayList;
 
 import javax.swing.JComponent;
 
@@ -78,10 +79,27 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 		Graphics2D g2 = (Graphics2D)g;
 		paintBoard(g2);
 		test(g2);
-
+		
+		/*ArrayList<PieceShape> piecesInBoard = new ArrayList(0);
+		for(int x = 0; x < boardLocs.length; x++){
+			for(int y = 0; y < boardLocs[0].length; y++){
+				if(puzzle.getBoard().getLocation(x, y) != null){
+					piecesInBoard.add(getClickedPiece(boardLocs[x][y]));
+					System.out.println("Hiadsdfadsfassfadfs");
+				}
+			}
+		}
+		for(PieceShape e : p)
+			if(!e.isInBoard())
+				e.paint(g2);
+		for(PieceShape e : piecesInBoard){
+			e.paint(g2);
+		}*/
+		
 		for(PieceShape e : p){
 			e.paint(g2);
 		}
+		
 	}
 
 	private void paintBoard(Graphics2D g2) {
@@ -144,19 +162,30 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 		}
 		else{
 			PieceShape piece = getClickedPiece(p);
-			if (piece == null)
-				return;
-			piece.rotate(true);
-			if (piece.isInBoard()) {
-				Point loc = puzzle.find(piece.getPiece());
+			if (!piece.isInBoard()) {
+				if (piece == null)
+					return;
+				piece.rotate(true);
+			}
+			/*Point loc = puzzle.find(piece.getPiece());
+			if(piece.isInBoard() && puzzle.getBoard().getNeighbors(loc.x, loc.y) == null) {
+				System.out.println("herererasdfasdfasdfasdfasdfer");
+				{
+					puzzle.remove(loc.x, loc.y);
+					piece.rotate(true);
+					if(!puzzle.canFit(loc.x, loc.y, piece.getPiece())){
+						piece.rotate(false);
+						puzzle.insertPieceAtLocation(loc.x, loc.y, piece.getPiece());
+						return;
+					}
+				}
 				if(loc == null)
 					return;
 				puzzle.remove(loc.x, loc.y);
-				selected = piece;
 				putInBoard(loc);
-				selected = null;
 				piece.updateLoc();
-			}
+			}*/
+			selected = null;
 		}
 		repaint();
 	}
