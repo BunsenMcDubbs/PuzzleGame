@@ -20,8 +20,8 @@ public class Diamond extends PegShape{
 	private int[] x;
 	private int[] y;
 	
-	public Diamond(int side) {
-		super(side);
+	public Diamond(int side, int orientation) {
+		super(side, orientation);
 		resetPoints();
 	}
 
