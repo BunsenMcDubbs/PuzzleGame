@@ -1,5 +1,7 @@
 package framework;
 
+import java.awt.Point;
+
 public class Puzzle {
 	private Board board;
 	private Piece[] p = new Piece[9];
@@ -100,5 +102,13 @@ public class Puzzle {
 		Puzzle p = new Puzzle();
 		Piece [] array= p.getPieces();
 		p.insertPieceAtLocation(1,1, array [0]);
+	}
+
+	public Point find(Piece piece) {
+		for (int x = 0; x < board.getWidth(); x++)
+			for (int y = 0; y < board.getHeight(); y++)
+				if (piece == board.getLocation(x, y))
+					return new Point(x,y);
+		return null;
 	}
 }
