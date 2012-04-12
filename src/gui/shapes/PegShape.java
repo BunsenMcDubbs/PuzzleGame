@@ -21,10 +21,16 @@ public abstract class PegShape implements Shape{
 	
 	protected Shape[] shapes;
 	private int side;
+	private int orientation;
 	private Point loc;
 	
-	public PegShape(int side){
+	public PegShape(int side, int orientation){
+		this.orientation = orientation;
 		this.side = side;
+	}
+	
+	public int getOrientation(){
+		return orientation;
 	}
 	
 	public final int getSide(){

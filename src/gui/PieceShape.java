@@ -50,10 +50,10 @@ public class PieceShape implements Shape{
 		PegShape shape;
 		int val = Math.abs(s.getValue());
 		switch(val){
-		case Side.inClub:	sides[dir] = new Club(dir); break;
-		case Side.inDiamond:sides[dir] = new Diamond(dir); break;
-		case Side.inHeart:	sides[dir] = new Heart(dir); break;
-		case Side.inSpade:	sides[dir] = new Spade(dir); break;
+		case Side.inClub:	sides[dir] = new Club(dir,piece.getOrientation()); break;
+		case Side.inDiamond:sides[dir] = new Diamond(dir,piece.getOrientation()); break;
+		case Side.inHeart:	sides[dir] = new Heart(dir,piece.getOrientation()); break;
+		case Side.inSpade:	sides[dir] = new Spade(dir,piece.getOrientation()); break;
 		}
 	}
 	

@@ -29,13 +29,39 @@ public class Diamond extends PegShape{
 		Graphics2D g2 = (Graphics2D) g;
 		
 		updateLoc();
-		
-		if(getSide() == 0 || getSide() == 1){
-			g2.setColor(Color.RED);
+		if(getOrientation() == 0){
+			if(getSide() == 0 || getSide() == 1){
+				g2.setColor(Color.RED);
+			}
+			else{
+				g2.setColor(gui.PuzzleGameFrame.backColor);
+			}
 		}
-		else{
-			g2.setColor(gui.PuzzleGameFrame.backColor);
+		if(getOrientation() == 1){
+			if(getSide() == 1 || getSide() == 2){
+				g2.setColor(Color.RED);
+			}
+			else{
+				g2.setColor(gui.PuzzleGameFrame.backColor);
+			}
 		}
+		if(getOrientation() == 2){
+			if(getSide() == 2 || getSide() == 3){
+				g2.setColor(Color.RED);
+			}
+			else{
+				g2.setColor(gui.PuzzleGameFrame.backColor);
+			}
+		}
+		if(getOrientation() == 3){
+			if(getSide() == 0 || getSide() == 3){
+				g2.setColor(Color.RED);
+			}
+			else{
+				g2.setColor(gui.PuzzleGameFrame.backColor);
+			}
+		}
+
 		for( Shape s : shapes ){
 			g2.fill(s);
 		}

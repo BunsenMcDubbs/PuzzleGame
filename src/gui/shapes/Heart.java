@@ -23,8 +23,8 @@ public class Heart extends PegShape{
 	private double[] x;
 	private double[] y;
 	
-	public Heart(int side) {
-		super(side);
+	public Heart(int side, int orientation) {
+		super(side, orientation);
 		resetPoints();
 	}
 	
@@ -32,13 +32,39 @@ public class Heart extends PegShape{
 		Graphics2D g2 = (Graphics2D) g;
 		
 		updateLoc();
-		
-		if(getSide() == 0 || getSide() == 1){
-			g2.setColor(Color.RED);
+		if(getOrientation() == 0){
+			if(getSide() == 0 || getSide() == 1){
+				g2.setColor(Color.RED);
+			}
+			else{
+				g2.setColor(gui.PuzzleGameFrame.backColor);
+			}
 		}
-		else{
-			g2.setColor(gui.PuzzleGameFrame.backColor);
+		if(getOrientation() == 1){
+			if(getSide() == 1 || getSide() == 2){
+				g2.setColor(Color.RED);
+			}
+			else{
+				g2.setColor(gui.PuzzleGameFrame.backColor);
+			}
 		}
+		if(getOrientation() == 2){
+			if(getSide() == 2 || getSide() == 3){
+				g2.setColor(Color.RED);
+			}
+			else{
+				g2.setColor(gui.PuzzleGameFrame.backColor);
+			}
+		}
+		if(getOrientation() == 3){
+			if(getSide() == 0 || getSide() == 3){
+				g2.setColor(Color.RED);
+			}
+			else{
+				g2.setColor(gui.PuzzleGameFrame.backColor);
+			}
+		}
+
 		for( Shape s : shapes ){
 			g2.fill(s);
 		}
@@ -63,24 +89,95 @@ public class Heart extends PegShape{
 	}
 	
 	private void resetPoints(){
-		if(getSide() == 0 || getSide() == 2){
-			Shape[] shapes = {new Ellipse2D.Double(0,0,26,25),
-				new Ellipse2D.Double(25, 0, 25,26), null};
-			double[] xPoints = {0,25,50};
-			double[] yPoints = {18,50,18};
-			super.shapes = shapes;
-			this.x = xPoints;
-			this.y = yPoints;
+		if(getOrientation() == 0){
+			//top facing up
+			if(getSide() == 0 || getSide() == 2){
+				Shape[] shapes = {new Ellipse2D.Double(0,0,26,25),
+					new Ellipse2D.Double(25, 0, 25,26), null};
+				double[] xPoints = {1,25,50};
+				double[] yPoints = {18,50,18};
+				super.shapes = shapes;
+				this.x = xPoints;
+				this.y = yPoints;
+			}
+			//top facing right
+			else if(getSide() == 1 || getSide() == 3){
+				Shape[] shapes ={new Ellipse2D.Double(25, 0, 25, 26),
+						new Ellipse2D.Double(25, 25, 25, 25), null};
+				double[] xPoints = {33,0,33};
+				double[] yPoints = {0,26,50};
+				super.shapes = shapes;
+				this.x = xPoints;
+				this.y = yPoints;
+			}
 		}
-		if(getSide() == 1 || getSide() == 3){
-			Shape[] shapes ={new Ellipse2D.Double(25, 0, 25, 26),
-					new Ellipse2D.Double(25, 25, 25, 25), null};
-			double[] xPoints = {33,0,33};
-			double[] yPoints = {0,26,50};
-			super.shapes = shapes;
-			this.x = xPoints;
-			this.y = yPoints;
+		else if(getOrientation() == 1){
+			//top facing down
+			if(getSide() == 0 || getSide() == 2){
+				Shape[] shapes = {new Ellipse2D.Double(0,25,26,25),
+					new Ellipse2D.Double(25, 25, 25,26), null};
+				double[] xPoints = {0,25,50};
+				double[] yPoints = {33,0,33};
+				super.shapes = shapes;
+				this.x = xPoints;
+				this.y = yPoints;
+			}
+			//top facing right
+			else if(getSide() == 1 || getSide() == 3){
+				Shape[] shapes ={new Ellipse2D.Double(25, 0, 25, 26),
+						new Ellipse2D.Double(25, 25, 25, 25), null};
+				double[] xPoints = {33,0,33};
+				double[] yPoints = {0,26,50};
+				super.shapes = shapes;
+				this.x = xPoints;
+				this.y = yPoints;
+			}
 		}
+		else if(getOrientation() == 2){
+			//top facing down
+			if(getSide() == 0 || getSide() == 2){
+				Shape[] shapes = {new Ellipse2D.Double(0,25,26,25),
+					new Ellipse2D.Double(25, 25, 25,26), null};
+				double[] xPoints = {0,25,50};
+				double[] yPoints = {33,0,33};
+				super.shapes = shapes;
+				this.x = xPoints;
+				this.y = yPoints;
+			}
+			//top facing left
+			else if(getSide() == 1 || getSide() == 3){
+				Shape[] shapes ={new Ellipse2D.Double(0, 0, 25, 26),
+						new Ellipse2D.Double(0, 25, 25, 25), null};
+				double[] xPoints = {17,50,17};
+				double[] yPoints = {0,26,50};
+				super.shapes = shapes;
+				this.x = xPoints;
+				this.y = yPoints;
+			}
+		}
+		else if(getOrientation() == 3){
+			//top facing up
+			if(getSide() == 0 || getSide() == 2){
+				Shape[] shapes = {new Ellipse2D.Double(0,0,26,25),
+					new Ellipse2D.Double(25, 0, 25,26), null};
+				double[] xPoints = {1,25,50};
+				double[] yPoints = {18,50,18};
+				super.shapes = shapes;
+				this.x = xPoints;
+				this.y = yPoints;
+			}
+			//top facing left
+			else if(getSide() == 1 || getSide() == 3){
+				Shape[] shapes ={new Ellipse2D.Double(0, 0, 25, 26),
+						new Ellipse2D.Double(0, 25, 25, 25), null};
+				double[] xPoints = {17,50,17};
+				double[] yPoints = {0,26,50};
+				super.shapes = shapes;
+				this.x = xPoints;
+				this.y = yPoints;
+			}
+		}
+
 		triangleMaker();
 	}
 	

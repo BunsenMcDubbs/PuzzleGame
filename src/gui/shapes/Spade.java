@@ -27,8 +27,8 @@ public class Spade extends PegShape{
 	private int[] xrectangle;
 	private int[] yrectangle;
 	
-	public Spade(int side) {
-		super(side);
+	public Spade(int side, int orientation) {
+		super(side, orientation);
 		resetPoints();
 	}
 	
@@ -36,13 +36,39 @@ public class Spade extends PegShape{
 		Graphics2D g2 = (Graphics2D) g;
 		
 		updateLoc();
-		
-		if(getSide() == 0 || getSide() == 1){
-			g2.setColor(Color.RED);
+		if(getOrientation() == 0){
+			if(getSide() == 0 || getSide() == 1){
+				g2.setColor(Color.RED);
+			}
+			else{
+				g2.setColor(gui.PuzzleGameFrame.backColor);
+			}
 		}
-		else{
-			g2.setColor(gui.PuzzleGameFrame.backColor);
+		if(getOrientation() == 1){
+			if(getSide() == 1 || getSide() == 2){
+				g2.setColor(Color.RED);
+			}
+			else{
+				g2.setColor(gui.PuzzleGameFrame.backColor);
+			}
 		}
+		if(getOrientation() == 2){
+			if(getSide() == 2 || getSide() == 3){
+				g2.setColor(Color.RED);
+			}
+			else{
+				g2.setColor(gui.PuzzleGameFrame.backColor);
+			}
+		}
+		if(getOrientation() == 3){
+			if(getSide() == 0 || getSide() == 3){
+				g2.setColor(Color.RED);
+			}
+			else{
+				g2.setColor(gui.PuzzleGameFrame.backColor);
+			}
+		}
+
 		for( Shape s : shapes ){
 			g2.fill(s);
 		}
@@ -75,40 +101,159 @@ public class Spade extends PegShape{
 	}
 	
 	private void resetPoints(){
-		if(getSide() == 0 || getSide() == 2){
-			Shape[] shapes = {new Ellipse2D.Double(0, 22, 26, 20),
-				new Ellipse2D.Double(25, 22, 25, 20), null,null,null};
-			super.shapes = shapes;
-			int[] xTriangle1Points = {0,25,50};
-			int[] yTriangle1Points = {29,0,29};
-			this.xtriangle1 = xTriangle1Points;
-			this.ytriangle1 = yTriangle1Points;
-			int[] xTriangle2Points = {20,26,31};
-			int[] yTriangle2Points = {50,43,50};
-			this.xtriangle2 = xTriangle2Points;
-			this.ytriangle2 = yTriangle2Points;
-			int[] xRectanglePoints = {24,24,28,28};
-			int[] yRectanglePoints = {7,50,50,7};
-			xrectangle = xRectanglePoints;
-			yrectangle = yRectanglePoints;
+		if(getOrientation() == 0){
+			//top facing up
+			if(getSide() == 0 || getSide() == 2){
+				Shape[] shapes = {new Ellipse2D.Double(0, 22, 26, 20),
+					new Ellipse2D.Double(25, 22, 25, 20), null,null,null};
+				super.shapes = shapes;
+				int[] xTriangle1Points = {0,25,50};
+				int[] yTriangle1Points = {29,0,29};
+				this.xtriangle1 = xTriangle1Points;
+				this.ytriangle1 = yTriangle1Points;
+				int[] xTriangle2Points = {20,26,31};
+				int[] yTriangle2Points = {50,43,50};
+				this.xtriangle2 = xTriangle2Points;
+				this.ytriangle2 = yTriangle2Points;
+				int[] xRectanglePoints = {24,24,28,28};
+				int[] yRectanglePoints = {7,50,50,7};
+				xrectangle = xRectanglePoints;
+				yrectangle = yRectanglePoints;
+			}
+			//top facing right
+			else if(getSide() == 1 || getSide() == 3){
+				Shape[] shapes = {new Ellipse2D.Double(8, 0, 20, 26),
+						new Ellipse2D.Double(8, 25, 20, 25), null,null,null};
+				super.shapes = shapes;
+				int[] xTriangle1Points = {21,50,21};
+				int[] yTriangle1Points = {0,25,50};
+				this.xtriangle1 = xTriangle1Points;
+				this.ytriangle1 = yTriangle1Points;
+				int[] xTriangle2Points = {0,7,0};
+				int[] yTriangle2Points = {20,26,31};
+				this.xtriangle2 = xTriangle2Points;
+				this.ytriangle2 = yTriangle2Points;
+				int[] xRectanglePoints = {2,2,44,44};
+				int[] yRectanglePoints = {24,28,28,24};
+				xrectangle = xRectanglePoints;
+				yrectangle = yRectanglePoints;
+			}
 		}
-		else if(getSide() == 1 || getSide() == 3){
-			Shape[] shapes = {new Ellipse2D.Double(8, 0, 20, 26),
-					new Ellipse2D.Double(8, 25, 20, 25), null,null,null};
-			super.shapes = shapes;
-			int[] xTriangle1Points = {21,50,21};
-			int[] yTriangle1Points = {0,25,50};
-			this.xtriangle1 = xTriangle1Points;
-			this.ytriangle1 = yTriangle1Points;
-			int[] xTriangle2Points = {0,7,0};
-			int[] yTriangle2Points = {20,26,31};
-			this.xtriangle2 = xTriangle2Points;
-			this.ytriangle2 = yTriangle2Points;
-			int[] xRectanglePoints = {2,2,44,44};
-			int[] yRectanglePoints = {24,28,28,24};
-			xrectangle = xRectanglePoints;
-			yrectangle = yRectanglePoints;
+		else if(getOrientation() == 1){
+			//top facing down
+			if(getSide() == 0 || getSide() == 2){
+				Shape[] shapes = {new Ellipse2D.Double(0, 8, 26, 20),
+					new Ellipse2D.Double(25, 8, 25, 20), null,null,null};
+				super.shapes = shapes;
+				int[] xTriangle1Points = {0,25,50};
+				int[] yTriangle1Points = {21,50,21};
+				this.xtriangle1 = xTriangle1Points;
+				this.ytriangle1 = yTriangle1Points;
+				int[] xTriangle2Points = {20,26,31};
+				int[] yTriangle2Points = {0,7,0};
+				this.xtriangle2 = xTriangle2Points;
+				this.ytriangle2 = yTriangle2Points;
+				int[] xRectanglePoints = {24,24,28,28};
+				int[] yRectanglePoints = {43,0,0,43};
+				xrectangle = xRectanglePoints;
+				yrectangle = yRectanglePoints;
+			}
+			//top facing right
+			else if(getSide() == 1 || getSide() == 3){
+				Shape[] shapes = {new Ellipse2D.Double(8, 0, 20, 26),
+						new Ellipse2D.Double(8, 25, 20, 25), null,null,null};
+				super.shapes = shapes;
+				int[] xTriangle1Points = {21,50,21};
+				int[] yTriangle1Points = {0,25,50};
+				this.xtriangle1 = xTriangle1Points;
+				this.ytriangle1 = yTriangle1Points;
+				int[] xTriangle2Points = {0,7,0};
+				int[] yTriangle2Points = {20,26,31};
+				this.xtriangle2 = xTriangle2Points;
+				this.ytriangle2 = yTriangle2Points;
+				int[] xRectanglePoints = {2,2,44,44};
+				int[] yRectanglePoints = {24,28,28,24};
+				xrectangle = xRectanglePoints;
+				yrectangle = yRectanglePoints;
+			}
 		}
+		else if(getOrientation() == 2){
+			//top facing down
+			if(getSide() == 0 || getSide() == 2){
+				Shape[] shapes = {new Ellipse2D.Double(0, 8, 26, 20),
+					new Ellipse2D.Double(25, 8, 25, 20), null,null,null};
+				super.shapes = shapes;
+				int[] xTriangle1Points = {0,25,50};
+				int[] yTriangle1Points = {21,50,21};
+				this.xtriangle1 = xTriangle1Points;
+				this.ytriangle1 = yTriangle1Points;
+				int[] xTriangle2Points = {20,26,31};
+				int[] yTriangle2Points = {0,7,0};
+				this.xtriangle2 = xTriangle2Points;
+				this.ytriangle2 = yTriangle2Points;
+				int[] xRectanglePoints = {24,24,28,28};
+				int[] yRectanglePoints = {43,0,0,43};
+				xrectangle = xRectanglePoints;
+				yrectangle = yRectanglePoints;
+			}
+			//top facing left
+			else if(getSide() == 1 || getSide() == 3){
+				Shape[] shapes = {new Ellipse2D.Double(22, 0, 20, 26),
+						new Ellipse2D.Double(22, 25, 20, 25), null,null,null};
+				super.shapes = shapes;
+				int[] xTriangle1Points = {29,0,29};
+				int[] yTriangle1Points = {0,25,50};
+				this.xtriangle1 = xTriangle1Points;
+				this.ytriangle1 = yTriangle1Points;
+				int[] xTriangle2Points = {50,43,50};
+				int[] yTriangle2Points = {20,26,31};
+				this.xtriangle2 = xTriangle2Points;
+				this.ytriangle2 = yTriangle2Points;
+				int[] xRectanglePoints = {48,48,6,6};
+				int[] yRectanglePoints = {24,28,28,24};
+				xrectangle = xRectanglePoints;
+				yrectangle = yRectanglePoints;
+			}
+		}
+		else if(getOrientation() == 3){
+			//top facing up
+			if(getSide() == 0 || getSide() == 2){
+				Shape[] shapes = {new Ellipse2D.Double(0, 22, 26, 20),
+					new Ellipse2D.Double(25, 22, 25, 20), null,null,null};
+				super.shapes = shapes;
+				int[] xTriangle1Points = {0,25,50};
+				int[] yTriangle1Points = {29,0,29};
+				this.xtriangle1 = xTriangle1Points;
+				this.ytriangle1 = yTriangle1Points;
+				int[] xTriangle2Points = {20,26,31};
+				int[] yTriangle2Points = {50,43,50};
+				this.xtriangle2 = xTriangle2Points;
+				this.ytriangle2 = yTriangle2Points;
+				int[] xRectanglePoints = {24,24,28,28};
+				int[] yRectanglePoints = {7,50,50,7};
+				xrectangle = xRectanglePoints;
+				yrectangle = yRectanglePoints;
+			}
+			//top facing left
+			else if(getSide() == 1 || getSide() == 3){
+				Shape[] shapes = {new Ellipse2D.Double(22, 0, 20, 26),
+						new Ellipse2D.Double(22, 25, 20, 25), null,null,null};
+				super.shapes = shapes;
+				int[] xTriangle1Points = {29,0,29};
+				int[] yTriangle1Points = {0,25,50};
+				this.xtriangle1 = xTriangle1Points;
+				this.ytriangle1 = yTriangle1Points;
+				int[] xTriangle2Points = {50,43,50};
+				int[] yTriangle2Points = {20,26,31};
+				this.xtriangle2 = xTriangle2Points;
+				this.ytriangle2 = yTriangle2Points;
+				int[] xRectanglePoints = {48,48,6,6};
+				int[] yRectanglePoints = {24,28,28,24};
+				xrectangle = xRectanglePoints;
+				yrectangle = yRectanglePoints;
+			}
+		}
+
 		triangleMaker();
 		rectangleMaker();
 	}
