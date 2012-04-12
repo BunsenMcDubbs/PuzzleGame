@@ -16,11 +16,13 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import solver.RecursiveSolve;
+
 import framework.*;
 
 public class PuzzleGameFrame extends JFrame implements ActionListener{
 	
-	private Puzzle game;
+	private Puzzle puzzle;
 	
 	private JMenuBar mBar;
 	
@@ -45,7 +47,7 @@ public class PuzzleGameFrame extends JFrame implements ActionListener{
 		buttonMaker();
 		controlMaker();
 		
-		pC = new PuzzleCanvas(p, game);
+		pC = new PuzzleCanvas(p, puzzle);
 		add(pC, BorderLayout.CENTER);
 		
 		setSize(getMinimumSize());
@@ -57,7 +59,7 @@ public class PuzzleGameFrame extends JFrame implements ActionListener{
 	}
 	
 	private void frameworks() {
-		game = new Puzzle();
+		puzzle = new Puzzle();
 	}
 	
 	private void buttonMaker(){
@@ -93,7 +95,7 @@ public class PuzzleGameFrame extends JFrame implements ActionListener{
 	 */
 	private void pieceMaker() {
 		p = new PieceShape[9];
-		Piece[] p2 = game.getPieces();
+		Piece[] p2 = puzzle.getPieces();
 		for(int i = 0; i < p2.length; i++){
 			p[i] = new PieceShape(p2[i]);
 		}
@@ -101,7 +103,12 @@ public class PuzzleGameFrame extends JFrame implements ActionListener{
 	
 	public void actionPerformed(ActionEvent event) {
 		if(event.getActionCommand().equals("solve")){
-			//solve method
+			RecursiveSolve r = new RecursiveSolve(puzzle);
+			r.solve();
+			
+			pieceMaker();
+			
+			pC.solve();
 			System.out.println("Solve");
 		}
 		
