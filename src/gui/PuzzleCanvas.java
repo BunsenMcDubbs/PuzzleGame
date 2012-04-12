@@ -18,6 +18,7 @@ import javax.swing.JComponent;
 
 import framework.Board;
 import framework.Puzzle;
+import solver.*;
 
 public class PuzzleCanvas extends JComponent implements MouseListener, MouseWheelListener, MouseMotionListener{
 
@@ -277,7 +278,8 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 		return null;
 	}
 	
-
+	// TODO reset not working when the last action was removing
+	// a piece from the board
 	public void reset() {
 		if (puzzle.getBoard().isEmpty()) {
 			for (PieceShape e : p){
@@ -330,6 +332,22 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 		else{
 			for(int i = 0; i < turns; i++){
 				piece.getPiece().rotateCounterClockwise();
+			}
+		}
+		repaint();
+	}
+
+	public void solve() {
+		int i = 0;
+		for(int x = 0; x < puzzle.getBoard().getWidth(); x++){
+			for(int y = 0; y < puzzle.getBoard().getWidth(); y++){
+				System.out.println("" + x + " " + y);
+				p[i] = null;
+				p[i] = new PieceShape(puzzle.getBoard().getLocation(x, y));
+				p[i].setLoc(boardLocs[x][y]);
+//				selected = p[i];
+//				putInBoard(new Point(x,y));
+				i++;
 			}
 		}
 		repaint();
