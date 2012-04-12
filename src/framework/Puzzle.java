@@ -74,6 +74,10 @@ public class Puzzle {
 		return false;
 	}
 	
+    public void clearPuzzleFrom(int i){
+		board.clearBoardFrom(i);
+	}
+    
 	public Piece remove(int x, int y){
 		Piece pieceRemoved = board.getLocation(x,y);
 		board.setLocation(x,y, null);
@@ -94,10 +98,14 @@ public class Puzzle {
 		return false;
 	}
 	
+    // TODO replace clearpuzzle
 	public void empty(){
 		board.empty();
 	}
+    
+ 
 	
+    //Unit test
 	public static void main (String [] args){
 		Puzzle p = new Puzzle();
 		Piece [] array= p.getPieces();
@@ -110,5 +118,15 @@ public class Puzzle {
 				if (piece == board.getLocation(x, y))
 					return new Point(x,y);
 		return null;
+	}
+    	
+	public String toString(){
+		String s= "";
+		for(int i = 0; i < 3; i++){
+			for(int j = 0; j < 3; j++){
+				s =s +(board.getLocation(i,j)) + "\n";
+			}
+		}
+		return s;
 	}
 }
