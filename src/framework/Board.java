@@ -2,9 +2,17 @@
 package framework;
 
 public class Board {
-	private Piece[][] board = new Piece[3][3];
+	private Piece[][] board;
 	
 	public Board(){
+		board = new Piece[3][3];
+		for(int i = 0; i < board.length; i++)
+			for(int j = 0; j < board[0].length; j++)
+				board[i][j] = null;	
+	}
+    
+	public Board(int x, int y){
+		board = new Piece[x][y];
 		for(int i = 0; i < board.length; i++)
 			for(int j = 0; j < board[0].length; j++)
 				board[i][j] = null;	
@@ -96,6 +104,70 @@ public class Board {
 				board[x][y] = null;
 			}
 		}
+	}
+    
+public void clearBoardFrom(int spot){
+		if (spot==0){
+			empty();
+		}
+		if (spot==1){
+			for (int i=0; i<3; i++){
+				board [0][i]=null;
+				board [2][i]=null;
+			}
+			board [1][2]=null;
+			board [1][0]=null;
+		}
+		if (spot==2){
+			for (int i=0; i<3; i++){
+				board [0][i]=null;
+				board [2][i]=null;
+			}
+			board [1][2]=null;
+		}
+		if (spot==3){
+			for (int i=1; i<3; i++){
+				board [0][i]=null;
+				board [2][i]=null;
+			}
+			board [1][2]=null;
+			board [2][0]=null;
+		}
+		if (spot==4){
+			for (int i=0; i<3; i++){
+				board [2][i]=null;
+			}
+			board [1][2]=null;
+			board [0][2]=null;
+		}
+		if (spot==5){
+			for (int i=0; i<3; i++){
+				board [2][i]=null;
+			}
+			board [1][2]=null;
+		}
+		if (spot==6){
+			for (int i=0; i<3; i++){
+				board [2][i]=null;
+			}
+		}
+		if (spot==7){
+			board [2][0]=null;
+			board [2][1]=null;
+		}
+		if (spot==8){
+			board [2][0]=null;
+		}
+	}
+	
+	public boolean isSolved(){
+		for(int i = 0; i < 3; i++){
+			for(int j = 0; j < 3; j++){
+				if(board[i][j] == null)
+					return false;
+			}
+		}
+		return true;
 	}
 	
 	/**
