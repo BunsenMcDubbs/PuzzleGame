@@ -13,6 +13,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -112,17 +113,11 @@ public class PuzzleGameFrame extends JFrame implements ActionListener{
 		}		
 		
 		else if(event.getActionCommand().equals("help")){
-			JFrame message;
-			message = new JFrame("HELP");
-			message.setSize(350,100);
-			message.setLocation(75, 50);
-			JLabel text1 = new JLabel("Drag and drop pieces onto spots on the board.");
-			JLabel text2 = new JLabel("Only sides with pegs and holes of the same shape will fit.");
-			JLabel text3 = new JLabel("Place all 9 pieces on the board to win.");
-			message.add(text1, BorderLayout.NORTH);
-			message.add(text2, BorderLayout.CENTER);
-			message.add(text3, BorderLayout.SOUTH);
-			message.setVisible(true);
+			String message = "Click a piece to select it and click a spot on the board to place the piece. " 
+				+ "Rotate pieces by right clicking them." + "\n"
+				+ "Only sides with pegs and holes of the same shape will fit. "
+				+ "Place all 9 pieces on the board to win.";
+			JOptionPane.showMessageDialog(null,message,"Help", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 	
