@@ -2,6 +2,7 @@ package test;
 
 import framework.Piece;
 import gui.PieceShape;
+import gui.PuzzleGameFrame;
 import gui.shapes.*;
 
 import java.awt.BorderLayout;
@@ -22,8 +23,8 @@ public class Testing extends JFrame implements ActionListener{
 	private int x = 0, y = 0;
 	
 	public Testing() {
-		super("Puzzle Game");
-		setTitle("Puzzle Game");
+		super("dff Game");
+		setTitle("dd Game");
 		setMinimumSize(new Dimension(500, 500));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -41,13 +42,18 @@ public class Testing extends JFrame implements ActionListener{
 	
 	public void paint(Graphics g){
 		Graphics2D g2 = (Graphics2D)g;
-		Heart c = new Heart(0, new PieceShape(new Piece(1,2,-1,-2), new Point(0,0)));
-		g2.getTransform().translate(100, 100);
-		c.paint(g2);
+		Piece p = new Piece(-1,-1,1,1);
+		PieceShape ps = new PieceShape(p);
+		ps.paint(g2);
+		System.out.println(ps.getLoc());
 	}
 	
 	public static void main(String[]a){
 		Testing t = new Testing();
+	}
+	
+	public static void test2(){
+		PuzzleGameFrame f = new PuzzleGameFrame();
 	}
 
 }

@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -18,23 +19,20 @@ public class PieceShape implements Shape{
 	private Piece piece;
 	private Rectangle body;
 	private PegShape [] sides;
-	private boolean inBoard;//Needed?
 	private Point home;
 	private Point loc;
-	
-	public PieceShape(Piece p, Point home) {
+	//TODO anchor points?
+	public PieceShape(Piece p) {
 		piece = p;
-		inBoard = false;
-		setHome(home);
 		pieceMaker();
 	}
-	
+
 	/**
 	 * Sets up the visual representation of the piece with sides
 	 */
 	private void pieceMaker() {
 		
-		body = new Rectangle(50,50,100,100);
+		body = new Rectangle(0,0,150,150);
 		sides = new PegShape[4];
 		
 		for(int i = 0; i < 4; i++){
@@ -48,15 +46,14 @@ public class PieceShape implements Shape{
 	 * @param dir
 	 * @param s
 	 */
-	// TODO send the pegShapes the pieceShape
 	private void setSide(int dir, Side s){
 		PegShape shape;
 		int val = Math.abs(s.getValue());
 		switch(val){
-		case Side.inClub:	sides[dir] = new Club(dir,this); break;
-		case Side.inDiamond:sides[dir] = new Diamond(dir,this); break;
-		case Side.inHeart:	sides[dir] = new Heart(dir,this); break;
-		case Side.inSpade:	sides[dir] = new Spade(dir,this); break;
+		case Side.inClub:	sides[dir] = new Club(dir,piece.getOrientation()); break;
+		case Side.inDiamond:sides[dir] = new Diamond(dir,piece.getOrientation()); break;
+		case Side.inHeart:	sides[dir] = new Heart(dir,piece.getOrientation()); break;
+		case Side.inSpade:	sides[dir] = new Spade(dir,piece.getOrientation()); break;
 		}
 	}
 	
@@ -73,6 +70,7 @@ public class PieceShape implements Shape{
 			piece.rotateCounterClockwise();
 		}
 		pieceMaker();
+		updateLoc();
 		return piece.getOrientation();
 	}
 	
@@ -82,16 +80,90 @@ public class PieceShape implements Shape{
 	 */
 	public void paint(Graphics g){
 		Graphics2D g2 = (Graphics2D)g;
+		updateLoc();
+		
+		g2.setColor(Color.RED);
+		g2.fill(body);
 		
 		for(PegShape s : sides){
-			// TODO make pegShape a shape
-			//g2.draw(g2);
+			s.paint(g2);
 		}
 		
 	}
 	
+	public void updateLoc(){
+		if (piece.getOrientation() == 0) {
+			int xTemp = loc.x + 50;
+			int yTemp = loc.y + 0;
+			sides[0].setLoc(new Point(xTemp, yTemp));
+			xTemp = loc.x + 150;
+			yTemp = loc.y + 100;
+			sides[1].setLoc(new Point(xTemp, yTemp));
+			xTemp = loc.x + 50;
+			yTemp = loc.y + 150;
+			sides[2].setLoc(new Point(xTemp, yTemp));
+			xTemp = loc.x + 0;
+			yTemp = loc.y + 100;
+			sides[3].setLoc(new Point(xTemp, yTemp));
+			body.x = loc.x;
+			body.y = loc.y + 50;
+		}
+		else if (piece.getOrientation() == 1){
+			int xTemp = loc.x + 50;
+			int yTemp = loc.y + 0;
+			sides[0].setLoc(new Point(xTemp, yTemp));
+			xTemp = loc.x + 150;
+			yTemp = loc.y + 50;
+			sides[1].setLoc(new Point(xTemp, yTemp));
+			xTemp = loc.x + 50;
+			yTemp = loc.y + 150;
+			sides[2].setLoc(new Point(xTemp, yTemp));
+			xTemp = loc.x + 0;
+			yTemp = loc.y + 50;
+			sides[3].setLoc(new Point(xTemp, yTemp));
+			body.x = loc.x;
+			body.y = loc.y;
+		}
+		else if (piece.getOrientation() == 2){
+			int xTemp = loc.x + 100;
+			int yTemp = loc.y + 0;
+			sides[0].setLoc(new Point(xTemp, yTemp));
+			xTemp = loc.x + 150;
+			yTemp = loc.y + 50;
+			sides[1].setLoc(new Point(xTemp, yTemp));
+			xTemp = loc.x + 100;
+			yTemp = loc.y + 150;
+			sides[2].setLoc(new Point(xTemp, yTemp));
+			xTemp = loc.x + 0;
+			yTemp = loc.y + 50;
+			sides[3].setLoc(new Point(xTemp, yTemp));
+			body.x = loc.x + 50;
+			body.y = loc.y;
+		}
+		else{
+			int xTemp = loc.x + 100;
+			int yTemp = loc.y + 0;
+			sides[0].setLoc(new Point(xTemp, yTemp));
+			xTemp = loc.x + 150;
+			yTemp = loc.y + 100;
+			sides[1].setLoc(new Point(xTemp, yTemp));
+			xTemp = loc.x + 100;
+			yTemp = loc.y + 150;
+			sides[2].setLoc(new Point(xTemp, yTemp));
+			xTemp = loc.x + 0;
+			yTemp = loc.y + 100;
+			sides[3].setLoc(new Point(xTemp, yTemp));
+			body.x = loc.x + 50;
+			body.y = loc.y + 50;
+		}
+	}
+	
 	public Point getLoc(){
 		return loc;
+	}
+	
+	public void setLoc(Point loc){
+		this.loc = loc;
 	}
 	
 	/**
@@ -99,17 +171,20 @@ public class PieceShape implements Shape{
 	 * @return
 	 */
 	public boolean isInBoard(){
-		return inBoard;
+		return piece.isIn();
 	}
 	
-	// TODO deprecate?
 	public void setInBoard(boolean tf){
-		inBoard = tf;
+		if (tf) piece.setIn();
+		else piece.setOut();
 	}
 	
 	public boolean toggleInBoard(){
-		inBoard = !inBoard;
-		return inBoard;
+		if(piece.isIn())
+			piece.setOut();
+		else
+			piece.setIn();
+		return piece.isIn();
 	}
 	
 	public Piece getPiece(){
@@ -118,12 +193,17 @@ public class PieceShape implements Shape{
 
 	public void setHome(Point home) {
 		this.home = home;
+		setLoc(home);
 	}
 	
 	public void setHome(Point2D home){
 		int x = (int) home.getX();
 		int y = (int) home.getY();
 		setHome(new Point(x,y));
+	}
+	
+	public Point getHome(){
+		return home;
 	}
 	
 	/**
@@ -189,5 +269,9 @@ public class PieceShape implements Shape{
 	@Override
 	public boolean intersects(double x, double y, double w, double h) {
 		return intersects(new Rectangle2D.Double(x,y,w,h));
+	}
+	
+	public String toString(){
+		return "PieceShape at [" + loc.x + ", " + loc.y + "]\n\t" + piece.toString();
 	}
 }
