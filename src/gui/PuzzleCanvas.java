@@ -18,6 +18,7 @@ import javax.swing.JComponent;
 
 import framework.Board;
 import framework.Puzzle;
+import solver.*;
 
 public class PuzzleCanvas extends JComponent implements MouseListener, MouseWheelListener, MouseMotionListener{
 
@@ -209,8 +210,8 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 			if(selected.isInBoard()){
 				selected.setInBoard(false);
 				for (int x = 0; x < boardLocs.length; x++) {
-					for (int y = 0; y < boardLocs.length; y++) {
-						puzzle.remove(x, y);
+					for (int y = 0; y < boardLocs[0].length; y++) {
+						//puzzle.remove(x, y);
 					}
 				}
 			}
@@ -236,11 +237,19 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 		int y = p.y;
 		
 		Point loc = boardLocs[x][y];
+		{
+			System.out.println(selected);
+			System.out.println("" + x + ", " + y);
+			System.out.println(puzzle.canFit(x, y, selected.getPiece()));
+			System.out.println(puzzle.getBoard().getLocation(x, y));
+		}
 		
-		System.out.println(selected);
-		System.out.println("" + x + ", " + y);
-		System.out.println(puzzle.canFit(x, y, selected.getPiece()));
-		System.out.println(puzzle.getBoard().getLocation(x, y));
+		Point selectedLoc = getClickedBoardSpot(selected.getLoc());
+		
+		if(selected.isInBoard()){
+			puzzle.remove(selectedLoc.x, selectedLoc.y);
+		}
+		
 		if(puzzle.canFit(x, y, selected.getPiece())){// check with board
 			if (selected.getPiece().getOrientation() == 0) {
 				selected.setLoc(new Point(loc.x, loc.y - 50));
@@ -256,9 +265,12 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 			}
 			puzzle.insertPieceAtLocation(x, y, selected.getPiece());
 			selected.setInBoard(true);
+			return true;
 		}
-		repaint();
-		return true;
+		else if(selected.isInBoard()){
+			puzzle.insertPieceAtLocation(selectedLoc.x, selectedLoc.y , selected.getPiece());
+		}
+		return false;
 	}
 	
 	/**
@@ -277,7 +289,8 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 		return null;
 	}
 	
-
+	// TODO reset not working when the last action was removing
+	// a piece from the board
 	public void reset() {
 		if (puzzle.getBoard().isEmpty()) {
 			for (PieceShape e : p){
@@ -330,6 +343,22 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 		else{
 			for(int i = 0; i < turns; i++){
 				piece.getPiece().rotateCounterClockwise();
+			}
+		}
+		repaint();
+	}
+
+	public void solve() {
+		int i = 0;
+		for(int x = 0; x < puzzle.getBoard().getWidth(); x++){
+			for(int y = 0; y < puzzle.getBoard().getWidth(); y++){
+				System.out.println("" + x + " " + y);
+				p[i] = null;
+				p[i] = new PieceShape(puzzle.getBoard().getLocation(x, y));
+				p[i].setLoc(boardLocs[x][y]);
+//				selected = p[i];
+//				putInBoard(new Point(x,y));
+				i++;
 			}
 		}
 		repaint();

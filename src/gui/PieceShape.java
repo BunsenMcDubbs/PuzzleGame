@@ -21,7 +21,7 @@ public class PieceShape implements Shape{
 	private PegShape [] sides;
 	private Point home;
 	private Point loc;
-	
+	//TODO anchor points?
 	public PieceShape(Piece p) {
 		piece = p;
 		pieceMaker();

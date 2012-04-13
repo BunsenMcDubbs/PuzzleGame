@@ -60,7 +60,7 @@ public class RecursiveSolve {
 		return newArray;
 	}
 	
-	public Puzzle run(){
+	public Puzzle solve(){
 		recursiveSolve(makeArrayList(p.getPieces()), 1);
 		return p;
 	}
