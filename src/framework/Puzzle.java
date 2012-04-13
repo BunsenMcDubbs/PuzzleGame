@@ -1,5 +1,7 @@
 package framework;
 
+import java.awt.Point;
+
 public class Puzzle {
 	private Board board;
 	private Piece[] p = new Piece[9];
@@ -72,6 +74,10 @@ public class Puzzle {
 		return false;
 	}
 	
+    public void clearPuzzleFrom(int i){
+		board.clearBoardFrom(i);
+	}
+    
 	public Piece remove(int x, int y){
 		Piece pieceRemoved = board.getLocation(x,y);
 		board.setLocation(x,y, null);
@@ -92,9 +98,35 @@ public class Puzzle {
 		return false;
 	}
 	
+    // TODO replace clearpuzzle
+	public void empty(){
+		board.empty();
+	}
+    
+ 
+	
+    //Unit test
 	public static void main (String [] args){
 		Puzzle p = new Puzzle();
 		Piece [] array= p.getPieces();
 		p.insertPieceAtLocation(1,1, array [0]);
+	}
+
+	public Point find(Piece piece) {
+		for (int x = 0; x < board.getWidth(); x++)
+			for (int y = 0; y < board.getHeight(); y++)
+				if (piece == board.getLocation(x, y))
+					return new Point(x,y);
+		return null;
+	}
+    	
+	public String toString(){
+		String s= "";
+		for(int i = 0; i < 3; i++){
+			for(int j = 0; j < 3; j++){
+				s =s +(board.getLocation(i,j)) + "\n";
+			}
+		}
+		return s;
 	}
 }

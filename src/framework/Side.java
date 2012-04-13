@@ -29,6 +29,20 @@ public class Side {
 		return false;
 	}
 	
+	public String toString(){
+		switch(value){
+		case(inHeart): return "inHeart";
+		case(inSpade): return "inSpade";
+		case(inClub): return "inClub";
+		case(inDiamond): return "inDiamond";
+		case(outHeart): return "outHeart";
+		case(outSpade): return "outSpade";
+		case(outClub): return "outClub";
+		case(outDiamond): return "outDiamond";
+		}
+		return "";
+	}
+	
 	public static final int inHeart = 1;
 	public static final int inSpade = 2;
 	public static final int inClub = 3;

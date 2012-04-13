@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -15,53 +16,50 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import solver.RecursiveSolve;
+
 import framework.*;
 
 public class PuzzleGameFrame extends JFrame implements ActionListener{
 	
-	private Puzzle game;
+	private Puzzle puzzle;
 	
 	private JMenuBar mBar;
 	
 	private JPanel controlPanel;
-	private static JButton solve, reset, help;
+	private JButton solve, reset, help;
 	
-	private static PieceShape[] p;
+	private PieceShape[] p;
+	private PuzzleCanvas pC;
+	
+	public static final Color backColor = new Color(238, 238, 238);
 	
 	public PuzzleGameFrame(){
 		super("Puzzle Game");
 		setTitle("Puzzle Game");
-		setMinimumSize(new Dimension(500, 500));
+		setMinimumSize(new Dimension(1200, 800));
 		setLayout(new BorderLayout());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		gameMaker();
+		frameworks();
 		pieceMaker();
 		menuMaker();
 		buttonMaker();
 		controlMaker();
+		
+		pC = new PuzzleCanvas(p, puzzle);
+		add(pC, BorderLayout.CENTER);
+		
 		setSize(getMinimumSize());
 		setVisible(true);
 	}
 	
-	public static JButton getSolveButton(){
-		return solve;
-	}
-	
-	public static JButton getResetButton(){
-		return reset;
-	}
-	
-	public static JButton getHelpButton(){
-		return help;
-	}
-	
-	public static PieceShape[] getP(){
+	public PieceShape[] getP(){
 		return p;
 	}
 	
-	private void gameMaker() {
-		game = new Puzzle();
+	private void frameworks() {
+		puzzle = new Puzzle();
 	}
 	
 	private void buttonMaker(){
@@ -97,24 +95,26 @@ public class PuzzleGameFrame extends JFrame implements ActionListener{
 	 */
 	private void pieceMaker() {
 		p = new PieceShape[9];
-		Piece[] p2 = game.getPieces();
+		Piece[] p2 = puzzle.getPieces();
 		for(int i = 0; i < p2.length; i++){
-			p[i] = new PieceShape(p2[0], new Point(0,0));//TODO FAILLLLLLLLL
+			p[i] = new PieceShape(p2[i]);
 		}
 	}
 	
 	public void actionPerformed(ActionEvent event) {
 		if(event.getActionCommand().equals("solve")){
-			//solve method
+			RecursiveSolve r = new RecursiveSolve(puzzle);
+			r.solve();
+			
+			pieceMaker();
+			
+			pC.solve();
 			System.out.println("Solve");
 		}
 		
 		else if(event.getActionCommand().equals("reset")){
-//			PieceShape[] pieceComponents = PuzzleGameFrame.getP();
-//			for(int i = 0; i < pieceComponents.length; i ++){
-//				PieceShape piece = pieceComponents[i];
-//				piece.setInBoard(false);
-//			}
+			pC.reset();
+			repaint();
 			System.out.println("Reset");
 		}		
 		
@@ -131,6 +131,10 @@ public class PuzzleGameFrame extends JFrame implements ActionListener{
 			message.add(text3, BorderLayout.SOUTH);
 			message.setVisible(true);
 		}
+	}
+	
+	public static void main(String[] a){
+		test.Testing.test2();
 	}
 
 }

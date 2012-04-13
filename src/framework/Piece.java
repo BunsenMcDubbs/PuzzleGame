@@ -113,4 +113,8 @@ public class Piece {
 	public void setOut (){
 		in=false;
 	}
+	
+	public String toString(){
+		return "NESW " + north + " " + east + " " + south + " " + west;
+	}
 }

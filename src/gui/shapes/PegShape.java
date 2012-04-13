@@ -12,28 +12,49 @@ import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
+import javax.swing.JComponent;
+
 import framework.*;
 import gui.*;
 
 public abstract class PegShape implements Shape{
 	
+	protected Shape[] shapes;
 	private int side;
-	private PieceShape p;
-	//private Piece piece = p.getPiece() ?
+	private int orientation;
+	private Point loc;
 	
-	public PegShape(int side, PieceShape p){
+	public PegShape(int side, int orientation){
+		this.orientation = orientation;
 		this.side = side;
-		this.p = p;
+	}
+	
+	public int getOrientation(){
+		return orientation;
 	}
 	
 	public final int getSide(){
 		return side;
 	}
 	
+	public Point getLoc(){
+		return loc;
+	}
+	
+	public void setLoc(Point loc){
+		this.loc = loc;
+	}
+	
 	public abstract void paint(Graphics g);
 	
 	@Override
-	public abstract boolean contains(Point2D arg0);
+	public boolean contains(Point2D p){
+		for( Shape s : shapes ){
+			if(s.contains(p))
+				return true;
+		}
+		return false;
+	}
 
 	@Override
 	public boolean contains(Rectangle2D arg0) {return false;}
