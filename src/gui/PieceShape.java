@@ -30,7 +30,7 @@ public class PieceShape implements Shape{
 	/**
 	 * Sets up the visual representation of the piece with sides
 	 */
-	private void pieceMaker() {
+	public void pieceMaker() {
 		
 		body = new Rectangle(0,0,150,150);
 		sides = new PegShape[4];

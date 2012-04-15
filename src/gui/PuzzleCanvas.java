@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import javax.swing.JComponent;
 
 import framework.Board;
+import framework.Piece;
 import framework.Puzzle;
 import solver.*;
 
@@ -81,24 +82,21 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 		paintBoard(g2);
 		test(g2);
 		
-		/*ArrayList<PieceShape> piecesInBoard = new ArrayList(0);
-		for(int x = 0; x < boardLocs.length; x++){
-			for(int y = 0; y < boardLocs[0].length; y++){
+		// TODO
+		ArrayList<PieceShape> ordered = new ArrayList<PieceShape>(p.length);
+		for(int x = puzzle.getBoard().getWidth(); x <= 0; x--){
+			for(int y = puzzle.getBoard().getHeight(); y <= 0; y--){
 				if(puzzle.getBoard().getLocation(x, y) != null){
-					piecesInBoard.add(getClickedPiece(boardLocs[x][y]));
-					System.out.println("Hiadsdfadsfassfadfs");
+					ordered.add(match(puzzle.getBoard().getLocation(x, y)));
 				}
 			}
 		}
-		for(PieceShape e : p)
-			if(!e.isInBoard())
-				e.paint(g2);
-		for(PieceShape e : piecesInBoard){
-			e.paint(g2);
-		}*/
-		
 		for(PieceShape e : p){
-			e.paint(g2);
+			ordered.add(e);
+		}
+		
+		for(int i = ordered.size()-1; i >= 0; i--){
+			ordered.get(i).paint(g2);
 		}
 		
 	}
@@ -125,10 +123,10 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 	}
 
 	public PieceShape getClickedPiece(Point point){
-		System.out.println("getClickedPiece at " + point);
+//		System.out.println("getClickedPiece at " + point);
 		for(PieceShape e : p){
 			if(e.contains(point)){
-				System.out.println("The Piece is " + e);
+//				System.out.println("The Piece is " + e);
 				return e;
 			}
 		}
@@ -143,6 +141,12 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 		
 		Point p = m.getPoint();
 		
+		try {
+			System.out.println(puzzle.getBoard().getLocation(getClickedBoardSpot(m.getPoint()).x, getClickedBoardSpot(m.getPoint()).y));
+		} catch (NullPointerException e) {
+			System.out.println("nulllllll");
+		}
+		
 		if (m.getButton() == MouseEvent.BUTTON1) {
 			if (selected == null) {
 				PieceShape piece = getClickedPiece(p);
@@ -153,19 +157,26 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 			else {
 				Point bSpot = getClickedBoardSpot(p);
 				int tSpot = getClickedTraySpot(p);
+				PieceShape clicked = getClickedPiece(m.getPoint());
 				if (bSpot != null) {
 					putInBoard(bSpot);
+					selected = null;
+					return;
+				} else if (clicked != null){
+					selected = clicked;
+					return;
 				} else if (tSpot != -1) {
 					putInTray(tSpot);
+					selected = null;
+					return;
 				}
-				selected = null;
 			}
 		}
 		else{
 			PieceShape piece = getClickedPiece(p);
+			if (piece == null)
+				return;
 			if (!piece.isInBoard()) {
-				if (piece == null)
-					return;
 				piece.rotate(true);
 			}
 			/*Point loc = puzzle.find(piece.getPiece());
@@ -244,12 +255,12 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 			System.out.println(puzzle.getBoard().getLocation(x, y));
 		}
 		
-		Point selectedLoc = getClickedBoardSpot(selected.getLoc());
+		Point selectedLoc = puzzle.find(selected.getPiece());
 		
 		if(selected.isInBoard()){
 			puzzle.remove(selectedLoc.x, selectedLoc.y);
 		}
-		
+		System.out.println(puzzle.getBoard().getLocation(x, y));
 		if(puzzle.canFit(x, y, selected.getPiece())){// check with board
 			if (selected.getPiece().getOrientation() == 0) {
 				selected.setLoc(new Point(loc.x, loc.y - 50));
@@ -265,6 +276,7 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 			}
 			puzzle.insertPieceAtLocation(x, y, selected.getPiece());
 			selected.setInBoard(true);
+			repaint();
 			return true;
 		}
 		else if(selected.isInBoard()){
@@ -349,18 +361,44 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 	}
 
 	public void solve() {
-		int i = 0;
+		update();
+		repaint();
+	}
+	
+	private void update(){
+		
+		for(int i = 0; i < p.length; i++){
+			p[i].pieceMaker();
+		}
+		
 		for(int x = 0; x < puzzle.getBoard().getWidth(); x++){
-			for(int y = 0; y < puzzle.getBoard().getWidth(); y++){
-				System.out.println("" + x + " " + y);
-				p[i] = null;
-				p[i] = new PieceShape(puzzle.getBoard().getLocation(x, y));
-				p[i].setLoc(boardLocs[x][y]);
-//				selected = p[i];
-//				putInBoard(new Point(x,y));
-				i++;
+			for(int y = 0; y < puzzle.getBoard().getHeight(); y++){
+				if(puzzle.getBoard().getLocation(x, y) != null){
+					Point loc = boardLocs[x][y];
+					PieceShape pShape = match(puzzle.getBoard().getLocation(x, y));
+					if (pShape.getPiece().getOrientation() == 0) {
+						pShape.setLoc(new Point(loc.x, loc.y - 50));
+					}
+					else if (pShape.getPiece().getOrientation() == 1){
+						pShape.setLoc(new Point(loc.x, loc.y));
+					}
+					else if (pShape.getPiece().getOrientation() == 2){
+						pShape.setLoc(new Point(loc.x - 50, loc.y));
+					}
+					else{
+						pShape.setLoc(new Point(loc.x - 50, loc.y - 50));
+					}
+				}
 			}
 		}
-		repaint();
+	}
+	
+	private PieceShape match(Piece piece){
+		for(int i = 0; i < p.length; i++){
+			if(p[i].getPiece() == piece){
+				return p[i];
+			}
+		}
+		return null;
 	}
 }
