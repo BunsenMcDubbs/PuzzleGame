@@ -1,5 +1,6 @@
 package gui.shapes;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -23,6 +24,7 @@ public abstract class PegShape implements Shape{
 	private int side;
 	private int orientation;
 	private Point loc;
+	protected Color c = Color.RED;
 	
 	public PegShape(int side, int orientation){
 		this.orientation = orientation;

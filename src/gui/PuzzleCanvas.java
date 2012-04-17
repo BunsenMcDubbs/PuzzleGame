@@ -27,6 +27,7 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 	private Point[][] boardLocs;
 	private Point[] homeLoc;
 	private Puzzle puzzle;
+	private double ratio;
 
 	private Point dragOrigin;
 
@@ -38,7 +39,7 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 
 		addMouseListener(this);
 
-		setSize(1200,750);
+		//ratio = getSize().width/1200;
 	}
 
 	private void trayMaker() {
@@ -79,25 +80,33 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 	public void paint(Graphics g){
 
 		Graphics2D g2 = (Graphics2D)g;
-		paintBoard(g2);
-		test(g2);
 		
-		// TODO
-		ArrayList<PieceShape> ordered = new ArrayList<PieceShape>(p.length);
-		for(int x = puzzle.getBoard().getWidth(); x <= 0; x--){
-			for(int y = puzzle.getBoard().getHeight(); y <= 0; y--){
-				if(puzzle.getBoard().getLocation(x, y) != null){
-					ordered.add(match(puzzle.getBoard().getLocation(x, y)));
+		//g2.scale(ratio, ratio);
+		
+		paintBoard(g2);
+//		test(g2);
+		
+		for()
+		
+		/*{
+			// TODO
+			ArrayList<PieceShape> ordered = new ArrayList<PieceShape>(p.length);
+			for(int x = puzzle.getBoard().getWidth(); x <= 0; x--){
+				for(int y = puzzle.getBoard().getHeight(); y <= 0; y--){
+					if(puzzle.getBoard().getLocation(x, y) != null){
+						ordered.add(match(puzzle.getBoard().getLocation(x, y)));
+					}
 				}
 			}
-		}
-		for(PieceShape e : p){
-			ordered.add(e);
-		}
-		
-		for(int i = ordered.size()-1; i >= 0; i--){
-			ordered.get(i).paint(g2);
-		}
+			for(PieceShape e : p){
+				if(!e.isInBoard())
+					e.paint(g2);
+			}
+			
+	//		for(int i = ordered.size()-1; i >= 0; i--){
+	//			ordered.get(i).paint(g2);
+	//		}
+		}*/
 		
 	}
 
@@ -395,7 +404,7 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 	
 	private PieceShape match(Piece piece){
 		for(int i = 0; i < p.length; i++){
-			if(p[i].getPiece() == piece){
+			if(p[i].getPiece().equals(piece)){
 				return p[i];
 			}
 		}

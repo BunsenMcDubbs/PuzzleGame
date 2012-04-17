@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -38,7 +39,6 @@ public class PuzzleGameFrame extends JFrame implements ActionListener{
 	public PuzzleGameFrame(){
 		super("Puzzle Game");
 		setTitle("Puzzle Game");
-		setMinimumSize(new Dimension(1200, 800));
 		setLayout(new BorderLayout());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
@@ -51,8 +51,14 @@ public class PuzzleGameFrame extends JFrame implements ActionListener{
 		pC = new PuzzleCanvas(p, puzzle);
 		add(pC, BorderLayout.CENTER);
 		
-		setSize(getMinimumSize());
+		setSize();
 		setVisible(true);
+	}
+	
+	private void setSize(){
+		Dimension max = Toolkit.getDefaultToolkit().getScreenSize();
+		setSize(max);
+		setMinimumSize(new Dimension(600, 400));
 	}
 	
 	public PieceShape[] getP(){
