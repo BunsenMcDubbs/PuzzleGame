@@ -43,6 +43,10 @@ public class Piece {
 		return orientation;
 	}
 	
+	public void setOrientation(int o){
+		orientation = o;
+	}
+	
 	public Side getSideNorth(){
 		if (orientation ==0)
 			return north;
@@ -112,6 +116,21 @@ public class Piece {
 	
 	public void setOut (){
 		in=false;
+	}
+	
+	public boolean equals(Piece other){
+		int tempOrientation = orientation;
+		int otherTempOrientation = other.getOrientation();
+		setOrientation(0);
+		other.setOrientation(0);
+		for(int side = 0; side < 4; side++){
+			if(getSide(side).getValue() != other.getSide(side).getValue()){
+				setOrientation(tempOrientation);
+				other.setOrientation(otherTempOrientation);
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	public String toString(){

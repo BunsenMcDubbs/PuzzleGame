@@ -31,7 +31,7 @@ public class Diamond extends PegShape{
 		updateLoc();
 		if(getOrientation() == 0){
 			if(getSide() == 0 || getSide() == 1){
-				g2.setColor(Color.RED);
+				g2.setColor(super.c);
 			}
 			else{
 				g2.setColor(gui.PuzzleGameFrame.backColor);
@@ -39,7 +39,7 @@ public class Diamond extends PegShape{
 		}
 		if(getOrientation() == 1){
 			if(getSide() == 1 || getSide() == 2){
-				g2.setColor(Color.RED);
+				g2.setColor(super.c);
 			}
 			else{
 				g2.setColor(gui.PuzzleGameFrame.backColor);
@@ -47,7 +47,7 @@ public class Diamond extends PegShape{
 		}
 		if(getOrientation() == 2){
 			if(getSide() == 2 || getSide() == 3){
-				g2.setColor(Color.RED);
+				g2.setColor(super.c);
 			}
 			else{
 				g2.setColor(gui.PuzzleGameFrame.backColor);
@@ -55,7 +55,7 @@ public class Diamond extends PegShape{
 		}
 		if(getOrientation() == 3){
 			if(getSide() == 0 || getSide() == 3){
-				g2.setColor(Color.RED);
+				g2.setColor(super.c);
 			}
 			else{
 				g2.setColor(gui.PuzzleGameFrame.backColor);
@@ -106,7 +106,7 @@ public class Diamond extends PegShape{
 //			g2.setColor(gui.PuzzleGameFrame.backColor);
 //		}
 //		else{
-//			g2.setColor(Color.RED);
+//			g2.setColor(super.c);
 //		}
 //		int[] xPoints = {25, 50, 25, 0};
 //		int[] yPoints = {0, 25, 50, 25};
