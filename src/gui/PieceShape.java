@@ -95,6 +95,7 @@ public class PieceShape implements Shape{
 			s.paint(g2);
 		}
 		
+		//Testing
 		if(isInBoard()){
 			g2.setColor(Color.GREEN);
 			g2.fillRect(loc.x, loc.y, 10, 10);
@@ -312,9 +313,38 @@ public class PieceShape implements Shape{
 	}
 	
 	public void removeFromBoard(){
-		if(!board.setLocation(boardLoc.x, boardLoc.y, null))
-			System.out.println("failadsfasdfadsfadf");
+		System.out.println("removefromboard");//TODO wtf loop twice?
+		if(boardLoc != null)
+			board.setLocation(boardLoc.x, boardLoc.y, null);
 		boardLoc = null;
 		setInBoard(false);
+	}
+	
+	public Shape getBody(){
+		return body;
+	}
+	
+	public PegShape[] getInPegs(){
+		PegShape[] in = new PegShape[2];
+		int j = 0;
+		for(int i = 0; i < sides.length; i++){
+			if(piece.getSide(i).getValue() > 0){
+				in[j] = sides[i];
+				j++;
+			}
+		}
+		return in;
+	}
+	
+	public PegShape[] getOutPegs(){
+		PegShape[] out = new PegShape[2];
+		int j = 0;
+		for(int i = 0; i < sides.length; i++){
+			if(piece.getSide(i).getValue() < 0){
+				out[j] = sides[i];
+				j++;
+			}
+		}
+		return out;
 	}
 }
