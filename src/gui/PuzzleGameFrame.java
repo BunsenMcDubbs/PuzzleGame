@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -38,7 +39,6 @@ public class PuzzleGameFrame extends JFrame implements ActionListener{
 	public PuzzleGameFrame(){
 		super("Puzzle Game");
 		setTitle("Puzzle Game");
-		setMinimumSize(new Dimension(1200, 800));
 		setLayout(new BorderLayout());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
@@ -51,8 +51,15 @@ public class PuzzleGameFrame extends JFrame implements ActionListener{
 		pC = new PuzzleCanvas(p, puzzle);
 		add(pC, BorderLayout.CENTER);
 		
-		setSize(getMinimumSize());
+		setSize();
 		setVisible(true);
+	}
+	
+	private void setSize(){
+		Dimension max = Toolkit.getDefaultToolkit().getScreenSize();
+		setSize(max);
+		setMinimumSize(new Dimension(1200, 800));
+		setSize(getMinimumSize());
 	}
 	
 	public PieceShape[] getP(){
@@ -99,17 +106,32 @@ public class PuzzleGameFrame extends JFrame implements ActionListener{
 		Piece[] p2 = puzzle.getPieces();
 		for(int i = 0; i < p2.length; i++){
 			p[i] = new PieceShape(p2[i]);
+			Color c = Color.RED;
+//			{
+//				double seed = Math.random();
+//				for(int j = 0; j < (int)(seed*3); j++){
+//					c = c.darker();
+//				}
+//				for(int j = 0; j < (int)(seed*i*3); j++){
+//					c = c.brighter();
+//				}
+//			}
+			for( int j = 0; j < i; j++){
+				c = c.darker();
+			}
+			p[i].setColor(c);
 		}
 	}
 	
 	public void actionPerformed(ActionEvent event) {
 		if(event.getActionCommand().equals("solve")){
-			RecursiveSolve r = new RecursiveSolve(puzzle);
+			Puzzle temp = new Puzzle();
+			RecursiveSolve r = new RecursiveSolve(temp);
 			r.solve();
 			
 			pieceMaker();
 			
-			pC.solve();
+			pC.solve(temp);
 			System.out.println("Solve");
 		}
 		

@@ -21,6 +21,11 @@ public class PieceShape implements Shape{
 	private PegShape [] sides;
 	private Point home;
 	private Point loc;
+	private Color c;
+	
+	private Board board;
+	private Point boardLoc;
+	
 	//TODO anchor points?
 	public PieceShape(Piece p) {
 		piece = p;
@@ -37,6 +42,7 @@ public class PieceShape implements Shape{
 		
 		for(int i = 0; i < 4; i++){
 			setSide(i, piece.getSide(i));
+			sides[i].setColor(c);
 		}
 		
 	}
@@ -82,13 +88,34 @@ public class PieceShape implements Shape{
 		Graphics2D g2 = (Graphics2D)g;
 		updateLoc();
 		
-		g2.setColor(Color.RED);
+		g2.setColor(c);
 		g2.fill(body);
 		
 		for(PegShape s : sides){
 			s.paint(g2);
 		}
 		
+		//Testing
+		if(isInBoard()){
+			g2.setColor(Color.GREEN);
+			g2.fillRect(loc.x, loc.y, 10, 10);
+		}
+		
+	}
+	
+	public Color getColor(){
+		return c;
+	}
+	
+	public void setColor(Color c){
+		this.c = c;
+		for(int i = 0; i < 4; i++){
+			setColor(i, c);
+		}
+	}
+	
+	public void setColor(int side, Color c){
+		sides[side].setColor(c);
 	}
 	
 	public void updateLoc(){
@@ -273,5 +300,51 @@ public class PieceShape implements Shape{
 	
 	public String toString(){
 		return "PieceShape at [" + loc.x + ", " + loc.y + "]\n\t" + piece.toString();
+	}
+
+	public PegShape getSide(int i) {
+		return sides[i];
+	}
+	
+	public void putInBoard(Point loc, Board b){
+		board = b;
+		boardLoc = loc;
+		setInBoard(true);
+	}
+	
+	public void removeFromBoard(){
+		System.out.println("removefromboard");//TODO wtf loop twice?
+		if(boardLoc != null)
+			board.setLocation(boardLoc.x, boardLoc.y, null);
+		boardLoc = null;
+		setInBoard(false);
+	}
+	
+	public Shape getBody(){
+		return body;
+	}
+	
+	public PegShape[] getInPegs(){
+		PegShape[] in = new PegShape[2];
+		int j = 0;
+		for(int i = 0; i < sides.length; i++){
+			if(piece.getSide(i).getValue() > 0){
+				in[j] = sides[i];
+				j++;
+			}
+		}
+		return in;
+	}
+	
+	public PegShape[] getOutPegs(){
+		PegShape[] out = new PegShape[2];
+		int j = 0;
+		for(int i = 0; i < sides.length; i++){
+			if(piece.getSide(i).getValue() < 0){
+				out[j] = sides[i];
+				j++;
+			}
+		}
+		return out;
 	}
 }

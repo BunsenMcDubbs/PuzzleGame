@@ -30,7 +30,7 @@ public class Club extends PegShape{
 		updateLoc();
 		if(getOrientation() == 0){
 			if(getSide() == 0 || getSide() == 1){
-				g2.setColor(Color.RED);
+				g2.setColor(super.c);
 			}
 			else{
 				g2.setColor(gui.PuzzleGameFrame.backColor);
@@ -38,7 +38,7 @@ public class Club extends PegShape{
 		}
 		if(getOrientation() == 1){
 			if(getSide() == 1 || getSide() == 2){
-				g2.setColor(Color.RED);
+				g2.setColor(super.c);
 			}
 			else{
 				g2.setColor(gui.PuzzleGameFrame.backColor);
@@ -46,7 +46,7 @@ public class Club extends PegShape{
 		}
 		if(getOrientation() == 2){
 			if(getSide() == 2 || getSide() == 3){
-				g2.setColor(Color.RED);
+				g2.setColor(super.c);
 			}
 			else{
 				g2.setColor(gui.PuzzleGameFrame.backColor);
@@ -54,7 +54,7 @@ public class Club extends PegShape{
 		}
 		if(getOrientation() == 3){
 			if(getSide() == 0 || getSide() == 3){
-				g2.setColor(Color.RED);
+				g2.setColor(super.c);
 			}
 			else{
 				g2.setColor(gui.PuzzleGameFrame.backColor);
@@ -199,7 +199,7 @@ public class Club extends PegShape{
 //		Graphics2D g2 = (Graphics2D) g;
 //		if(getSide() == 0 || getSide() == 2){
 //			if(getSide() == 0){
-//				g2.setColor(Color.RED);
+//				g2.setColor(super.c);
 //			}
 //			else{
 //				g2.setColor(new Color(238,238,238));
@@ -212,7 +212,7 @@ public class Club extends PegShape{
 //		
 //		else if(getSide() == 1 || getSide() == 3){
 //			if(getSide() == 1){
-//				g2.setColor(Color.RED);
+//				g2.setColor(super.c);
 //			}
 //			else{
 //				g2.setColor(new Color(238,238,238));
