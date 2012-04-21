@@ -95,10 +95,17 @@ public class PieceShape implements Shape{
 		}
 	}
 	
+	/**
+	 * @return The color of the pieceShape
+	 */
 	public Color getColor(){
 		return c;
 	}
 	
+	/**
+	 * Sets the color of the PieceShape
+	 * @param c
+	 */
 	public void setColor(Color c){
 		this.c = c;
 		for(int i = 0; i < 4; i++){
@@ -106,10 +113,18 @@ public class PieceShape implements Shape{
 		}
 	}
 	
-	public void setColor(int side, Color c){
+	/**
+	 * Helper method to set the color of individual sides
+	 * @param side
+	 * @param c
+	 */
+	private void setColor(int side, Color c){
 		sides[side].setColor(c);
 	}
 	
+	/**
+	 * Helper method to ensure all the parts of the PieceShape are in the right place
+	 */
 	public void updateLoc(){
 		if (piece.getOrientation() == 0) {
 			int xTemp = loc.x + 40;
@@ -177,10 +192,18 @@ public class PieceShape implements Shape{
 		}
 	}
 	
+	/**
+	 * Returns the location of the PieceShape
+	 * @return
+	 */
 	public Point getLoc(){
 		return loc;
 	}
 	
+	/**
+	 * Sets the location of the PieceShape
+	 * @param loc
+	 */
 	public void setLoc(Point loc){
 		this.loc = loc;
 	}
@@ -193,11 +216,19 @@ public class PieceShape implements Shape{
 		return piece.isIn();
 	}
 	
+	/**
+	 * Sets the inBoard variable of the framework piece
+	 * @param tf
+	 */
 	public void setInBoard(boolean tf){
 		if (tf) piece.setIn();
 		else piece.setOut();
 	}
 	
+	/**
+	 * Toggles the inBoard variable of the framework piece
+	 * @return
+	 */
 	public boolean toggleInBoard(){
 		if(piece.isIn())
 			piece.setOut();
@@ -206,15 +237,26 @@ public class PieceShape implements Shape{
 		return piece.isIn();
 	}
 	
+	/**
+	 * @return the framework piece of this PieceShape
+	 */
 	public Piece getPiece(){
 		return piece;
 	}
 
+	/**
+	 * Sets the home location
+	 * @param home
+	 */
 	public void setHome(Point home) {
 		this.home = home;
 		setLoc(home);
 	}
 	
+	/**
+	 * Sets the home location
+	 * @param home
+	 */
 	public void setHome(Point2D home){
 		int x = (int) home.getX();
 		int y = (int) home.getY();
@@ -237,7 +279,9 @@ public class PieceShape implements Shape{
 		return true;
 	}
 	
-	//TODO rewrite this method later
+	/**
+	 * Checks if the Point is contained in the PieceShape
+	 */
 	@Override
 	public boolean contains(Point2D p) {
 		//Checks outside the "body" of the piece on the "pegs"
@@ -253,15 +297,24 @@ public class PieceShape implements Shape{
 		return body.contains(p);
 	}
 
+	/**
+	 * Deprecated
+	 */
 	@Override
 	public boolean contains(Rectangle2D r) {return false;}
 
+	/**
+	 * Deprecated
+	 */
 	@Override
 	public boolean contains(double x, double y) {
 		Point p = new Point((int)x,(int)y);
 		return contains(p);
 	}
 
+	/**
+	 * Deprecated
+	 */
 	@Override
 	public boolean contains(double x, double y, double w, double h) {return false;}
 
@@ -271,20 +324,35 @@ public class PieceShape implements Shape{
 		return body;
 	}
 
+	/**
+	 * Deprecated
+	 */
 	@Override
 	public Rectangle2D getBounds2D() {
 		return getBounds();
 	}
 
+	/**
+	 * Deprecated
+	 */
 	@Override
 	public PathIterator getPathIterator(AffineTransform arg0) {return null;}
 
+	/**
+	 * Deprecated
+	 */
 	@Override
 	public PathIterator getPathIterator(AffineTransform arg0, double arg1) {return null;}
 
+	/**
+	 * Deprecated
+	 */
 	@Override
 	public boolean intersects(Rectangle2D arg0) {return false;}
 
+	/**
+	 * Deprecated
+	 */
 	@Override
 	public boolean intersects(double x, double y, double w, double h) {
 		return intersects(new Rectangle2D.Double(x,y,w,h));
@@ -294,28 +362,48 @@ public class PieceShape implements Shape{
 		return "PieceShape at [" + loc.x + ", " + loc.y + "]\n\t" + piece.toString();
 	}
 
+	/**
+	 * Returns the side specified by the integer
+	 * @param i
+	 * @return
+	 */
 	public PegShape getSide(int i) {
 		return sides[i];
 	}
 	
+	/**
+	 * Sets the location and board if the piece is putinto the board
+	 * @param loc
+	 * @param b
+	 */
 	public void putInBoard(Point loc, Board b){
 		board = b;
 		boardLoc = loc;
 		setInBoard(true);
 	}
 	
+	/**
+	 * Reverses the actions of putInBoard()
+	 */
 	public void removeFromBoard(){
-		System.out.println("removefromboard");//TODO wtf loop twice?
 		if(boardLoc != null)
 			board.setLocation(boardLoc.x, boardLoc.y, null);
 		boardLoc = null;
 		setInBoard(false);
 	}
 	
+	/**
+	 * Returns the body of the pieceShape
+	 * @return
+	 */
 	public Shape getBody(){
 		return body;
 	}
 	
+	/**
+	 * Returns the pegs that face inward of the pieceShape in an array
+	 * @return
+	 */
 	public PegShape[] getInPegs(){
 		PegShape[] in = new PegShape[2];
 		int j = 0;
@@ -328,6 +416,10 @@ public class PieceShape implements Shape{
 		return in;
 	}
 	
+	/**
+	 * Returns the pegs that face outward of the pieceShape in an array
+	 * @return
+	 */
 	public PegShape[] getOutPegs(){
 		PegShape[] out = new PegShape[2];
 		int j = 0;
