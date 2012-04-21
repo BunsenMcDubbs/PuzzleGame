@@ -34,7 +34,7 @@ public class PuzzleGameFrame extends JFrame implements ActionListener{
 	private PieceShape[] p;
 	private PuzzleCanvas pC;
 	
-	public static final Color backColor = new Color(238, 238, 238);
+	public static final Color backColor = Color.LIGHT_GRAY;
 	
 	public PuzzleGameFrame(){
 		super("Puzzle Game");
@@ -57,8 +57,7 @@ public class PuzzleGameFrame extends JFrame implements ActionListener{
 	
 	private void setSize(){
 		Dimension max = Toolkit.getDefaultToolkit().getScreenSize();
-		setSize(max);
-		setMinimumSize(new Dimension(1160, 750));
+		setMinimumSize(new Dimension(960, 750));
 		setSize(getMinimumSize());
 	}
 	
@@ -106,19 +105,10 @@ public class PuzzleGameFrame extends JFrame implements ActionListener{
 		Piece[] p2 = puzzle.getPieces();
 		for(int i = 0; i < p2.length; i++){
 			p[i] = new PieceShape(p2[i]);
-			Color c = Color.RED;
-//			{
-//				double seed = Math.random();
-//				for(int j = 0; j < (int)(seed*3); j++){
-//					c = c.darker();
-//				}
-//				for(int j = 0; j < (int)(seed*i*3); j++){
-//					c = c.brighter();
-//				}
-//			}
-			for( int j = 0; j < i; j++){
-				c = c.darker();
-			}
+			int seed1 = (int)(Math.random()*255);
+			int seed2 = (int)(Math.random()*255);
+			int seed3 = (int)(Math.random()*255);
+			Color c = new Color(seed1,seed2,seed3);
 			p[i].setColor(c);
 		}
 	}

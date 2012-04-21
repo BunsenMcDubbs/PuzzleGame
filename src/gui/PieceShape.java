@@ -36,7 +36,7 @@ public class PieceShape implements Shape{
 	 */
 	public void pieceMaker() {
 		
-		body = new Rectangle(0,0,150,150);
+		body = new Rectangle(0,0,130,130);
 		sides = new PegShape[4];
 		
 		for(int i = 0; i < 4; i++){
@@ -112,65 +112,65 @@ public class PieceShape implements Shape{
 	
 	public void updateLoc(){
 		if (piece.getOrientation() == 0) {
-			int xTemp = loc.x + 50;
+			int xTemp = loc.x + 40;
 			int yTemp = loc.y + 0;
 			sides[0].setLoc(new Point(xTemp, yTemp));
-			xTemp = loc.x + 150;
-			yTemp = loc.y + 100;
+			xTemp = loc.x + 130;
+			yTemp = loc.y + 90;
 			sides[1].setLoc(new Point(xTemp, yTemp));
-			xTemp = loc.x + 50;
-			yTemp = loc.y + 150;
+			xTemp = loc.x + 40;
+			yTemp = loc.y + 130;
 			sides[2].setLoc(new Point(xTemp, yTemp));
 			xTemp = loc.x + 0;
-			yTemp = loc.y + 100;
+			yTemp = loc.y + 90;
 			sides[3].setLoc(new Point(xTemp, yTemp));
 			body.x = loc.x;
 			body.y = loc.y + 50;
 		}
 		else if (piece.getOrientation() == 1){
-			int xTemp = loc.x + 50;
+			int xTemp = loc.x + 40;
 			int yTemp = loc.y + 0;
 			sides[0].setLoc(new Point(xTemp, yTemp));
-			xTemp = loc.x + 150;
-			yTemp = loc.y + 50;
+			xTemp = loc.x + 130;
+			yTemp = loc.y + 40;
 			sides[1].setLoc(new Point(xTemp, yTemp));
-			xTemp = loc.x + 50;
-			yTemp = loc.y + 150;
+			xTemp = loc.x + 40;
+			yTemp = loc.y + 130;
 			sides[2].setLoc(new Point(xTemp, yTemp));
 			xTemp = loc.x + 0;
-			yTemp = loc.y + 50;
+			yTemp = loc.y + 40;
 			sides[3].setLoc(new Point(xTemp, yTemp));
 			body.x = loc.x;
 			body.y = loc.y;
 		}
 		else if (piece.getOrientation() == 2){
-			int xTemp = loc.x + 100;
+			int xTemp = loc.x + 90;
 			int yTemp = loc.y + 0;
 			sides[0].setLoc(new Point(xTemp, yTemp));
-			xTemp = loc.x + 150;
-			yTemp = loc.y + 50;
+			xTemp = loc.x + 130;
+			yTemp = loc.y + 40;
 			sides[1].setLoc(new Point(xTemp, yTemp));
-			xTemp = loc.x + 100;
-			yTemp = loc.y + 150;
+			xTemp = loc.x + 90;
+			yTemp = loc.y + 130;
 			sides[2].setLoc(new Point(xTemp, yTemp));
 			xTemp = loc.x + 0;
-			yTemp = loc.y + 50;
+			yTemp = loc.y + 40;
 			sides[3].setLoc(new Point(xTemp, yTemp));
 			body.x = loc.x + 50;
 			body.y = loc.y;
 		}
 		else{
-			int xTemp = loc.x + 100;
+			int xTemp = loc.x + 90;
 			int yTemp = loc.y + 0;
 			sides[0].setLoc(new Point(xTemp, yTemp));
-			xTemp = loc.x + 150;
-			yTemp = loc.y + 100;
+			xTemp = loc.x + 130;
+			yTemp = loc.y + 90;
 			sides[1].setLoc(new Point(xTemp, yTemp));
-			xTemp = loc.x + 100;
-			yTemp = loc.y + 150;
+			xTemp = loc.x + 90;
+			yTemp = loc.y + 130;
 			sides[2].setLoc(new Point(xTemp, yTemp));
 			xTemp = loc.x + 0;
-			yTemp = loc.y + 100;
+			yTemp = loc.y + 90;
 			sides[3].setLoc(new Point(xTemp, yTemp));
 			body.x = loc.x + 50;
 			body.y = loc.y + 50;
