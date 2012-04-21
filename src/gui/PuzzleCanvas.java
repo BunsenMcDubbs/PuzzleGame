@@ -15,6 +15,7 @@ import java.awt.event.MouseWheelListener;
 import java.util.ArrayList;
 
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 
 import framework.Board;
 import framework.Piece;
@@ -295,6 +296,11 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 			puzzle.insertPieceAtLocation(x, y, selected.getPiece());
 			selected.putInBoard(new Point(x,y), puzzle.getBoard());
 			repaint();
+			
+			if(puzzle.isSolved()){
+				String message = "Congratulations, you solved the puzzle!";
+					JOptionPane.showMessageDialog(null,message,"Solved", JOptionPane.INFORMATION_MESSAGE);
+			}
 			return true;
 		}
 		else if(selected.isInBoard()){
@@ -321,8 +327,6 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 		return null;
 	}
 	
-	// TODO reset not working when the last action was removing
-	// a piece from the board
 	public void reset() {
 		if (puzzle.getBoard().isEmpty()) {
 			for (PieceShape e : p){
@@ -356,9 +360,7 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 	public void mouseReleased(MouseEvent arg0) {}
 
 	@Override
-	public void mouseDragged(MouseEvent m) {
-		//TODO stufffffff
-	}
+	public void mouseDragged(MouseEvent m) {}
 
 	@Override
 	public void mouseMoved(MouseEvent arg0) {}
