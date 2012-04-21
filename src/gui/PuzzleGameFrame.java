@@ -141,7 +141,7 @@ public class PuzzleGameFrame extends JFrame implements ActionListener{
 	}
 	
 	public static void main(String[] a){
-		test.Testing.test2();
+		PuzzleGameFrame f = new PuzzleGameFrame();
 	}
 
 }

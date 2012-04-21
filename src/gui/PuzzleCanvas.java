@@ -103,8 +103,7 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 
 	private void paintBoard(Graphics2D g2) {
 		
-		Color back = Color.LIGHT_GRAY.brighter();
-		g2.setColor(back);
+		g2.setColor(Color.LIGHT_GRAY.brighter());
 		g2.fillRect(boardLocs[0][0].x-20, boardLocs[0][0].y-20, 130*3+40, 130*3+40);
 		
 		for(int i = 0; i < boardLocs.length; i++){

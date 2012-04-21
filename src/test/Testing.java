@@ -49,10 +49,6 @@ public class Testing extends JFrame implements ActionListener{
 	}
 	
 	public static void main(String[]a){
-		Testing t = new Testing();
-	}
-	
-	public static void test2(){
 		PuzzleGameFrame f = new PuzzleGameFrame();
 	}
 
