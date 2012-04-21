@@ -58,7 +58,7 @@ public class PuzzleGameFrame extends JFrame implements ActionListener{
 	private void setSize(){
 		Dimension max = Toolkit.getDefaultToolkit().getScreenSize();
 		setSize(max);
-		setMinimumSize(new Dimension(1200, 800));
+		setMinimumSize(new Dimension(1160, 750));
 		setSize(getMinimumSize());
 	}
 	

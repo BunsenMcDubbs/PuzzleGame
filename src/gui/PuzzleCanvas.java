@@ -46,15 +46,15 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 
 	private void trayMaker() {
 		homeLoc = new Point[9];
-		homeLoc[0] = new Point(600, 50);
-		homeLoc[1] = new Point(800, 50);
-		homeLoc[2] = new Point(1000, 50);
-		homeLoc[3] = new Point(600, 250);
-		homeLoc[4] = new Point(800, 250);
-		homeLoc[5] = new Point(1000, 250);
-		homeLoc[6] = new Point(600, 450);
-		homeLoc[7] = new Point(800, 450);
-		homeLoc[8] = new Point(1000, 450);
+		homeLoc[0] = new Point(550, 50);
+		homeLoc[1] = new Point(750, 50);
+		homeLoc[2] = new Point(950, 50);
+		homeLoc[3] = new Point(550, 250);
+		homeLoc[4] = new Point(750, 250);
+		homeLoc[5] = new Point(950, 250);
+		homeLoc[6] = new Point(550, 450);
+		homeLoc[7] = new Point(750, 450);
+		homeLoc[8] = new Point(950, 450);
 		setHome();
 	}
 	
@@ -66,15 +66,15 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 
 	private void boardMaker(){
 		Point[][] p = new Point[3][3];
-		p[0][0] = new Point(50, 200);
-		p[1][0] = new Point(200, 200);
-		p[2][0] = new Point(350, 200);
-		p[0][1] = new Point(50, 350);
-		p[1][1] = new Point(200, 350);
-		p[2][1] = new Point(350, 350);
-		p[0][2] = new Point(50, 500);
-		p[1][2] = new Point(200, 500);
-		p[2][2] = new Point(350, 500);
+		p[0][0] = new Point(50, 100);
+		p[1][0] = new Point(200, 100);
+		p[2][0] = new Point(350, 100);
+		p[0][1] = new Point(50, 250);
+		p[1][1] = new Point(200, 250);
+		p[2][1] = new Point(350, 250);
+		p[0][2] = new Point(50, 400);
+		p[1][2] = new Point(200, 400);
+		p[2][2] = new Point(350, 400);
 		
 		boardLocs = p;
 	}
@@ -366,24 +366,7 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 	public void mouseMoved(MouseEvent arg0) {}
 
 	@Override
-	public void mouseWheelMoved(MouseWheelEvent m) {
-		Point loc = m.getPoint();
-		PieceShape piece = getClickedPiece(loc);
-		if(piece == null)
-			return;
-		int turns = m.getWheelRotation();
-		if(turns > 0){
-			for(int i = 0; i < turns; i++){
-				piece.getPiece().rotateClockwise();
-			}
-		}
-		else{
-			for(int i = 0; i < turns; i++){
-				piece.getPiece().rotateCounterClockwise();
-			}
-		}
-		repaint();
-	}
+	public void mouseWheelMoved(MouseWheelEvent m) {}
 
 	public void solve(Puzzle solved) {
 		reset();
@@ -401,14 +384,5 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 			}
 		}
 		repaint();
-	}
-	
-	private PieceShape match(Piece piece){
-		for(int i = 0; i < p.length; i++){
-			if(p[i].getPiece().equals(piece)){
-				return p[i];
-			}
-		}
-		return null;
 	}
 }

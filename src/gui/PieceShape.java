@@ -26,7 +26,6 @@ public class PieceShape implements Shape{
 	private Board board;
 	private Point boardLoc;
 	
-	//TODO anchor points?
 	public PieceShape(Piece p) {
 		piece = p;
 		pieceMaker();
@@ -94,13 +93,6 @@ public class PieceShape implements Shape{
 		for(PegShape s : sides){
 			s.paint(g2);
 		}
-		
-		//Testing
-		if(isInBoard()){
-			g2.setColor(Color.GREEN);
-			g2.fillRect(loc.x, loc.y, 10, 10);
-		}
-		
 	}
 	
 	public Color getColor(){
