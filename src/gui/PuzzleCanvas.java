@@ -206,6 +206,7 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseMoti
 				if (piece == null)
 					return;
 				selected = piece;
+				selected.setColor(selected.getColor().brighter());
 			}
 			else {
 				Point bSpot = getClickedBoardSpot(p);
@@ -215,20 +216,20 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseMoti
 					if(selected.isInBoard())
 						selected.removeFromBoard();
 					putInBoard(bSpot);
-					selected = null;
+					clearSelected();
 					return;
 				} else if (clicked != null){
-					selected = clicked;
+					setSelected(clicked);
 					return;
 				} else if (tSpot != -1) {
 					putInTray(tSpot);
-					selected = null;
+					clearSelected();
 					return;
 				}
 			}
 		}
 		else{
-			selected = null;
+			clearSelected();
 			PieceShape piece = getClickedPiece(p);
 			if (piece == null)
 				return;
@@ -237,6 +238,27 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseMoti
 			}
 		}
 		repaint();
+	}
+	
+	/**
+	 * Helper method to set the selected PieceShape and manage the color change
+	 * @param s - the new selected PieceShape
+	 */
+	private void setSelected(PieceShape s){
+		clearSelected();
+		selected = s;
+		selected.setColor(selected.getColor().brighter());
+	}
+	
+	/**
+	 * Helper method to set the selected method to null and manage the color change
+	 */
+	private void clearSelected(){
+		if(selected != null){
+			selected.removeFromBoard();
+			selected.setColor(selected.getColor().darker());
+			selected = null;
+		}
 	}
 	
 	/**
@@ -344,6 +366,7 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseMoti
 	 * then the pieces are rotated into the "default" (0) orientation
 	 */
 	public void reset() {
+		clearSelected();
 		if (puzzle.getBoard().isEmpty()) {
 			for (PieceShape e : p){
 				while(e.getPiece().getOrientation() != 0){
