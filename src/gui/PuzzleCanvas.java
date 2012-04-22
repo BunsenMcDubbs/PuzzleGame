@@ -248,6 +248,7 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseMoti
 		clearSelected();
 		selected = s;
 		selected.setColor(selected.getColor().brighter());
+		repaint();
 	}
 	
 	/**
@@ -259,6 +260,7 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseMoti
 			selected.setColor(selected.getColor().darker());
 			selected = null;
 		}
+		repaint();
 	}
 	
 	/**
@@ -290,7 +292,7 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseMoti
 			}
 			selected.setLoc(new Point(h.x+2, h.y+2));
 			selected.removeFromBoard();
-			selected = null;
+			clearSelected();
 			repaint();
 			return;
 		}
@@ -302,6 +304,11 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseMoti
 	 * @return true if successful, false if failed
 	 */
 	private boolean putInBoard(Point p){
+		
+		if(getClickedPiece(boardLocs[p.x][p.y]) != null){
+			return false;
+		}
+		
 		int x = p.x;
 		int y = p.y;
 		
@@ -323,7 +330,7 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseMoti
 			else if (selected.getPiece().getOrientation() == 2){
 				selected.setLoc(new Point(loc.x - 50, loc.y));
 			}
-			else{
+			else if (selected.getPiece().getOrientation() == 3){
 				selected.setLoc(new Point(loc.x - 50, loc.y - 50));
 			}
 			puzzle.insertPieceAtLocation(x, y, selected.getPiece());
