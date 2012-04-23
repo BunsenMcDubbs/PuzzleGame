@@ -147,13 +147,13 @@ public class PuzzleGameFrame extends JFrame implements ActionListener{
 			pieceMaker();
 			
 			pC.solve(temp);
-			System.out.println("Solve");
+//			System.out.println("Solve");
 		}
 		
 		else if(event.getActionCommand().equals("reset")){
 			pC.reset();
 			repaint();
-			System.out.println("Reset");
+//			System.out.println("Reset");
 		}		
 		
 		else if(event.getActionCommand().equals("help")){

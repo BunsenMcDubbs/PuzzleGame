@@ -41,7 +41,7 @@ public class RecursiveSolve {
 			for (int j=0; j<4; j++){
 				if (p.canFit(getSpotY(spot), getSpotX(spot), removed)){
 					p.insertPieceAtLocation(getSpotY(spot),getSpotX(spot),removed);
-					System.out.println(array.size());
+//					System.out.println(array.size());
 					if (recursiveSolve(array, spot+1))
 						return true;					
 					p.clearPuzzleFrom(spot-1);
