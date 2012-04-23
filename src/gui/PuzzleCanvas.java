@@ -21,7 +21,13 @@ import framework.*;
 import gui.shapes.PegShape;
 import solver.*;
 
-public class PuzzleCanvas extends JComponent implements MouseListener, MouseWheelListener, MouseMotionListener{
+/**
+ * PuzzleCanvas is the component upon which all the puzzle pieces and
+ * board and tray are drawn. It is the core of the GUI of the puzzle game.
+ * To facilitate the game play, it checks with the framework puzzle class
+ * and synchronizes with the framework board.
+ */
+public class PuzzleCanvas extends JComponent implements MouseListener, MouseMotionListener{
 
 	private PieceShape[] p;
 	private Point[][] boardLocs;
@@ -30,7 +36,13 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 	private double ratio;
 
 	private Point dragOrigin;
-
+	
+	/**
+	 * Constructor that takes a pre-generated array of PieceShapes to draw
+	 * and a framework puzzle to check and sync with for the game to work.
+	 * @param pieces
+	 * @param puzzle
+	 */
 	public PuzzleCanvas(PieceShape[] pieces, Puzzle puzzle){
 		this.p = pieces;
 		this.puzzle = puzzle;
@@ -38,7 +50,11 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 		boardMaker();
 		addMouseListener(this);
 	}
-
+	
+	/**
+	 * trayMaker() simply initializes the homeLoc[] array of Points
+	 * and sets the home locations of all the PieceShapes
+	 */
 	private void trayMaker() {
 		homeLoc = new Point[9];
 		homeLoc[0] = new Point(580, 50);
@@ -53,12 +69,20 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 		setHome();
 	}
 	
+	/**
+	 * Sets the home location of each PieceShape to its corresponding Point
+	 * in the homeLoc array
+	 */
 	private void setHome(){
 		for(int i = 0; i < p.length; i++){
 			p[i].setHome(new Point(homeLoc[i].x+2, homeLoc[i].y+2));
 		}
 	}
-
+	
+	/**
+	 * Initializes the 2D Point array that makes up the board, each is the
+	 * upper left point of the board spot rectangle
+	 */
 	private void boardMaker(){
 		Point[][] p = new Point[3][3];
 		p[0][0] = new Point(100, 50);
@@ -74,6 +98,11 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 		boardLocs = p;
 	}
 
+	/**
+	 * Paints all the parts the the PuzzleCanvas
+	 * It calls paintBoard() to paint the board and paintTray() to paint the
+	 * tray and then overlays the PieceShapes
+	 */
 	public void paint(Graphics g){
 
 		Graphics2D g2 = (Graphics2D)g;
@@ -100,7 +129,11 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 				s.paint(g2);
 		}
 	}
-
+	
+	/**
+	 * Paints the Board without any PieceShapes
+	 * @param g2
+	 */
 	private void paintBoard(Graphics2D g2) {
 		
 		g2.setColor(Color.LIGHT_GRAY.brighter());
@@ -116,6 +149,10 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 		}
 	}
 	
+	/**
+	 * Paints the tray without any PieceShapes
+	 * @param g2
+	 */
 	private void paintTray(Graphics2D g2){
 		for(Point p : homeLoc){
 		g2.setColor(Color.LIGHT_GRAY);
@@ -136,6 +173,11 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 		}
 	}
 
+	/**
+	 * Returns the PieceShape that contains the point it is given
+	 * @param point
+	 * @return
+	 */
 	public PieceShape getClickedPiece(Point point){
 		for(PieceShape e : p){
 			if(e.contains(point)){
@@ -146,6 +188,13 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 	}
 
 	private PieceShape selected;
+	/**
+	 * If the there is no current selected piece then it sets the selected piece
+	 * to the clicked piece. If there is a selected piece then it is either put
+	 * in the clicked board spot or into a tray spot or the selected piece is 
+	 * switched for the piece just clicked
+	 * If it was a right mouse click then the piece is rotated clockwise
+	 */
 	@Override
 	public void mouseClicked(MouseEvent m) {
 		
@@ -188,6 +237,11 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 		repaint();
 	}
 	
+	/**
+	 * Returns the index of the tray spot at Point p
+	 * @param p - the Point
+	 * @return the index of the tray spot in the homeLoc array, -1 if there is none
+	 */
 	private int getClickedTraySpot(Point p) {
 		for(int i = 0; i < homeLoc.length; i++){
 			Rectangle r = new Rectangle(homeLoc[i].x, homeLoc[i].y, 184, 184);
@@ -196,7 +250,12 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 		}
 		return -1;
 	}
-
+	
+	/**
+	 * Sets the location of the selected PieceShape into the point at the tSpot index
+	 * of the homeLoc array
+	 * @param tSpot
+	 */
 	private void putInTray(int tSpot) {
 		Point h = homeLoc[tSpot];
 		Point test = new Point(h.x + 90, h.y + 90);
@@ -278,6 +337,11 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 		return null;
 	}
 	
+	/**
+	 * Called if the reset button on the frame is clicked
+	 * Pieces are returned to the tray and if none of the PieceShapes are in the board
+	 * then the pieces are rotated into the "default" (0) orientation
+	 */
 	public void reset() {
 		if (puzzle.getBoard().isEmpty()) {
 			for (PieceShape e : p){
@@ -298,27 +362,48 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 		}
 	}
 	
+	/**
+	 * Deprecated
+	 */
 	@Override
 	public void mouseEntered(MouseEvent arg0) {}
 
+	/**
+	 * Deprecated
+	 */
 	@Override
 	public void mouseExited(MouseEvent arg0) {}
 
+	/**
+	 * Deprecated
+	 */
 	@Override
 	public void mousePressed(MouseEvent arg0) {}
 
+	/**
+	 * Deprecated
+	 */
 	@Override
 	public void mouseReleased(MouseEvent arg0) {}
 
+	/**
+	 * Deprecated
+	 */
 	@Override
 	public void mouseDragged(MouseEvent m) {}
 
+	/**
+	 * Deprecated
+	 */
 	@Override
 	public void mouseMoved(MouseEvent arg0) {}
 
-	@Override
-	public void mouseWheelMoved(MouseWheelEvent m) {}
-
+	/**
+	 * Called if the "Solve" button on the frame is clicked
+	 * It takes the solved puzzle and piece by piece repeats it with the pieces
+	 * in this classes' unsolved puzzle.
+	 * @param solved is the solved puzzle
+	 */
 	public void solve(Puzzle solved) {
 		reset();
 		for(int i = 0; i < p.length; i++){

@@ -22,6 +22,13 @@ import solver.RecursiveSolve;
 
 import framework.*;
 
+/**
+ * Sets up the window for the game to be displayed and holds all the parts of
+ * the GUI representation of the game including the <code>PuzzleCanvas</code>
+ * and the buttons.
+ * @author bunsen
+ *
+ */
 public class PuzzleGameFrame extends JFrame implements ActionListener{
 	
 	private Puzzle puzzle;
@@ -36,6 +43,10 @@ public class PuzzleGameFrame extends JFrame implements ActionListener{
 	
 	public static final Color backColor = Color.LIGHT_GRAY;
 	
+	/**
+	 * Default constructor that sets up the frame, including buttons and
+	 * PieceShapes and adds a PuzzleCanvas to the frame
+	 */
 	public PuzzleGameFrame(){
 		super("Puzzle Game");
 		setTitle("Puzzle Game");
@@ -55,20 +66,25 @@ public class PuzzleGameFrame extends JFrame implements ActionListener{
 		setVisible(true);
 	}
 	
+	/**
+	 * Helper method that sets the size of the frame
+	 */
 	private void setSize(){
 		Dimension max = Toolkit.getDefaultToolkit().getScreenSize();
 		setMinimumSize(new Dimension(960, 750));
 		setSize(getMinimumSize());
 	}
-	
-	public PieceShape[] getP(){
-		return p;
-	}
-	
+
+	/**
+	 * Helper method initializes the framework puzzle
+	 */
 	private void frameworks() {
 		puzzle = new Puzzle();
 	}
 	
+	/**
+	 * Helper method that sets up the buttons and the action listeners
+	 */
 	private void buttonMaker(){
 		solve = new JButton("Solve");
 		reset = new JButton("Reset");
@@ -83,6 +99,9 @@ public class PuzzleGameFrame extends JFrame implements ActionListener{
 		help.addActionListener(this);
 	}
 
+	/**
+	 * Helper method that adds the buttons to a panel and adds that to the frame
+	 */
 	private void controlMaker() {
 		controlPanel = new JPanel();
 		controlPanel.add(solve, BorderLayout.EAST);
@@ -91,6 +110,9 @@ public class PuzzleGameFrame extends JFrame implements ActionListener{
 		add(controlPanel, BorderLayout.SOUTH);
 	}
 
+	/**
+	 * Helper method sets up the menu bar for the frame
+	 */
 	private void menuMaker() {
 		mBar = new JMenuBar();
 		setJMenuBar(mBar);
@@ -108,11 +130,14 @@ public class PuzzleGameFrame extends JFrame implements ActionListener{
 			int seed1 = (int)(Math.random()*255);
 			int seed2 = (int)(Math.random()*255);
 			int seed3 = (int)(Math.random()*255);
-			Color c = new Color(seed1,seed2,seed3);
+			Color c = new Color(seed1,seed2,seed3).brighter().darker();
 			p[i].setColor(c);
 		}
 	}
 	
+	/**
+	 * The action listener for the buttons
+	 */
 	public void actionPerformed(ActionEvent event) {
 		if(event.getActionCommand().equals("solve")){
 			Puzzle temp = new Puzzle();
@@ -140,6 +165,10 @@ public class PuzzleGameFrame extends JFrame implements ActionListener{
 		}
 	}
 	
+	/**
+	 * main method that starts the game by initializing the frame
+	 * @param a
+	 */
 	public static void main(String[] a){
 		PuzzleGameFrame f = new PuzzleGameFrame();
 	}
