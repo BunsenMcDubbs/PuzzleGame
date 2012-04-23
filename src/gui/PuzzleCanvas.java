@@ -120,12 +120,14 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseMoti
 			for(PegShape s : out)
 				s.paint(g2);
 		}
-		
+		//Test code
+		/*
 		for(PieceShape e : p){
 			g2.setColor(Color.magenta);
 			if(e == selected)
 				g2.fillRect(e.getLoc().x, e.getLoc().y, 10, 10);
 		}
+		*/
 	}
 	
 	/**

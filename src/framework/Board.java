@@ -1,16 +1,35 @@
-//Neeraj Asthana Period 5
 package framework;
 
+/**
+ * The purpose of this class is to create a Board that
+ * can be used to hold Pieces. The private data is a 
+ * 2d array of Pieces. It has two constructors, one which
+ * doesn't take in any arguments and one that takes in 
+ * 2 arguments for length and width. The methods in the 
+ * class include isValidLocation, isEmpty, getLocation,
+ * getNieghbors, empty, clearBoardFrom, isSolved,
+ * isFilled, isEmpty, getWidth and getHieght.
+ *
+ */
 public class Board {
 	private Piece[][] board;
 	
+	/**
+	 * Automatically constructs an empty Board of Pieces 
+	 * with 3 rows and 3 columns
+	 */
 	public Board(){
 		board = new Piece[3][3];
 		for(int i = 0; i < board.length; i++)
 			for(int j = 0; j < board[0].length; j++)
 				board[i][j] = null;	
 	}
-    
+     /**
+      * Two arugment constructor which allows the user to 
+      * input the desired number of rows and columns for the board
+      * @param x- rows
+      * @param y- columns
+      */
 	public Board(int x, int y){
 		board = new Piece[x][y];
 		for(int i = 0; i < board.length; i++)
@@ -26,7 +45,7 @@ public class Board {
 	 * @return
 	 */
 	public boolean isValidLocation(int x, int y){
-		if(x > -1 && y > -1 && x < 3 && y < 3)
+		if(x > -1 && y > -1 && x < board.length && y < board[0].length)
 			return true;
 		return false;
 	}
@@ -98,7 +117,10 @@ public class Board {
 		return null;
 	}
 	
-	public void empty(){
+	/**
+    * Clears the Board
+	*/
+    public void empty(){
 		for (int x = 0; x < board.length; x++) {
 			for (int y = 0; y < board[0].length; y++) {
 				board[x][y] = null;
@@ -106,7 +128,16 @@ public class Board {
 		}
 	}
     
-public void clearBoardFrom(int spot){
+	/**
+	 * We assigned positions, or spots, to our puzzle 
+	 * as follows:
+	 * 	3	4	5
+	 * 	2	1	6
+	 * 	9	8	7
+	 * The method takes in an integer value for spot and 
+	 * clears everything after that spot.  
+	 */
+	public void clearBoardFrom(int spot){
 		if (spot==0){
 			empty();
 		}
@@ -160,23 +191,13 @@ public void clearBoardFrom(int spot){
 		}
 	}
 	
-	public boolean isSolved(){
-		for(int i = 0; i < 3; i++){
-			for(int j = 0; j < 3; j++){
-				if(board[i][j] == null)
-					return false;
-			}
-		}
-		return true;
-	}
-	
 	/**
 	 * Checks to see if all the spots on the Board are filled
 	 * @return
 	 */
 	public boolean isFilled(){
-		for(int i = 0; i < 3; i++){
-			for(int j = 0; j < 3; j++){
+		for(int i = 0; i < board.length; i++){
+			for(int j = 0; j < board[0].length; j++){
 				if(board[i][j] == null)
 					return false;
 			}
@@ -184,6 +205,10 @@ public void clearBoardFrom(int spot){
 		return true;
 	}
 
+	/**
+	 * Checks to see if the entire Board is empty
+	 * @return True if all spots are empty
+	 */
 	public boolean isEmpty() {
 		for (int i = 0; i < board.length; i++)
 			for(int j = 0; j < board[0].length; j++)
@@ -192,10 +217,12 @@ public void clearBoardFrom(int spot){
 		return true;
 	}
 	
+	//Returns the length (columns)
 	public int getWidth(){
 		return board.length;
 	}
 	
+	//Returns the width (rows)
 	public int getHeight(){
 		return board[0].length;
 	}

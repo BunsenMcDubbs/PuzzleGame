@@ -8,16 +8,29 @@ import java.awt.Shape;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 
+/**
+ * Graphical representation of a diamond that extends the PegShape class. It
+ * can draw and keep track of its location
+ */
 public class Diamond extends PegShape{
 
 	private int[] x;
 	private int[] y;
 	
+	/**
+	 * Constructor that receives what side this shape is and what the Piece's
+	 * current orientation is
+	 * @param side
+	 * @param orientation
+	 */
 	public Diamond(int side, int orientation) {
 		super(side, orientation);
 		resetPoints();
 	}
 
+	/**
+	 * Paints this shape
+	 */
 	public void paint(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		
@@ -60,6 +73,10 @@ public class Diamond extends PegShape{
 		}
 	}
 	
+	/**
+	 * Helper method to update the points according to the current location
+	 * of the shape
+	 */
 	private void updateLoc(){
 		resetPoints();
 		Point loc = getLoc();
@@ -70,7 +87,9 @@ public class Diamond extends PegShape{
 		}
 		diamondMaker();
 	}
-	
+	/**
+	 * Resets the points back to the default location (top left 0,0)
+	 */
 	private void resetPoints(){
 		Shape[] shapes = {null};
 		super.shapes = shapes;
@@ -80,7 +99,9 @@ public class Diamond extends PegShape{
 		this.y = yPoints;
 		diamondMaker();
 	}
-	
+	/**
+	 * Helper
+	 */
 	private void diamondMaker(){
 		Path2D.Double path = new Path2D.Double(Path2D.WIND_EVEN_ODD);
 		path.moveTo(x[0], y[0]);
@@ -90,32 +111,14 @@ public class Diamond extends PegShape{
 		path.closePath();
 		shapes[0] = path;
 	}
-	
-//	public void paint(Graphics g) {
-//		Graphics2D g2 = (Graphics2D)g;
-//		if(getSide() == 3 || getSide() == 2){
-//			g2.setColor(gui.PuzzleGameFrame.backColor);
-//		}
-//		else{
-//			g2.setColor(super.c);
-//		}
-//		int[] xPoints = {25, 50, 25, 0};
-//		int[] yPoints = {0, 25, 50, 25};
-//		g2.fillPolygon(xPoints, yPoints, 4);
-//		
-//	}
 
 	@Override
 	public boolean contains(Point2D p) {
-		if(super.contains(p))
-			return true;
-		// TODO Auto-generated method stub
-		return false;
+		return super.contains(p);
 	}
-
+	/**
+	 * Deprecated
+	 */
 	@Override
-	public Rectangle getBounds() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public Rectangle getBounds() {return null;}
 }

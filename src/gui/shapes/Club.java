@@ -9,15 +9,28 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 
+/**
+ * Graphical representation of a club that extends the PegShape class. It
+ * can draw and keep track of its location
+ */
 public class Club extends PegShape{
 	private int[] x;
 	private int[] y;
 	
+	/**
+	 * Constructor that receives what side this shape is and what the Piece's
+	 * current orientation is
+	 * @param side
+	 * @param orientation
+	 */
 	public Club(int side, int orientation) {
 		super(side, orientation);
 		resetPoints();
 	}
 	
+	/**
+	 * Paints this shape
+	 */
 	public void paint(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		
@@ -60,6 +73,10 @@ public class Club extends PegShape{
 		}
 	}
 	
+	/**
+	 * Helper method to update the points according to the current location
+	 * of the shape
+	 */
 	private void updateLoc(){
 		resetPoints();
 		Point loc = getLoc();
@@ -77,6 +94,9 @@ public class Club extends PegShape{
 		rectangleMaker();
 	}
 	
+	/**
+	 * Resets the points back to the default location (top left 0,0)
+	 */
 	private void resetPoints(){
 		if(getOrientation() == 0){
 			//top facing up
@@ -178,6 +198,9 @@ public class Club extends PegShape{
 
 	}
 	
+	/**
+	 * Helper
+	 */
 	private void rectangleMaker(){
 		Path2D.Double path = new Path2D.Double(Path2D.WIND_EVEN_ODD);
 		path.moveTo(x[0], y[0]);
@@ -187,51 +210,17 @@ public class Club extends PegShape{
 		path.closePath();
 		shapes[3] = path;
 	}
+
 	
-//	public void paint(Graphics g) {
-//		Graphics2D g2 = (Graphics2D) g;
-//		if(getSide() == 0 || getSide() == 2){
-//			if(getSide() == 0){
-//				g2.setColor(super.c);
-//			}
-//			else{
-//				g2.setColor(new Color(238,238,238));
-//			}
-//			g2.fillOval(12, 0, 25, 25);
-//			g2.fillOval(0, 13, 25, 25);
-//			g2.fillOval(25, 13, 25, 25);
-//			g2.fillRect(24, 2, 3, 50);
-//		}
-//		
-//		else if(getSide() == 1 || getSide() == 3){
-//			if(getSide() == 1){
-//				g2.setColor(super.c);
-//			}
-//			else{
-//				g2.setColor(new Color(238,238,238));
-//			}
-//			g2.fillOval(25, 12, 25, 25);
-//			g2.fillOval(12, 0, 25, 25);
-//			g2.fillOval(12, 25, 25, 25);
-//			g2.fillRect(0, 24, 40, 3);
-//		}
-//		
-//	}
-
-
 	@Override
 	public boolean contains(Point2D p) {
-		if(super.contains(p))
-			return true;
-		// TODO Auto-generated method stub
-		return false;
+		return super.contains(p);
 	}
 
-
+	/**
+	 * Deprecated
+	 */
 	@Override
-	public Rectangle getBounds() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public Rectangle getBounds() {return null;}
 
 }

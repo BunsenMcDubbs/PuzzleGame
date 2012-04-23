@@ -9,7 +9,10 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 
-
+/**
+ * Graphical representation of a spade that extends the PegShape class. It
+ * can draw and keep track of its location
+ */
 public class Spade extends PegShape{
 	private int[] xtriangle1;
 	private int[] ytriangle1;
@@ -18,11 +21,20 @@ public class Spade extends PegShape{
 	private int[] xrectangle;
 	private int[] yrectangle;
 	
+	/**
+	 * Constructor that receives what side this shape is and what the Piece's
+	 * current orientation is
+	 * @param side
+	 * @param orientation
+	 */
 	public Spade(int side, int orientation) {
 		super(side, orientation);
 		resetPoints();
 	}
 	
+	/**
+	 * Paints this shape
+	 */
 	public void paint(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		
@@ -65,6 +77,10 @@ public class Spade extends PegShape{
 		}
 	}
 	
+	/**
+	 * Helper method to update the points according to the current location
+	 * of the shape
+	 */
 	private void updateLoc(){
 		resetPoints();
 		Point loc = getLoc();
@@ -89,7 +105,9 @@ public class Spade extends PegShape{
 		triangleMaker();
 		rectangleMaker();
 	}
-	
+	/**
+	 * Resets the points back to the default location (top left 0,0)
+	 */
 	private void resetPoints(){
 		if(getOrientation() == 0){
 			//top facing up
@@ -247,7 +265,9 @@ public class Spade extends PegShape{
 		triangleMaker();
 		rectangleMaker();
 	}
-	
+	/**
+	 * Helper
+	 */
 	private void triangleMaker(){
 		Path2D.Double path1 = new Path2D.Double(Path2D.WIND_EVEN_ODD);
 		path1.moveTo(xtriangle1[0], ytriangle1[0]);
@@ -263,7 +283,9 @@ public class Spade extends PegShape{
 		path2.closePath();
 		shapes[3] = path2;
 	}
-	
+	/**
+	 * Helper
+	 */
 	private void rectangleMaker(){
 		Path2D.Double path = new Path2D.Double(Path2D.WIND_EVEN_ODD);
 		path.moveTo(xrectangle[0], yrectangle[0]);
@@ -274,66 +296,13 @@ public class Spade extends PegShape{
 		shapes[4] = path;
 	}
 
-//	public void paint(Graphics g) {
-//		Graphics2D g2 = (Graphics2D) g;
-//		if(getSide() == 0 || getSide() == 2){
-//			if(getSide() == 0){
-//				g2.setColor(super.c);
-//			}
-//			else{
-//				g2.setColor(new Color(238,238,238));
-//			}
-//			g2.fillOval(0, 22, 26, 20);
-//			g2.fillOval(25, 22, 25, 20);
-//			int[] xPoints = {0,25,50};
-//			int[] yPoints = {29,0,29};
-//			g2.fillPolygon(xPoints, yPoints, 3);
-//			g2.fillRect(24,7,4,43);
-//			int[] xPointsBottom = {20,26,31};
-//			int[] yPointsBottom = {50,43,50};
-//			g2.fillPolygon(xPointsBottom,yPointsBottom,3);
-//		}
-//		else if(getSide() == 1 || getSide() == 3){
-//			if(getSide() == 1){
-//				g2.setColor(super.c);
-//			}
-//			else{
-//				g2.setColor(new Color(238,238,238));
-//			}
-//			g2.fillOval(8, 0, 20, 26);
-//			g2.fillOval(8, 25, 20, 25);
-//			int[] xPoints = {21,50,21};
-//			int[] yPoints = {0,25,50};
-//			g2.fillPolygon(xPoints, yPoints, 3);
-//			g2.fillRect(4,24,40,4);
-//			int[] xPointsBottom = {0,7,0};
-//			int[] yPointsBottom = {20,26,31};
-//			g2.fillPolygon(xPointsBottom,yPointsBottom,3);
-//		}
-//
-//	}
-	
-	public static void main(String[] args){
-		test.Testing.main(null);
-//		JFrame frame = new JFrame("asdf");
-//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		frame.setSize(500,500);
-//		frame.setVisible(true);
-//		Spade spade = new Spade(1);
-//		frame.add(spade);
-	}
-
 	@Override
 	public boolean contains(Point2D p) {
-		if(super.contains(p))
-			return true;
-		// TODO Auto-generated method stub
-		return false;
+		return super.contains(p);
 	}
-
+	/**
+	 * Deprecated
+	 */
 	@Override
-	public Rectangle getBounds() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public Rectangle getBounds() {return null;}
 }

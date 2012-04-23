@@ -9,17 +9,29 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 
-
+/**
+ * Graphical representation of a heart that extends the PegShape class. It
+ * can draw and keep track of its location
+ */
 public class Heart extends PegShape{
 	
 	private double[] x;
 	private double[] y;
 	
+	/**
+	 * Constructor that receives what side this shape is and what the Piece's
+	 * current orientation is
+	 * @param side
+	 * @param orientation
+	 */
 	public Heart(int side, int orientation) {
 		super(side, orientation);
 		resetPoints();
 	}
 	
+	/**
+	 * Paints this shape
+	 */
 	public void paint(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		
@@ -62,6 +74,10 @@ public class Heart extends PegShape{
 		}
 	}
 	
+	/**
+	 * Helper method to update the points according to the current location
+	 * of the shape
+	 */
 	private void updateLoc(){
 		resetPoints();
 		Point loc = getLoc();
@@ -78,7 +94,9 @@ public class Heart extends PegShape{
 		}
 		triangleMaker();
 	}
-	
+	/**
+	 * Resets the points back to the default location (top left 0,0)
+	 */
 	private void resetPoints(){
 		if(getOrientation() == 0){
 			//top facing up
@@ -171,7 +189,9 @@ public class Heart extends PegShape{
 
 		triangleMaker();
 	}
-	
+	/**
+	 * Helper
+	 */
 	private void triangleMaker(){
 		Path2D.Double path = new Path2D.Double(Path2D.WIND_EVEN_ODD);
 		path.moveTo(x[0], y[0]);
@@ -184,16 +204,12 @@ public class Heart extends PegShape{
 
 	@Override
 	public boolean contains(Point2D p) {
-		if(super.contains(p))
-			return true;
-		//TODO check with polygon shape
-		return false;
+		return super.contains(p);
 	}
 
-
+	/**
+	 * Deprecated
+	 */
 	@Override
-	public Rectangle getBounds() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public Rectangle getBounds() {return null;}
 }
