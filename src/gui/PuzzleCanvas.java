@@ -128,6 +128,12 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseMoti
 			for(PegShape s : out)
 				s.paint(g2);
 		}
+		
+		for(PieceShape e : p){
+			g2.setColor(Color.magenta);
+			if(e == selected)
+				g2.fillRect(e.getLoc().x, e.getLoc().y, 10, 10);
+		}
 	}
 	
 	/**
@@ -205,7 +211,7 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseMoti
 				PieceShape piece = getClickedPiece(p);
 				if (piece == null)
 					return;
-				selected = piece;
+				setSelected(piece);
 			}
 			else {
 				Point bSpot = getClickedBoardSpot(p);
@@ -213,20 +219,20 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseMoti
 				PieceShape clicked = getClickedPiece(m.getPoint());
 				if (bSpot != null && puzzle.getBoard().getLocation(bSpot.x, bSpot.y) == null) {
 					putInBoard(bSpot);
-					selected = null;
+					clearSelected();
 					return;
 				} else if (clicked != null){
-					selected = clicked;
+					setSelected(clicked);
 					return;
 				} else if (tSpot != -1) {
 					putInTray(tSpot);
-					selected = null;
+					clearSelected();
 					return;
 				}
 			}
 		}
 		else{
-			selected = null;
+			clearSelected();
 			PieceShape piece = getClickedPiece(p);
 			if (piece == null)
 				return;
@@ -234,6 +240,20 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseMoti
 				piece.rotate(true);
 			}
 		}
+		repaint();
+	}
+	
+	private void setSelected(PieceShape s){
+		clearSelected();
+		selected = s;
+		selected.setColor(selected.getColor().brighter());
+	}
+	
+	private void clearSelected(){
+		if(selected != null){
+			selected.setColor(selected.getColor().darker());
+		}
+		selected = null;
 		repaint();
 	}
 	
@@ -266,7 +286,7 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseMoti
 			}
 			selected.setLoc(new Point(h.x+2, h.y+2));
 			selected.removeFromBoard();
-			selected = null;
+			clearSelected();
 			repaint();
 			return;
 		}
@@ -318,6 +338,7 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseMoti
 			selected.removeFromBoard();
 			selected.putInBoard(selectedLoc, puzzle.getBoard());
 		}
+		clearSelected();
 		return false;
 	}
 	
