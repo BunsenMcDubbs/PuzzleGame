@@ -5,21 +5,15 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.geom.AffineTransform;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
-import java.util.ArrayList;
 
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 
-import framework.*;
+import framework.Puzzle;
 import gui.shapes.PegShape;
-import solver.*;
 
 /**
  * PuzzleCanvas is the component upon which all the puzzle pieces and
@@ -27,15 +21,13 @@ import solver.*;
  * To facilitate the game play, it checks with the framework puzzle class
  * and synchronizes with the framework board.
  */
+@SuppressWarnings("serial")
 public class PuzzleCanvas extends JComponent implements MouseListener, MouseMotionListener{
 
 	private PieceShape[] p;
 	private Point[][] boardLocs;
 	private Point[] homeLoc;
 	private Puzzle puzzle;
-	private double ratio;
-
-	private Point dragOrigin;
 	
 	/**
 	 * Constructor that takes a pre-generated array of PieceShapes to draw
@@ -166,6 +158,7 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseMoti
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private void test(Graphics2D g2) {
 		g2.setColor(Color.red);
 		for(int i = 0; i < boardLocs.length; i++){

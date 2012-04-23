@@ -1,22 +1,13 @@
 package gui.shapes;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Shape;
-import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
-import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-
-import javax.swing.JFrame;
-
-import framework.Piece;
-import gui.*;
 
 
 public class Spade extends PegShape{
@@ -78,7 +69,6 @@ public class Spade extends PegShape{
 		resetPoints();
 		Point loc = getLoc();
 		
-		Shape[]	sTemp = super.shapes;
 		for(int i = 0; i < 2; i++){
 			Ellipse2D.Double f = (Ellipse2D.Double)shapes[i];
 			f.x += loc.x;

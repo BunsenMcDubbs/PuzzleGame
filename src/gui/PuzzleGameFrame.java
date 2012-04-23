@@ -3,24 +3,19 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 
 import solver.RecursiveSolve;
-
-import framework.*;
+import framework.Piece;
+import framework.Puzzle;
 
 /**
  * Sets up the window for the game to be displayed and holds all the parts of
@@ -29,6 +24,7 @@ import framework.*;
  * @author bunsen
  *
  */
+@SuppressWarnings({ "serial", "unused" })
 public class PuzzleGameFrame extends JFrame implements ActionListener{
 	
 	private Puzzle puzzle;
@@ -70,7 +66,7 @@ public class PuzzleGameFrame extends JFrame implements ActionListener{
 	 * Helper method that sets the size of the frame
 	 */
 	private void setSize(){
-		Dimension max = Toolkit.getDefaultToolkit().getScreenSize();
+//		Dimension max = Toolkit.getDefaultToolkit().getScreenSize();
 		setMinimumSize(new Dimension(960, 750));
 		setSize(getMinimumSize());
 	}

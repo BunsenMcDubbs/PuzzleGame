@@ -14,6 +14,12 @@ import java.awt.geom.Rectangle2D;
 import framework.*;
 import gui.shapes.*;
 
+/**
+ * PieceShape is the graphical representation of a <code>Piece</code> and implements the
+ * Shape interface, although many of the Shape methods are deprecated. It draws the pegs
+ * using the Shapes in the gui.shapes package.
+ *
+ */
 public class PieceShape implements Shape{
 	
 	private Piece piece;
@@ -52,7 +58,6 @@ public class PieceShape implements Shape{
 	 * @param s
 	 */
 	private void setSide(int dir, Side s){
-		PegShape shape;
 		int val = Math.abs(s.getValue());
 		switch(val){
 		case Side.inClub:	sides[dir] = new Club(dir,piece.getOrientation()); break;

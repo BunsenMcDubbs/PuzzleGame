@@ -1,6 +1,5 @@
 package gui.shapes;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -9,11 +8,6 @@ import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
-
-import javax.swing.JFrame;
-
-import framework.Piece;
-import gui.*;
 
 public class Club extends PegShape{
 	private int[] x;
@@ -70,7 +64,6 @@ public class Club extends PegShape{
 		resetPoints();
 		Point loc = getLoc();
 		
-		Shape[]	sTemp = super.shapes;
 		for(int i = 0; i < 3; i++){
 			Ellipse2D.Double f = (Ellipse2D.Double)shapes[i];
 			f.x += loc.x;

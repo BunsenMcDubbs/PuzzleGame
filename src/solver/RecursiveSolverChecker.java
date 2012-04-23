@@ -1,5 +1,4 @@
 package solver;
-import java.util.*;
 import framework.*;
 
 public class RecursiveSolverChecker {
