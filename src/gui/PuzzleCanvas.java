@@ -162,9 +162,7 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 				Point bSpot = getClickedBoardSpot(p);
 				int tSpot = getClickedTraySpot(p);
 				PieceShape clicked = getClickedPiece(m.getPoint());
-				if (bSpot != null) {
-					if(selected.isInBoard())
-						selected.removeFromBoard();
+				if (bSpot != null && puzzle.getBoard().getLocation(bSpot.x, bSpot.y) == null) {
 					putInBoard(bSpot);
 					selected = null;
 					return;
@@ -231,6 +229,7 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 		
 		if(selected.isInBoard()){
 			selected.removeFromBoard();
+			selected.setInBoard(true);
 		}
 		if(puzzle.canFit(x, y, selected.getPiece())){// check with board
 			if (selected.getPiece().getOrientation() == 0) {
@@ -334,6 +333,7 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseWhee
 				repaint();
 			}
 		}
+		selected = null;
 		repaint();
 	}
 }
