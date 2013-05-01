@@ -27,7 +27,7 @@ public class PuzzleCanvas extends JComponent implements MouseListener, MouseMoti
 	private PieceShape[] p;
 	private Point[][] boardLocs;
 	private Point[] homeLoc;
-	private Puzzle puzzle;
+	public Puzzle puzzle;
 	
 	/**
 	 * Constructor that takes a pre-generated array of PieceShapes to draw

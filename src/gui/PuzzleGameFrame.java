@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import solver.RecursiveSolve;
+import solverer.Solvererer;
 import framework.Piece;
 import framework.Puzzle;
 
@@ -27,7 +28,7 @@ import framework.Puzzle;
 @SuppressWarnings({ "serial", "unused" })
 public class PuzzleGameFrame extends JFrame implements ActionListener{
 	
-	private Puzzle puzzle;
+	public Puzzle puzzle;
 	
 	private JMenuBar mBar;
 	
@@ -35,7 +36,7 @@ public class PuzzleGameFrame extends JFrame implements ActionListener{
 	private JButton solve, reset, help;
 	
 	private PieceShape[] p;
-	private PuzzleCanvas pC;
+	public PuzzleCanvas pC;
 	
 	public static final Color backColor = Color.LIGHT_GRAY;
 	
@@ -50,6 +51,26 @@ public class PuzzleGameFrame extends JFrame implements ActionListener{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		frameworks();
+		pieceMaker();
+		menuMaker();
+		buttonMaker();
+		controlMaker();
+		
+		pC = new PuzzleCanvas(p, puzzle);
+		add(pC, BorderLayout.CENTER);
+		
+		setSize();
+		setVisible(true);
+	}
+	
+	public PuzzleGameFrame(Puzzle puzzle){
+		super("Puzzle Game");
+		setTitle("Puzzle Game");
+		setLayout(new BorderLayout());
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
+//		frameworks();
+		this.puzzle = puzzle;
 		pieceMaker();
 		menuMaker();
 		buttonMaker();
@@ -137,9 +158,12 @@ public class PuzzleGameFrame extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent event) {
 		if(event.getActionCommand().equals("solve")){
 			Puzzle temp = new Puzzle();
-			RecursiveSolve r = new RecursiveSolve(temp);
-			r.solve();
+//			RecursiveSolve r = new RecursiveSolve(temp);
+//			r.solve();
+//			
+//			pieceMaker();
 			
+			Solvererer.solve(temp);
 			pieceMaker();
 			
 			pC.solve(temp);
